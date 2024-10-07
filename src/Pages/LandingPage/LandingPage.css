@@ -10,6 +10,8 @@
     display: flex;
     flex-direction: column;
    
+    
+   
 }
 .landing-page-header{
     display: flex;
@@ -54,5 +56,22 @@ width: 40%;
 }
 .landing-page-emailBox{
     padding-top: 20px;
+}
+.free-offered-course{
+  
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.product-view{
+    margin-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+}
+
+.buttons-box{
+    display: flex;
+    justify-content: space-between;
+  flex-direction: row;
 }
 

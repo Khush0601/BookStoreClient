@@ -9,6 +9,14 @@ import InputBase from '@mui/material/InputBase';
 import BookImage from '../../Assets/edumia.svg'
 import bookIcon from '../../Assets/bookIcon.jpg'
 
+
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+
+import DialogTitle from '@mui/material/DialogTitle';
+import ProductCard from '../../Component/Productcard/Card';
+import { Link } from 'react-router-dom';
+
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -49,9 +57,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const LandingPage = () => {
   const pages=["Home","Courses","Contact","About"]
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <div className='landing-page-container'>
-    <Box >
+    <Box>
       <AppBar position="static">
         <Toolbar sx={{backgroundColor:"white",color:"black"}} className='landing-page-header'>
          <Typography className='logo-part'>
@@ -77,7 +94,7 @@ const LandingPage = () => {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-          <Button variant="contained" sx={{backgroundColor:"black"}}>Login</Button>
+          <Button variant="contained" sx={{backgroundColor:"black"}} onClick={handleClickOpen}>Login</Button>
        </Typography>
 
         
@@ -86,7 +103,7 @@ const LandingPage = () => {
     </Box>
     <Box className='landing-page-content'>
      <Box className='landing-page-main-content'>
-     <Typography variant='h2'>
+     <Typography >
       <Typography variant='h3'>
        Hello,welcomes here to learn
       </Typography>
@@ -108,7 +125,48 @@ const LandingPage = () => {
      <Box className='landing-page-image'>
       <img src={BookImage} alt='bookimg' width={400} height={400}/>
      </Box>
+     
     </Box>
+    <Box className="free-offered-course">
+     <Typography variant='h5'>
+      Free offered Courses
+     </Typography>
+     <Typography component='p'>
+     A bookstore is a store that sells books, and where people can buy them. 
+     A used bookstore or second-hand bookshop sells and often buys used books.
+     </Typography>
+     </Box>
+     <Box className="product-view">
+       <ProductCard/>
+     </Box>
+     <Dialog 
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+        sx:{width:"350px",height:"300px",
+          paddingLeft:"10px",
+          paddingRight:"10px"
+        },
+          component: 'form',
+          onSubmit: () => {
+           handleClose();
+          },
+        }}
+      >
+        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+        Login
+        </DialogTitle>
+        <TextField autoFocus  required id="userId" label="userId" variant="outlined" className='text-field-userid' />
+        <TextField  required id="password" label="password" variant="outlined" sx={{marginTop:"10px"}} />
+           <DialogActions sx={{display:"flex",justifyContent:"space-between"}} >
+          {/* <Button onClick={handleClose}>Cancel</Button> */}
+          <Button type="submit" variant='contained'>Login</Button>
+          <Typography> <Typography>Not registered yet?</Typography>
+          <Link>signup</Link></Typography>
+        
+        
+        </DialogActions>
+        </Dialog>
     </div>
   )
 }
