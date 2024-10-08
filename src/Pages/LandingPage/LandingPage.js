@@ -138,6 +138,7 @@ const LandingPage = () => {
      </Box>
      <Box className="product-view">
        <ProductCard/>
+       {/* api call hoke yhi card bnega */}
      </Box>
      <Dialog 
         open={open}
@@ -161,8 +162,10 @@ const LandingPage = () => {
            <DialogActions sx={{display:"flex",justifyContent:"space-between"}} >
           {/* <Button onClick={handleClose}>Cancel</Button> */}
           <Button type="submit" variant='contained'>Login</Button>
-          <Typography> <Typography>Not registered yet?</Typography>
-          <Link>signup</Link></Typography>
+          <Typography> 
+          <Typography>Not registered yet?</Typography>
+          <Link path='/signUp'>signup</Link>
+          </Typography>
         
         
         </DialogActions>

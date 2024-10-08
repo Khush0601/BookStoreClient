@@ -1,0 +1,22 @@
+.signUp-container{
+    width:100vw;
+    height:100vh;
+    background-color: rgb(75, 164, 189);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.signUp-modal{
+    width:400px;
+    min-height:500px;
+    padding: 15px;
+  
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+
+}
+
+.signUp-header>h5{
+    padding-top: 5px;
+   color: gray;
+}

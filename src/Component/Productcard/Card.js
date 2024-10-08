@@ -1,5 +1,5 @@
 import React from "react"
-import './card.css'
+import  './card.css'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -11,7 +11,10 @@ import bookImg from '../../Assets/edumia.svg'
 const ProductCard=()=>{
 return (
     <div >
-         <Card  className="card-cont" sx={{maxWidth: 310}} >
+     <Card  sx={{
+        maxWidth: 310,
+        boxShadow:"rgba(0, 0, 0, 0.56) 0px 22px 70px 4px"}}
+      >
       <CardActionArea >
         <CardMedia
           component="img"
@@ -29,9 +32,23 @@ return (
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions className="card-actions">
+      <CardActions sx={{
+         display: "flex",
+         justifyContent:" space-between",
+         paddingLeft:"10px",
+         paddingRight: "10px",
+         alignItems: "center",
+      }}>
        <Typography>Price</Typography>
-       <Button className="buy-now">Buy Now</Button>
+       <Button sx={{
+         color:" black",
+         borderRadius: "20px",
+         border: "1px solid black",
+         fontSize:"10px",
+         display: "flex",
+         justifyContent: "center",
+         alignItems:"center"
+       }}>Buy Now</Button>
       </CardActions>
     </Card>
     </div>
