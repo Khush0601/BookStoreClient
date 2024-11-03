@@ -8,27 +8,38 @@ import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
 import bookImg from '../../Assets/edumia.svg'
-const ProductCard=()=>{
+
+const ProductCard=({productProps})=>{
+  let price=productProps.price
+  if(productProps.price==='0'){
+    price='Free'
+  }
 return (
     <div >
      <Card  sx={{
-        maxWidth: 310,
-        boxShadow:"rgba(0, 0, 0, 0.56) 0px 22px 70px 4px"}}
+        width: 310,
+        boxShadow:"rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
+        margin:"30px"
+      }}
+      
       >
       <CardActionArea >
         <CardMedia
           component="img"
           height="250"
           width="250"
-          image={bookImg}
+          image={productProps.image}
           alt="book img"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-           Drama Book
+          {productProps.name
+
+          }
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-           this is all about this drama
+           {productProps.shortDescription
+           }
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -39,7 +50,7 @@ return (
          paddingRight: "10px",
          alignItems: "center",
       }}>
-       <Typography>Price</Typography>
+       <Typography sx={{color:"green"}}>{price}</Typography>
        <Button sx={{
          color:" black",
          borderRadius: "20px",

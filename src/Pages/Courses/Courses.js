@@ -1,8 +1,13 @@
 import React from 'react'
+import { CourseDiv } from './Courses.styled'
+
+
+
+
 
 const Courses = () => {
   return (
-    <div>Courses</div>
+    <CourseDiv>Courses</CourseDiv>
   )
 }
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import './signUp.css'
 import { Box, Button, TextField } from '@mui/material'
+import globalStyleCOnfig from '../../app.style.json'
 const Signup = () => {
   return (
     <div className='signUp-container'>

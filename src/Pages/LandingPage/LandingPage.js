@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import './LandingPage.css'
 import { AppBar, Box, TextField, Toolbar } from '@mui/material'
 import { styled, alpha } from '@mui/material/styles';
@@ -8,16 +8,26 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import BookImage from '../../Assets/edumia.svg'
 import bookIcon from '../../Assets/bookIcon.jpg'
-
-
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
-
 import DialogTitle from '@mui/material/DialogTitle';
 import ProductCard from '../../Component/Productcard/Card';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+import Drawer from '@mui/material/Drawer';
+import { useMediaQuery } from 'react-responsive'
+import MenuIcon from '@mui/icons-material/Menu';
 
 const Search = styled('div')(({ theme }) => ({
+
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.black, 0.15),
@@ -56,9 +66,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const LandingPage = () => {
+  const isMobile = useMediaQuery({ query: '(max-width: 775px)' })
   const pages=["Home","Courses","Contact","About"]
+  const[products,setProducts]=useState([])
   const [open, setOpen] = React.useState(false);
+  const [openDrawer, setOpenDrawer] = React.useState(false);
 
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpenDrawer(newOpen);
+  };
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -66,6 +82,41 @@ const LandingPage = () => {
   const handleClose = () => {
     setOpen(false);
   };
+ 
+  const getproducts=async()=>{
+    try{
+     const fetchProducts=await axios.get('http://localhost:8888/thirdProject/api/v1/product/getProduct')
+     const result=fetchProducts.data
+     setProducts(result)
+    
+    }
+    catch(e){
+    console.log(e.message)
+    }
+  }
+React.useEffect(()=>{
+getproducts()
+},[])
+const DrawerList = (
+  <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+    <List>
+      {['Home', 'Courses', 'Contact','About','Login'].map((text, index) => (
+        <ListItem key={text} disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            </ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItemButton>
+        </ListItem>
+      ))}
+    </List>
+    <Divider />
+   
+  </Box>
+);
+console.log(products)
+console.log(openDrawer)
   return (
     <div className='landing-page-container'>
     <Box>
@@ -79,7 +130,8 @@ const LandingPage = () => {
             Bookstore
           </Typography>
          </Typography>
-         <Typography className='nav-part'>
+        {
+        !isMobile &&  <Typography className='nav-part'>
          {pages.map((el,i)=>{
           return <Button key={i} sx={{color:"black"}}>{el}</Button>
          })}
@@ -97,7 +149,15 @@ const LandingPage = () => {
           <Button variant="contained" sx={{backgroundColor:"black"}} onClick={handleClickOpen}>Login</Button>
        </Typography>
 
-        
+        }
+        {
+          isMobile &&  <div>
+          <Button onClick={toggleDrawer(true)}><MenuIcon/></Button>
+          <Drawer open={openDrawer} onClose={toggleDrawer(false)}>
+            {DrawerList}
+          </Drawer>
+        </div>
+        }
         </Toolbar>
       </AppBar>
     </Box>
@@ -136,10 +196,12 @@ const LandingPage = () => {
      A used bookstore or second-hand bookshop sells and often buys used books.
      </Typography>
      </Box>
-     <Box className="product-view">
-       <ProductCard/>
-       {/* api call hoke yhi card bnega */}
-     </Box>
+     <div className="product-view">
+      {products.map((product,productIndex)=>{
+         return <ProductCard key={product._id} productProps={product}/>
+      })}
+     {/* api call hoke yhi card bnega */}
+     </div>
      <Dialog 
         open={open}
         onClose={handleClose}
