@@ -177,15 +177,15 @@ console.log(openDrawer)
     </Box>
     <Box className='landing-page-content'>
      <Box className='landing-page-main-content'>
-     <Typography  >
-      <Typography variant='h3'>
+     <Typography>
+      <Typography variant={isMobile?'h5':'h3'}>
        Hello,welcomes here to learn
       </Typography>
-      <Typography variant='h3'>
+      <Typography variant={isMobile?'h5':'h3'}>
        something <span style={{color:"pink"}}>new everyday!!!</span>
       </Typography>
      
-     <Typography variant='h5' component='div' className='landing-page-content-para'>
+     <Typography variant={isMobile?'h5':'h4'} component='div' className='landing-page-content-para'>
      A bookstore is a store that sells books, and where people can buy them. 
      A used bookstore or second-hand bookshop sells and often buys used books.
       Some modern bookstore combine the books.
@@ -197,7 +197,7 @@ console.log(openDrawer)
      </Typography>
      </Box>
      <Box className='landing-page-image'>
-      <img src={BookImage} alt='bookimg' width={400} height={400}/>
+      <img src={BookImage} alt='bookimg'/>
      </Box>
      
     </Box>
@@ -240,7 +240,7 @@ console.log(openDrawer)
           <Button type="submit" variant='contained'>Login</Button>
           <Typography> 
           <Typography>Not registered yet?</Typography>
-          <Link path='/signUp'>signup</Link>
+          <Link to="/signUp">signup</Link>
           </Typography>
         
         
