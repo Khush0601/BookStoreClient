@@ -25,6 +25,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import Drawer from '@mui/material/Drawer';
 import { useMediaQuery } from 'react-responsive'
 import MenuIcon from '@mui/icons-material/Menu';
+import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
 
@@ -71,6 +72,7 @@ const LandingPage = () => {
   const[products,setProducts]=useState([])
   const [open, setOpen] = React.useState(false);
   const [openDrawer, setOpenDrawer] = React.useState(false);
+  const navigate =useNavigate()
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpenDrawer(newOpen);
@@ -78,11 +80,9 @@ const LandingPage = () => {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
- 
   const getproducts=async()=>{
     try{
      const fetchProducts=await axios.get('http://localhost:8888/thirdProject/api/v1/product/getProduct')
@@ -94,19 +94,32 @@ const LandingPage = () => {
     console.log(e.message)
     }
   }
-React.useEffect(()=>{
-getproducts()
-},[])
-const DrawerList = (
+ React.useEffect(()=>{
+ getproducts()
+ },[])
+ const handleClick=(el)=>{
+  if(el==='Courses'){
+    navigate("/courses")
+  }
+  else if(el==='Contact'){
+   navigate("/contact")
+  }
+  else if(el==='About'){
+   navigate("/about")
+  }
+ 
+  else if(el==='Home'){
+   navigate('/home')
+  }
+ }
+ const DrawerList = (
   <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
     <List>
-      {['Home', 'Courses', 'Contact','About','Login'].map((text, index) => (
+      {['Home','Courses','Contact','About','Login'].map((text, index) => (
         <ListItem key={text} disablePadding>
           <ListItemButton>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
+           
+            <ListItemText primary={text} onClick={(el)=>handleClick(text)}/>
           </ListItemButton>
         </ListItem>
       ))}
@@ -115,6 +128,7 @@ const DrawerList = (
    
   </Box>
 );
+
 console.log(products)
 console.log(openDrawer)
   return (
@@ -133,7 +147,7 @@ console.log(openDrawer)
         {
         !isMobile &&  <Typography className='nav-part'>
          {pages.map((el,i)=>{
-          return <Button key={i} sx={{color:"black"}}>{el}</Button>
+          return <Button key={i} sx={{color:"black"}} onClick={()=>handleClick(el)}>{el}</Button>
          })}
 
        
@@ -154,7 +168,7 @@ console.log(openDrawer)
           isMobile &&  <div>
           <Button onClick={toggleDrawer(true)}><MenuIcon/></Button>
           <Drawer open={openDrawer} onClose={toggleDrawer(false)}>
-            {DrawerList}
+            {DrawerList }
           </Drawer>
         </div>
         }
@@ -163,7 +177,7 @@ console.log(openDrawer)
     </Box>
     <Box className='landing-page-content'>
      <Box className='landing-page-main-content'>
-     <Typography >
+     <Typography  >
       <Typography variant='h3'>
        Hello,welcomes here to learn
       </Typography>

@@ -5,9 +5,7 @@
     /* background-color: lightgreen; */
     display: flex;
     flex-direction: column;
-   
     
-   
 }
 .landing-page-header{
     display: flex;
@@ -37,6 +35,7 @@
     padding-right: 20px;
 
 }
+
 .landing-page-main-content{
  width: 60%;
  /* background-color: lightpink; */
@@ -47,14 +46,14 @@
 }
 .landing-page-image{
 width: 40%;
-/* background-color: lime; */
+
 
 }
 .landing-page-emailBox{
     padding-top: 20px;
 }
 .free-offered-course{
-  
+    margin-top: 30px;
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -75,3 +74,60 @@ width: 40%;
   flex-direction: row;
 }
 
+@media (min-width:776px) and (max-width:840px){
+    .nav-part{
+        display: flex;
+       justify-content: space-evenly;
+
+      
+     }
+    .landing-page-main-content{
+        width: 50%;
+        font-size: 10px;
+        }
+       .landing-page-content-para{
+           padding-top: 40px;
+         
+       }
+       .landing-page-image{
+       width: 50%;
+       /* background-color: lime; */
+       
+       }
+}
+@media (min-width:426px) and (max-width:775px){
+    .landing-page-content{
+        margin-top: 50px;
+          /* background-color: lightsalmon; */
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding-left: 20px;
+          padding-right: 20px;
+          font-size: 10px;
+       }
+      .landing-page-image{
+       display: flex;
+       justify-content: center;
+        }
+      .landing-page-main-content{
+          font-size: 10px;
+       }
+}
+@media (min-width:0px) and (max-width:425px){
+    .landing-page-content{
+          margin-top: 40px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding-left: 20px;
+          padding-right: 20px;
+         
+       }
+      .landing-page-image{
+       display: flex;
+       justify-content: center;
+      
+      
+        }
+}
