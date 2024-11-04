@@ -8,20 +8,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import BookImage from '../../Assets/edumia.svg'
 import bookIcon from '../../Assets/bookIcon.jpg'
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogTitle from '@mui/material/DialogTitle';
 import ProductCard from '../../Component/Productcard/Card';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import Drawer from '@mui/material/Drawer';
 import { useMediaQuery } from 'react-responsive'
 import MenuIcon from '@mui/icons-material/Menu';
@@ -66,23 +59,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const LandingPage = () => {
+const LandingPage = ({handleClickOpen}) => {
   const isMobile = useMediaQuery({ query: '(max-width: 775px)' })
   const pages=["Home","Courses","Contact","About"]
   const[products,setProducts]=useState([])
-  const [open, setOpen] = React.useState(false);
+ 
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const navigate =useNavigate()
 
-  const toggleDrawer = (newOpen: boolean) => () => {
+  const toggleDrawer = (newOpen) => () => {
     setOpenDrawer(newOpen);
   };
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+ 
   const getproducts=async()=>{
     try{
      const fetchProducts=await axios.get('http://localhost:8888/thirdProject/api/v1/product/getProduct')
@@ -110,6 +98,9 @@ const LandingPage = () => {
  
   else if(el==='Home'){
    navigate('/home')
+  }
+  else if(el==='Login'){
+    handleClickOpen()
   }
  }
  const DrawerList = (
@@ -160,7 +151,7 @@ console.log(openDrawer)
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-          <Button variant="contained" sx={{backgroundColor:"black"}} onClick={handleClickOpen}>Login</Button>
+          <Button variant="contained" sx={{backgroundColor:"black"}} onClick={()=>handleClickOpen()}>Login</Button>
        </Typography>
 
         }
@@ -178,14 +169,14 @@ console.log(openDrawer)
     <Box className='landing-page-content'>
      <Box className='landing-page-main-content'>
      <Typography>
-      <Typography variant={isMobile?'h5':'h3'}>
+      <Typography variant={isMobile?'h5':'h4'}>
        Hello,welcomes here to learn
       </Typography>
-      <Typography variant={isMobile?'h5':'h3'}>
+      <Typography variant={isMobile?'h5':'h4'}>
        something <span style={{color:"pink"}}>new everyday!!!</span>
       </Typography>
      
-     <Typography variant={isMobile?'h5':'h4'} component='div' className='landing-page-content-para'>
+     <Typography variant={isMobile?'p':'h6'} component='div' className='landing-page-content-para'>
      A bookstore is a store that sells books, and where people can buy them. 
      A used bookstore or second-hand bookshop sells and often buys used books.
       Some modern bookstore combine the books.
@@ -216,36 +207,7 @@ console.log(openDrawer)
       })}
      {/* api call hoke yhi card bnega */}
      </div>
-     <Dialog 
-        open={open}
-        onClose={handleClose}
-        PaperProps={{
-        sx:{width:"350px",height:"300px",
-          paddingLeft:"10px",
-          paddingRight:"10px"
-        },
-          component: 'form',
-          onSubmit: () => {
-           handleClose();
-          },
-        }}
-      >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-        Login
-        </DialogTitle>
-        <TextField autoFocus  required id="userId" label="userId" variant="outlined" className='text-field-userid' />
-        <TextField  required id="password" label="password" variant="outlined" sx={{marginTop:"10px"}} />
-           <DialogActions sx={{display:"flex",justifyContent:"space-between"}} >
-          {/* <Button onClick={handleClose}>Cancel</Button> */}
-          <Button type="submit" variant='contained'>Login</Button>
-          <Typography> 
-          <Typography>Not registered yet?</Typography>
-          <Link to="/signUp">signup</Link>
-          </Typography>
-        
-        
-        </DialogActions>
-        </Dialog>
+     
     </div>
   )
 }

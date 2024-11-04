@@ -1,11 +1,11 @@
 import React from 'react';
 import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput,} from '@mui/material'
-import globalStyleCOnfig from '../../app.style.json'
+
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
-const ReusableComponent = () => {
+const Password = ({label,id,onChange,value}) => {
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -18,10 +18,12 @@ const ReusableComponent = () => {
     };
   return (
     <div>
-          <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined" fullWidth>
-          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+          <FormControl sx={{marginTop:1.5}} variant="outlined" fullWidth >
+          <InputLabel htmlFor={id}>{label}</InputLabel>
           <OutlinedInput
-            id="outlined-adornment-password"
+            onChange={onChange}
+            value={value}
+            id={id}
             type={showPassword ? 'text' : 'password'}
             endAdornment={
               <InputAdornment position="end">
@@ -34,15 +36,15 @@ const ReusableComponent = () => {
                   onMouseUp={handleMouseUpPassword}
                   edge="end"
                 >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                  {showPassword ? <VisibilityOff/> : <Visibility />}
                 </IconButton>
               </InputAdornment>
             }
-            label="Password"
+            label={label}
           />
         </FormControl>
     </div>
   )
 }
 
-export default ReusableComponent
+export default Password

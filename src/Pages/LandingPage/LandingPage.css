@@ -28,26 +28,23 @@
  
 }
 .landing-page-content{
-  margin-top: 100px;
-    /* background-color: lightsalmon; */
+   margin-top: 100px;
     display: flex;
     padding-left: 20px;
     padding-right: 20px;
-
 }
 
 .landing-page-main-content{
  width: 60%;
- /* background-color: lightpink; */
- 
 }
 .landing-page-content-para{
     padding-top: 50px;
 }
 .landing-page-image{
 width: 40%;
-
-
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
 .landing-page-image>img{
@@ -61,6 +58,9 @@ width: 40%;
     margin-top: 30px;
     padding-left: 20px;
     padding-right: 20px;
+}
+.free-offered-course>p{
+    padding-top: 20px;
 }
 .product-view{
     margin-top: 30px;
@@ -79,7 +79,7 @@ width: 40%;
   flex-direction: row;
 }
 
-@media (min-width:776px) and (max-width:1040px){
+@media (min-width:775px) and (max-width:1040px){
     .landing-page-image>img{
         width: 300px;
         height:300px 
@@ -87,35 +87,24 @@ width: 40%;
     .nav-part{
         display: flex;
        justify-content: space-evenly;
-
-      
-     }
+ }
     .landing-page-main-content{
         width: 50%;
         font-size: 10px;
         }
        .landing-page-content-para{
            padding-top: 40px;
-         
-       }
+        }
        .landing-page-image{
        width: 50%;
        /* background-color: lime; */
        
        }
 }
-@media (min-width:426px) and (max-width:775px){
-    .landing-page-main-content{
-        width: 100%;
-        /* background-color: lightpink; */
-        
-       }
-       .landing-page-image{
-        width: 100%;
-        }
+@media (min-width:425px) and (max-width:775px){
+   
     .landing-page-content{
-        margin-top: 50px;
-          /* background-color: lightsalmon; */
+          margin-top: 50px;
           display: flex;
           flex-direction: column-reverse;
           align-items: center;
@@ -123,15 +112,25 @@ width: 40%;
           padding-right: 20px;
           font-size: 10px;
        }
+       .landing-page-image>img{
+        width: 300px;
+        height:300px 
+        }
+    .landing-page-main-content{
+        width: 100%;
+       }
       .landing-page-image{
        display: flex;
        justify-content: center;
+       width: 100%;
         }
-      .landing-page-main-content{
-          font-size: 10px;
-       }
+      
 }
 @media (min-width:0px) and (max-width:425px){
+    .landing-page-image>img{
+        width: 280px;
+        height:280px 
+        }
     .landing-page-main-content{
         width: 100%;
         /* background-color: lightpink; */
