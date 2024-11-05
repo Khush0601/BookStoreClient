@@ -5,7 +5,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
-const Password = ({label,id,onChange,value}) => {
+const Password = ({label,id,onChange,onFocus,value}) => {
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -22,6 +22,7 @@ const Password = ({label,id,onChange,value}) => {
           <InputLabel htmlFor={id}>{label}</InputLabel>
           <OutlinedInput
             onChange={onChange}
+            onFocus={onFocus}
             value={value}
             id={id}
             type={showPassword ? 'text' : 'password'}

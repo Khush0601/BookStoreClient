@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import './signUp.css'
-import { Box, Button, TextField } from '@mui/material'
+import { Alert, Box, Button, TextField } from '@mui/material'
 import Password from '../../lib/Password/Password'
 import axios from 'axios'
+import {useNavigate} from 'react-router-dom'
 
 
 
@@ -18,7 +19,14 @@ const Signup = () => {
  const [signUpForm,setSignUpForm]=useState(initForm)
  const [errorMessage,setErrorMessage]=useState({...initForm,serverError:''})
  const [showMessage,setShowMessage]=useState('')
+  const navigate=useNavigate()
+  const onSignUpFocuusUpdate = (e,type) => {
+    setErrorMessage((p) => {
+      return {...p,[type]:''}
+    })
+  }
  const onSignUpFormUpdate=(e,type)=>{
+  setErrorMessage({...initForm,serverError:''})
   setSignUpForm((p)=>{
     return {...p,[type]:e.target.value}
   })
@@ -66,9 +74,11 @@ const signUpUser=await axios.post('http://localhost:8888/thirdProject/api/v1/use
 const response=signUpUser.data
 console.log(response)
 if(response && response?.message==='register successfully'){
- setTimeout(()=>{
  setShowMessage('register successfully')
- },1000)
+setTimeout(()=>{
+  navigate('/home')
+},1500)
+
 }
 
 }
@@ -80,13 +90,7 @@ if(response && response?.message==='register successfully'){
   })
  }
 }
- useEffect(()=>{
-  if(errorMessage?.name!=='' || errorMessage?.email!=='' || errorMessage?.userId!=='' || errorMessage.password!=='' || errorMessage?.confirmPassword!==''){
-  setTimeout(()=>{
-   setErrorMessage(initForm)
-  },5000)
-  }
- },[errorMessage])
+ 
  console.log(errorMessage)
  console.log(signUpForm)
   return (
@@ -96,9 +100,9 @@ if(response && response?.message==='register successfully'){
           <h2>SignUp Form</h2>
           <h5>Please fill the form to create an account</h5>
         </div>
-        {
-          showMessage && <div style={{color:'green'}}>{showMessage}</div>
-        }
+       {
+        showMessage &&  <Alert variant="filled"  sx={{paddingLeft:"15px",paddingRight:"15px"}} severity="success">{showMessage}</Alert>
+       }
         <Box
       component="form"
       noValidate
@@ -106,19 +110,19 @@ if(response && response?.message==='register successfully'){
       sx={{width:360,minHeight:350}}
       onSubmit={onSignUpformSubmit}
     >
-     <TextField id="Name" label="Name" variant="outlined" fullWidth sx={{marginTop:1.5}}  value={signUpForm.name} onChange={(e)=>onSignUpFormUpdate(e,'name')}/>
+     <TextField id="Name" label="Name" variant="outlined" fullWidth sx={{marginTop:1.5}}  value={signUpForm.name} onChange={(e)=>onSignUpFormUpdate(e,'name')} onFocus={(e)=>onSignUpFocuusUpdate(e,'name')}/>
      {errorMessage?.name && <div style={{color:"red"}}>{errorMessage?.name}</div>}
-     <TextField id="Email" label="Email" variant="outlined" fullWidth sx={{marginTop:1.5}} value={signUpForm.email} onChange={(e)=>onSignUpFormUpdate(e,'email')}/>
+     <TextField id="Email" label="Email" variant="outlined" fullWidth sx={{marginTop:1.5}} value={signUpForm.email} onChange={(e)=>onSignUpFormUpdate(e,'email')} onFocus={(e)=>onSignUpFocuusUpdate(e,'email')}/>
      {errorMessage?.email && <div style={{color:"red"}}>{errorMessage?.email}</div>}
-     <TextField id="userId" label="UserId" variant="outlined" fullWidth sx={{marginTop:1.5}} value={signUpForm.userId} onChange={(e)=>onSignUpFormUpdate(e,'userId')}/>
+     <TextField id="userId" label="UserId" variant="outlined" fullWidth sx={{marginTop:1.5}} value={signUpForm.userId} onChange={(e)=>onSignUpFormUpdate(e,'userId')} onFocus={(e)=>onSignUpFocuusUpdate(e,'userId')}/>
      {errorMessage?.userId && <div style={{color:"red"}}>{errorMessage?.userId}</div>}
-     <Password label={"Password"} id={'Password'} value={signUpForm.password} onChange={(e)=>onSignUpFormUpdate(e,'password')}/>
+     <Password label={"Password"} id={'Password'} value={signUpForm.password} onChange={(e)=>onSignUpFormUpdate(e,'password')} onFocus={(e)=>onSignUpFocuusUpdate(e,'password')}/>
      {errorMessage?.password && <div style={{color:"red"}}>{errorMessage?.password}</div>}
-     <Password label={"Confirm Password"} id={"Confirm Password"} value={signUpForm.component} onChange={(e)=>onSignUpFormUpdate(e,'confirmPassword')}/>
+     <Password label={"Confirm Password"} id={"Confirm Password"} value={signUpForm.component} onChange={(e)=>onSignUpFormUpdate(e,'confirmPassword')} onFocus={(e)=>onSignUpFocuusUpdate(e,'confirmPassword')}/>
      {errorMessage?.confirmPassword && <div style={{color:"red"}}>{errorMessage?.confirmPassword}</div>}
      <Button type='submit' variant='contained' sx={{marginTop:2}}>SUBMIT</Button>
      {
-      errorMessage?.serverError && <div style={{color:"red"}}>{errorMessage?.serverError}</div>
+      errorMessage?.serverError && <Alert variant="filled" severity="error">{errorMessage?.serverError}</Alert>
      }
      
      
