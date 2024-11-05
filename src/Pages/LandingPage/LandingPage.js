@@ -138,7 +138,7 @@ console.log(openDrawer)
         {
         !isMobile &&  <Typography className='nav-part'>
          {pages.map((el,i)=>{
-          return <Button key={i} sx={{color:"black"}} onClick={()=>handleClick(el)}>{el}</Button>
+          return <Button key={i} sx={{color:"black"}} onClick={(el)=>handleClick(el)}>{el}</Button>
          })}
 
        
