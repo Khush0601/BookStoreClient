@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useContext, useState} from 'react'
 import './LandingPage.css'
 import { AppBar, Box, TextField, Toolbar } from '@mui/material'
 import { styled, alpha } from '@mui/material/styles';
@@ -19,6 +19,8 @@ import Drawer from '@mui/material/Drawer';
 import { useMediaQuery } from 'react-responsive'
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
+import { Usercontext } from '../../App';
+
 
 const Search = styled('div')(({ theme }) => ({
 
@@ -63,6 +65,7 @@ const LandingPage = ({handleClickOpen}) => {
   const isMobile = useMediaQuery({ query: '(max-width: 775px)' })
   const pages=["Home","Courses","Contact","About"]
   const[products,setProducts]=useState([])
+  const user=useContext(Usercontext)
  
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const navigate =useNavigate()
@@ -102,15 +105,17 @@ const LandingPage = ({handleClickOpen}) => {
   else if(el==='Login'){
     handleClickOpen()
   }
+ 
  }
  const DrawerList = (
   <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
     <List>
-      {['Home','Courses','Contact','About','Login'].map((text, index) => (
+      {['Home','Courses','Contact','About','Login','Logout'].map((text, index) => (
+       
         <ListItem key={text} disablePadding>
           <ListItemButton>
            
-            <ListItemText primary={text} onClick={(el)=>handleClick(text)}/>
+            <ListItemText primary={text} onClick={(el)=>handleClick(text)} />
           </ListItemButton>
         </ListItem>
       ))}
@@ -151,7 +156,9 @@ console.log(openDrawer)
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-          <Button variant="contained" sx={{backgroundColor:"black"}} onClick={()=>handleClickOpen()}>Login</Button>
+         {
+          user ? <Button variant="contained" sx={{backgroundColor:"black"}}>Logout</Button>:  <Button variant="contained" sx={{backgroundColor:"black"}} onClick={()=>handleClickOpen()}>Login</Button>
+         }
        </Typography>
 
         }

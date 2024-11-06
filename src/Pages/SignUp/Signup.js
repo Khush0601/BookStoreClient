@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './signUp.css'
 import { Alert, Box, Button, TextField } from '@mui/material'
 import Password from '../../lib/Password/Password'
@@ -50,12 +50,11 @@ if(!passwordRegex.test(formdata?.password)){
   error.password='Password must be at least 8 characters long, and include an uppercase letter, a lowercase letter, a number, and a special character';
 }
 if(formdata?.confirmPassword===''){
-  error.confirmPassword='conirm Password cannot be empty'
+  error.confirmPassword='conirmPassword  and password should be same'
 }
  return error
  }
-
-
+ 
 const onSignUpformSubmit=async(e)=>{
  e.preventDefault()
  try{
