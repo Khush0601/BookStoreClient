@@ -7,21 +7,25 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
-import bookImg from '../../Assets/edumia.svg'
+import { useNavigate } from "react-router";
 
 const ProductCard=({productProps})=>{
+  const navigate=useNavigate()
   let price=productProps.price
   if(productProps.price==='0'){
     price='Free'
+  }
+  const onProductCardClick=()=>{
+   navigate('/productDetails')
   }
 return (
     <div >
      <Card  sx={{
         width: 310,
         boxShadow:"rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
-        margin:"30px"
-      }}
-      
+        margin:"30px",
+     }}
+     onClick={onProductCardClick}
       >
       <CardActionArea >
         <CardMedia

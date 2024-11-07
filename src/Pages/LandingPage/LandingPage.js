@@ -110,7 +110,7 @@ const LandingPage = ({handleClickOpen}) => {
  const DrawerList = (
   <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
     <List>
-      {['Home','Courses','Contact','About','Login','Logout'].map((text, index) => (
+      {['Home','Courses','Contact','About','Login'].map((text, index) => (
        
         <ListItem key={text} disablePadding>
           <ListItemButton>
