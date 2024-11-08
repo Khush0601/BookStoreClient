@@ -15,8 +15,10 @@ const ProductCard=({productProps})=>{
   if(productProps.price==='0'){
     price='Free'
   }
-  const onProductCardClick=()=>{
-   navigate('/productDetails')
+  const onProductCardClick=(productProps)=>{
+   let productId=productProps._id
+   console.log(productId)
+   navigate(`/productDetails/${productId}`)
   }
 return (
     <div >
@@ -25,7 +27,7 @@ return (
         boxShadow:"rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
         margin:"30px",
      }}
-     onClick={onProductCardClick}
+     onClick={()=>onProductCardClick(productProps)}
       >
       <CardActionArea >
         <CardMedia

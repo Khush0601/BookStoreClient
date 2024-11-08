@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { Button, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import ProductDetails from './Pages/ProductDetails/ProductDetails';
+import Whishlist from './Pages/whishlist/Whishlist';
 
 export const Usercontext=createContext(null)
 const App = () => {
@@ -88,7 +89,8 @@ const App = () => {
     <Route path='/about' element={<About/>}/>
     <Route path='/courses' element={<Courses/>}/>
     <Route path='/contact' element={<Contact/>}/>
-    <Route path='/productDetails' element={<ProductDetails/>}/>
+    <Route path='/productDetails/:productId' element={<ProductDetails/>}/>
+    <Route path='/whishlist' element={<Whishlist/>}/>
    </Routes>
 </Usercontext.Provider>
    <Dialog 
