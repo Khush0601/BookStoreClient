@@ -11,8 +11,7 @@ const ProductDetails = () => {
   console.log(params)
 
   const[petFulldetals,setPetFullDetails]=useState({})
-
-  const[reviewField,setReviewField]=useState({
+ const[reviewField,setReviewField]=useState({
     userName:"",
     userId:"",
     userImage:"",
@@ -31,12 +30,28 @@ const ProductDetails = () => {
       }
       catch(e){
         console.log(e.message)
-       
-      }
+       }
     }
     fetchPetDetailsById()
   },[params.productId])
   
+  React.useEffect(()=>{
+    const getAllReviews=async()=>{
+      try{
+      const reviews=await axios.get(`http://localhost:8888/thirdProject/api/v1/productReview/${params.productId}/getReview`)
+      const reviewResponse=reviews.data
+      setReviewResult(reviewResponse)
+      }
+      catch(e){
+       console.log(e?.response?.data)
+      }
+    }
+
+    if(params?.productId) {
+      getAllReviews();
+    }
+  },[params?.productId])
+
   React.useEffect(()=>{
   setReviewField((p)=>{
     return{...p,
@@ -48,6 +63,7 @@ const ProductDetails = () => {
     
   })
   },[user,params?.productId])
+ 
 
 const onReviewFieldUpdate=(e)=>{
   setReviewField((p)=>{
@@ -84,8 +100,8 @@ const onReviewFieldUpdate=(e)=>{
   
   }
   console.log(reviewResult)
-  console.log(user)
-  console.log(reviewField)
+  // console.log(user)
+  // console.log(reviewField)
   // console.log(petFulldetals)
   return (
     <div className='productDetails-container'>
@@ -137,7 +153,7 @@ const onReviewFieldUpdate=(e)=>{
               <FormControl component="form" onSubmit={onReviewFormSubmit} sx={{ width: '100%'}}>
               <FormLabel sx={{ mb: 1, fontSize: '1rem' }}>write your reviw here...</FormLabel>
               <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
-             {reviewField?.userImage!==undefined? <Avatar sx={{ bgcolor: 'primary.main', mr: 1, my: 0.5, fontSize: 20 }}>
+             {reviewField?.userImage!==undefined?<Avatar sx={{ bgcolor: 'primary.main', mr: 1, my: 0.5, fontSize: 20 }}>
              {reviewField?.userImage}
              </Avatar>:
              <Avatar sx={{ bgcolor: 'primary.main', mr: 1, my: 0.5, fontSize: 20 }}>
@@ -151,12 +167,19 @@ const onReviewFieldUpdate=(e)=>{
               </FormControl>
               </div>
               </div>
-              <div>{reviewResult?.map((el,i)=>{
-                return <div>
-                  <div>{el?.userName}</div>
-                  <div>{el?.message}</div>
-                </div>
-              })}</div>
+              <div>
+              {reviewResult.length===0? <h3>No reviews yet</h3> :reviewResult?.map((el,i)=>{
+                return <div key ={i} className='review-msg-container'>
+                <div className='review-msg-name'>{!el.userName}{
+                  <Avatar sx={{ bgcolor: 'primary.main', mr: 1, my: 0.5, fontSize: 20 }}>
+             {el?.userName?.charAt(0).toUpperCase()}
+              </Avatar>
+              }
+              <div>{el?.userName}</div></div>
+              <div>{el?.reviewMessage}</div>
+              </div>
+              })} 
+              </div>
              </div>
              
              
