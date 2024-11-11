@@ -1,15 +1,25 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './ProductDetails.css'
-import AccountCircle from '@mui/icons-material/AccountCircle';
+
 import { useParams } from 'react-router'
 import axios from 'axios'
-import {  Avatar, Box, Button, FormControl, FormLabel, TextField } from '@mui/material'
+import {   Avatar, Box, Button, FormControl, FormLabel, TextField } from '@mui/material'
+import { Usercontext } from '../../App';
 const ProductDetails = () => {
-  
+  const user=useContext(Usercontext)
   const params=useParams()
   console.log(params)
+
   const[petFulldetals,setPetFullDetails]=useState({})
-  const[reviewForm,setReviewForm]=useState('')
+
+  const[reviewField,setReviewField]=useState({
+    userName:"",
+    userId:"",
+    userImage:"",
+    productId:"",
+    message:""
+  })
+  const[reviewResult,setReviewResult]=useState([])
 
   React.useEffect(()=>{
     const fetchPetDetailsById=async()=>{
@@ -21,24 +31,66 @@ const ProductDetails = () => {
       }
       catch(e){
         console.log(e.message)
+       
       }
     }
     fetchPetDetailsById()
   },[params.productId])
   
-  const onReviewFormUpdate=(e)=>{
-   setReviewForm(e.target.value)
+  React.useEffect(()=>{
+  setReviewField((p)=>{
+    return{...p,
+      userName:user?.name,
+      userId:user?._id,
+      userImage:user?.userImage,
+      productId:params.productId,
   }
-  const onReviewFormSubmit=(e)=>{
+    
+  })
+  },[user,params?.productId])
+
+const onReviewFieldUpdate=(e)=>{
+  setReviewField((p)=>{
+    return {...p,message:e.target.value}
+  })
+  }
+  
+  const onReviewFormSubmit=async(e)=>{
    e.preventDefault()
-   console.log("submitted")
-   setReviewForm('')
+   try{
+    const sendReviewDetails=await axios.post('http://localhost:8888/thirdProject/api/v1/productReview/addReview',{
+      userName:reviewField.userName,
+      userId:reviewField?.userId,
+      userIamge:reviewField?.userImage,
+      productId:reviewField?.productId,
+      reviewMessage:reviewField?.message
+    })
+    setReviewResult((p)=>{
+      return[...p,sendReviewDetails.data]
+    })
+    setReviewField({
+      userName:"",
+      userId:"",
+      userIamge:"",
+      productId:"",
+      message:""
+    })
+   }
+   catch(e){
+  console.log(e?.response?.statusText)
+
+   }
+   
+  
   }
-  console.log(reviewForm)
+  console.log(reviewResult)
+  console.log(user)
+  console.log(reviewField)
   // console.log(petFulldetals)
   return (
     <div className='productDetails-container'>
        <div className='productDetails-box'>
+      
           <div className='productImg'>
             <img src={petFulldetals?.image} alt={petFulldetals?.name}/>
           </div>
@@ -85,21 +137,27 @@ const ProductDetails = () => {
               <FormControl component="form" onSubmit={onReviewFormSubmit} sx={{ width: '100%'}}>
               <FormLabel sx={{ mb: 1, fontSize: '1rem' }}>write your reviw here...</FormLabel>
               <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
-              <Avatar sx={{ bgcolor: 'primary.main', mr: 1, my: 0.5, fontSize: 20 }}>
-          {/* {firstLetter} */}
-        </Avatar>
-              <TextField id="input-with-sx" label={petFulldetals?.name} variant="standard" value={reviewForm} multiline onChange={(e)=>onReviewFormUpdate(e)} />
-              <Button type="submit" variant="contained" color="primary" sx={{ mt: 1 }}>
+             {reviewField?.userImage!==undefined? <Avatar sx={{ bgcolor: 'primary.main', mr: 1, my: 0.5, fontSize: 20 }}>
+             {reviewField?.userImage}
+             </Avatar>:
+             <Avatar sx={{ bgcolor: 'primary.main', mr: 1, my: 0.5, fontSize: 20 }}>
+             {reviewField?.userName?.charAt(0).toUpperCase()}
+              </Avatar>}
+              <TextField id="input-with-sx" label={reviewField?.userName} variant="standard" value={reviewField.message} multiline onChange={(e)=>onReviewFieldUpdate(e)}/>
+             <Button type={user?'submit':"button"} variant="contained" color="primary" sx={{ mt: 1 }} disabled={!user}>
               Submit
              </Button>
               </Box>
               </FormControl>
               </div>
               </div>
-              <div>hiiii</div>
-           
-             
-              </div>
+              <div>{reviewResult?.map((el,i)=>{
+                return <div>
+                  <div>{el?.userName}</div>
+                  <div>{el?.message}</div>
+                </div>
+              })}</div>
+             </div>
              
              
            
