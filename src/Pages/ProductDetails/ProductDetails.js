@@ -99,16 +99,21 @@ const onReviewFieldUpdate=(e)=>{
    
   
   }
+  
+  const onBuyClick=(productId)=>{
+  // console.log(productId)
+  }
   console.log(reviewResult)
-  // console.log(user)
-  // console.log(reviewField)
-  // console.log(petFulldetals)
+  console.log(user)
+  console.log(reviewField)
+  console.log(petFulldetals)
   return (
     <div className='productDetails-container'>
        <div className='productDetails-box'>
       
           <div className='productImg'>
             <img src={petFulldetals?.image} alt={petFulldetals?.name}/>
+         
           </div>
           <div className='productRestDetails'>
             <div className='product-name'>
@@ -139,11 +144,17 @@ const onReviewFieldUpdate=(e)=>{
                 <p>{petFulldetals?.description}</p>
             </div>
             <div className='product-rating'>
-                <h4>Ratings:</h4>
-                <span>{petFulldetals?.rating}</span>
+               <div>
+               <h4>Ratings:</h4>
+               <span>{petFulldetals?.rating}</span>
+               </div>
+               <div className='buy-now-button'>
+               <Button variant="contained"  onClick={()=>onBuyClick(params.productId)}>Buy Now</Button>
+          </div>
+
             </div>
            
-           
+          
           </div>
        </div>
        <div className='product-reviews'>
@@ -151,7 +162,7 @@ const onReviewFieldUpdate=(e)=>{
               <h4>Review:</h4>
               <div className='product-review-form'>
               <FormControl component="form" onSubmit={onReviewFormSubmit} sx={{ width: '100%'}}>
-              <FormLabel sx={{ mb: 1, fontSize: '1rem' }}>write your reviw here...</FormLabel>
+              <FormLabel sx={{ mb: 1, fontSize: '1rem' }}>write your review here...</FormLabel>
               <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
              {reviewField?.userImage!==undefined?<Avatar sx={{ bgcolor: 'primary.main', mr: 1, my: 0.5, fontSize: 20 }}>
              {reviewField?.userImage}
@@ -159,7 +170,7 @@ const onReviewFieldUpdate=(e)=>{
              <Avatar sx={{ bgcolor: 'primary.main', mr: 1, my: 0.5, fontSize: 20 }}>
              {reviewField?.userName?.charAt(0).toUpperCase()}
               </Avatar>}
-              <TextField id="input-with-sx" label={reviewField?.userName} variant="standard" value={reviewField.message} multiline onChange={(e)=>onReviewFieldUpdate(e)}/>
+              <TextField id="input-with-sx" label={reviewField?.userName.toUpperCase()} variant="standard" value={reviewField.message} multiline onChange={(e)=>onReviewFieldUpdate(e)}/>
              <Button type={user?'submit':"button"} variant="contained" color="primary" sx={{ mt: 1 }} disabled={!user}>
               Submit
              </Button>
@@ -170,12 +181,14 @@ const onReviewFieldUpdate=(e)=>{
               <div>
               {reviewResult.length===0? <h3>No reviews yet</h3> :reviewResult?.map((el,i)=>{
                 return <div key ={i} className='review-msg-container'>
-                <div className='review-msg-name'>{!el.userName}{
+                <div className='review-msg-name'>
+                {!el.userImage}{
                   <Avatar sx={{ bgcolor: 'primary.main', mr: 1, my: 0.5, fontSize: 20 }}>
              {el?.userName?.charAt(0).toUpperCase()}
               </Avatar>
               }
-              <div>{el?.userName}</div></div>
+              <div>{el?.userName.toUpperCase()}</div>
+              </div>
               <div>{el?.reviewMessage}</div>
               </div>
               })} 
