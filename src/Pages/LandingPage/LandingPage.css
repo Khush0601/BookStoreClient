@@ -78,6 +78,9 @@ justify-content: center;
     justify-content: space-between;
   flex-direction: row;
 }
+.user_present{
+    display: flex;
+}
 
 @media (min-width:775px) and (max-width:1040px){
     .landing-page-image>img{
@@ -86,7 +89,7 @@ justify-content: center;
         }
     .nav-part{
         display: flex;
-       justify-content: space-evenly;
+      
  }
     .landing-page-main-content{
         width: 50%;

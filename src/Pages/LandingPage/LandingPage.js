@@ -1,6 +1,6 @@
 import React,{useContext, useState} from 'react'
 import './LandingPage.css'
-import { AppBar, Box, TextField, Toolbar } from '@mui/material'
+import { AppBar, Avatar, Box, TextField, Toolbar } from '@mui/material'
 import { styled, alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -20,6 +20,7 @@ import { useMediaQuery } from 'react-responsive'
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
 import { Usercontext } from '../../App';
+import { deepOrange} from '@mui/material/colors';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -89,20 +90,20 @@ const LandingPage = ({handleClickOpen}) => {
  getproducts()
  },[])
  const handleClick=(el)=>{
-  if(el==='Courses'){
+  if(el==="Courses"){
     navigate("/courses")
   }
-  else if(el==='Contact'){
+  else if(el==="Contact"){
    navigate("/contact")
   }
-  else if(el==='About'){
+  else if(el==="About"){
    navigate("/about")
   }
  
-  else if(el==='Home'){
+  else if(el==="Home"){
    navigate('/home')
   }
-  else if(el==='Login'){
+  else if(el==="Login"){
     handleClickOpen()
   }
  
@@ -110,12 +111,12 @@ const LandingPage = ({handleClickOpen}) => {
  const DrawerList = (
   <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
     <List>
-      {['Home','Courses','Contact','About','Login'].map((text, index) => (
+      {["Home","Courses","Contact","About","Login"].map((text, index) => (
        
         <ListItem key={text} disablePadding>
           <ListItemButton>
            
-            <ListItemText primary={text} onClick={(el)=>handleClick(text)} />
+            <ListItemText primary={text} onClick={()=>handleClick(text)} />
           </ListItemButton>
         </ListItem>
       ))}
@@ -143,7 +144,7 @@ console.log(openDrawer)
         {
         !isMobile &&  <Typography className='nav-part'>
          {pages.map((el,i)=>{
-          return <Button key={i} sx={{color:"black"}} onClick={(el)=>handleClick(el)}>{el}</Button>
+          return <Button key={i} sx={{color:"black"}} onClick={()=>handleClick(el)}>{el}</Button>
          })}
 
        
@@ -157,7 +158,13 @@ console.log(openDrawer)
             />
           </Search>
          {
-          user ? <Button variant="contained" sx={{backgroundColor:"black"}}>Logout</Button>:  <Button variant="contained" sx={{backgroundColor:"black"}} onClick={()=>handleClickOpen()}>Login</Button>
+          user ? <div className='user_present'>
+          <Button variant="contained" sx={{backgroundColor:"black" ,marginRight:"10px"}}>Logout</Button>
+          <Avatar sx={{ bgcolor: deepOrange[500] }} onClick={()=>{
+            navigate('/userProfile')
+          }}>{user?.name.charAt(0).toUpperCase()}</Avatar>
+          </div>
+          :  <Button variant="contained" sx={{backgroundColor:"black"}} onClick={()=>handleClickOpen()}>Login</Button>
          }
        </Typography>
 

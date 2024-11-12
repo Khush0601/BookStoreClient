@@ -170,7 +170,7 @@ const onReviewFieldUpdate=(e)=>{
              <Avatar sx={{ bgcolor: 'primary.main', mr: 1, my: 0.5, fontSize: 20 }}>
              {reviewField?.userName?.charAt(0).toUpperCase()}
               </Avatar>}
-              <TextField id="input-with-sx" label={reviewField?.userName.toUpperCase()} variant="standard" value={reviewField.message} multiline onChange={(e)=>onReviewFieldUpdate(e)}/>
+              <TextField id="input-with-sx" label={reviewField?.userName} variant="standard" value={reviewField.message} multiline onChange={(e)=>onReviewFieldUpdate(e)}/>
              <Button type={user?'submit':"button"} variant="contained" color="primary" sx={{ mt: 1 }} disabled={!user}>
               Submit
              </Button>
