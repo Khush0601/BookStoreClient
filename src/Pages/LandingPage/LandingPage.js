@@ -170,7 +170,16 @@ console.log(openDrawer)
 
         }
         {
-          isMobile &&  <div>
+          isMobile &&  <div style={{display:'flex',marginLeft:"10px"}}>
+          <Search style={{ width: '130px', height: '40px' }}>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
           <Button onClick={toggleDrawer(true)}><MenuIcon/></Button>
           <Drawer open={openDrawer} onClose={toggleDrawer(false)}>
             {DrawerList }
