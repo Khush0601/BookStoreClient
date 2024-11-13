@@ -163,12 +163,12 @@ const onReviewFieldUpdate=(e)=>{
   const onBuyClick=(productId)=>{
   // console.log(productId)
   }
-  // console.log(reviewResult)
+  console.log(reviewResult)
   console.log(ratingValues)
-  // console.log(user)
+  console.log(user)
   console.log(ratingResult)
-  // console.log(reviewField)
-  // console.log(petFulldetals)
+  console.log(reviewField)
+  console.log(petFulldetals)
   return (
     <div className='productDetails-container'>
        <div className='productDetails-box'>
@@ -208,8 +208,9 @@ const onReviewFieldUpdate=(e)=>{
             <div className='product-rating'>
                <div>
                <h4>Ratings:</h4>
-              <div>
-              <select value={ratingValues?.ratingCount} onChange={(e)=>onRatingValueUpdate(e)}>
+              {
+                user && <div>
+              <select value={ratingValues?.ratingCount} onChange={(e)=>onRatingValueUpdate(e)} >
                 <option value={0} disabled>Rate here</option>
                 <option value={1} >1</option>
                 <option value={2} >2</option>
@@ -219,6 +220,7 @@ const onReviewFieldUpdate=(e)=>{
                 </select>
                 <Button type='button' onClick={onRatingSubmit}><SendIcon/></Button>
               </div>
+              }
                <span>{ratingResult?.averageValue}</span>
                </div>
                <div className='buy-now-button'>
