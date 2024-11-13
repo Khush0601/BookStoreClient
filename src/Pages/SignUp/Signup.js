@@ -113,7 +113,7 @@ setTimeout(()=>{
      {errorMessage?.name && <div style={{color:"red"}}>{errorMessage?.name}</div>}
      <TextField id="Email" label="Email" variant="outlined" fullWidth sx={{marginTop:1.5}} value={signUpForm.email} onChange={(e)=>onSignUpFormUpdate(e,'email')} onFocus={(e)=>onSignUpFocuusUpdate(e,'email')}/>
      {errorMessage?.email && <div style={{color:"red"}}>{errorMessage?.email}</div>}
-     <TextField id="userId" label="UserId" variant="outlined" fullWidth sx={{marginTop:1.5}} value={signUpForm.userId} onChange={(e)=>onSignUpFormUpdate(e,'userId')} onFocus={(e)=>onSignUpFocuusUpdate(e,'userId')}/>
+     <TextField id="userId" label="UserId" variant="outlined" fullWidth  sx={{marginTop:1.5}} value={signUpForm.userId} onChange={(e)=>onSignUpFormUpdate(e,'userId')} onFocus={(e)=>onSignUpFocuusUpdate(e,'userId')}/>
      {errorMessage?.userId && <div style={{color:"red"}}>{errorMessage?.userId}</div>}
      <Password label={"Password"} id={'Password'} value={signUpForm.password} onChange={(e)=>onSignUpFormUpdate(e,'password')} onFocus={(e)=>onSignUpFocuusUpdate(e,'password')}/>
      {errorMessage?.password && <div style={{color:"red"}}>{errorMessage?.password}</div>}

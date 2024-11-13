@@ -4,6 +4,7 @@ import './ProductDetails.css'
 import { useParams } from 'react-router'
 import axios from 'axios'
 import {   Avatar, Box, Button, FormControl, FormLabel, TextField } from '@mui/material'
+import SendIcon from '@mui/icons-material/Send';
 import { Usercontext } from '../../App';
 const ProductDetails = () => {
   const user=useContext(Usercontext)
@@ -18,7 +19,15 @@ const ProductDetails = () => {
     productId:"",
     message:""
   })
+  const [ratingValues,setRatingValues]=useState({
+    userName:"",
+    userId:"",
+    ratingCount:0,
+    productId:""
+
+  })
   const[reviewResult,setReviewResult]=useState([])
+  const[ratingResult,setRatingResult]=useState(0)
 
   React.useEffect(()=>{
     const fetchPetDetailsById=async()=>{
@@ -52,6 +61,33 @@ const ProductDetails = () => {
     }
   },[params?.productId])
 
+ React.useEffect(()=>{
+  const getAllRating=async()=>{
+  try{
+   const rating=await axios.get(`http://localhost:8888/thirdProject/api/v1/productRating/${params.productId}/getRating`)
+   const ratingResponse=rating?.data
+   setRatingResult(ratingResponse)
+
+  }
+  catch(e){
+    console.log('server error')
+  }
+   }
+   if(params?.productId){
+    getAllRating()
+   }
+ },[params.productId])
+
+ React.useEffect(()=>{
+ setRatingValues((p)=>{
+ return {...p,
+        userName:user?.name,
+        userId:user?._id,
+        productId:params?.productId
+        }
+  })
+ },[params.productId])
+
   React.useEffect(()=>{
   setReviewField((p)=>{
     return{...p,
@@ -64,6 +100,30 @@ const ProductDetails = () => {
   })
   },[user,params?.productId])
  
+const onRatingValueUpdate=(e)=>{
+  
+setRatingValues((p)=>{
+  return {...p,ratingCount:Number(e.target.value)}
+})
+}
+
+const onRatingSubmit=async()=>{
+try{
+ const sendRatingDetails=await axios.post("http://localhost:8888/thirdProject/api/v1/productRating/addRating",{
+  userName:ratingValues?.userName,
+  userId:ratingValues?.userId,
+  ratingCount:ratingValues?.ratingCount,
+  productId:ratingValues?.productId
+ })
+  
+ setRatingValues((p)=>{
+  return [...p,sendRatingDetails?.data]
+ })
+}
+catch(e){
+  console.log(e?.response?.statusText)
+}
+}
 
 const onReviewFieldUpdate=(e)=>{
   setReviewField((p)=>{
@@ -103,10 +163,12 @@ const onReviewFieldUpdate=(e)=>{
   const onBuyClick=(productId)=>{
   // console.log(productId)
   }
-  console.log(reviewResult)
-  console.log(user)
-  console.log(reviewField)
-  console.log(petFulldetals)
+  // console.log(reviewResult)
+  console.log(ratingValues)
+  // console.log(user)
+  console.log(ratingResult)
+  // console.log(reviewField)
+  // console.log(petFulldetals)
   return (
     <div className='productDetails-container'>
        <div className='productDetails-box'>
@@ -146,7 +208,18 @@ const onReviewFieldUpdate=(e)=>{
             <div className='product-rating'>
                <div>
                <h4>Ratings:</h4>
-               <span>{petFulldetals?.rating}</span>
+              <div>
+              <select value={ratingValues?.ratingCount} onChange={(e)=>onRatingValueUpdate(e)}>
+                <option value={0} disabled>Rate here</option>
+                <option value={1} >1</option>
+                <option value={2} >2</option>
+                <option value={3} >3</option>
+                <option value={2} >4</option>
+                <option value={5} >5</option>
+                </select>
+                <Button type='button' onClick={onRatingSubmit}><SendIcon/></Button>
+              </div>
+               <span>{ratingResult?.averageValue}</span>
                </div>
                <div className='buy-now-button'>
                <Button variant="contained"  onClick={()=>onBuyClick(params.productId)}>Buy Now</Button>

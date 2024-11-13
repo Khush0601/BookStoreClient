@@ -116,7 +116,7 @@ const LandingPage = ({handleClickOpen}) => {
         <ListItem key={text} disablePadding>
           <ListItemButton>
            
-            <ListItemText primary={text} onClick={()=>handleClick(text)} />
+          <ListItemText primary={text} onClick={()=>handleClick(text)} />
           </ListItemButton>
         </ListItem>
       ))}
