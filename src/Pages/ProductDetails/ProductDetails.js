@@ -6,6 +6,7 @@ import axios from 'axios'
 import {   Avatar, Box, Button, FormControl, FormLabel, TextField } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send';
 import { Usercontext } from '../../App';
+import Footer from '../../Component/Footer/footer'
 const ProductDetails = () => {
   const user=useContext(Usercontext)
   const params=useParams()
@@ -268,10 +269,11 @@ const onReviewFieldUpdate=(e)=>{
               </div>
               })} 
               </div>
+             
              </div>
              
              
-           
+             <Footer/> 
     </div>
   )
 }

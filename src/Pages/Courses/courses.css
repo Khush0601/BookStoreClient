@@ -1,0 +1,51 @@
+.courses-container{
+    width: 100vW;
+    /* background-color: rgb(181, 63, 63); */
+    display: flex;
+    flex-direction: column;
+   
+}
+.couses-header{
+    padding: 10px;
+    font-size: 30px;
+}
+.courses-bg-image{
+    background-image: url('../../Assets/bookstoreBackground.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 700px;
+    opacity: 0.8;
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.content{
+    opacity: 1;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+   
+ }
+ .content>div{
+    border: 2px solid red;
+    padding: 8px;
+    margin-top: 10px;
+    transition: all 0.3 ease-in-out;
+    transform: scale(0.8);
+ }
+ .content>div:hover{
+    background-color: rgb(221, 48, 48);
+    transform: scale(1);
+
+ }
+ @media (min-width:0px) and (max-width:425px) {
+    .content{
+        font-size: 20px;
+    }
+ }
+

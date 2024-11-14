@@ -21,6 +21,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
 import { Usercontext } from '../../App';
 import { deepOrange} from '@mui/material/colors';
+import Footer from '../../Component/Footer/footer';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -139,7 +140,7 @@ console.log(openDrawer)
       <AppBar position="static">
         <Toolbar sx={{backgroundColor:"white",color:"black"}} className='landing-page-header'>
          <Typography className='logo-part'>
-         <Typography >
+         <Typography>
           <img src={bookIcon} alt='bookicon' width={50} height={50}/>
           </Typography>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -147,7 +148,7 @@ console.log(openDrawer)
           </Typography>
          </Typography>
          <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center'}}
           open={openSnackbar}
           autoHideDuration={3000}
           onClose={()=>setOpenSnackbar(false)}
@@ -184,7 +185,7 @@ console.log(openDrawer)
         }
         {
           isMobile &&  <div style={{display:'flex',marginLeft:"10px"}}>
-          <Search style={{ width: '130px', height: '40px' }}>
+          <Search sx={{width: '200px', height: '40px'}}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -219,7 +220,6 @@ console.log(openDrawer)
      </Typography>
      <Typography className='landing-page-emailBox'>
      <TextField inputProps={{style:{height:"15px"}}} fullWidth label="Email" id="fullWidth" />
-    
      </Typography>
      </Typography>
      </Box>
@@ -243,6 +243,7 @@ console.log(openDrawer)
       })}
      {/* api call hoke yhi card bnega */}
      </div>
+     <Footer/>
      
     </div>
   )
