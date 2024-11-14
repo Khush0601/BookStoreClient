@@ -1,6 +1,6 @@
 import React,{useContext, useState} from 'react'
 import './LandingPage.css'
-import { AppBar, Avatar, Box, TextField, Toolbar } from '@mui/material'
+import { Alert, AppBar, Avatar, Box, Snackbar, TextField, Toolbar } from '@mui/material'
 import { styled, alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -62,12 +62,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const LandingPage = ({handleClickOpen}) => {
+const LandingPage = ({handleClickOpen,setUser}) => {
   const isMobile = useMediaQuery({ query: '(max-width: 775px)' })
   const pages=["Home","Courses","Contact","About"]
   const[products,setProducts]=useState([])
   const user=useContext(Usercontext)
- 
+  const [openSnackbar,setOpenSnackbar]=useState(false)
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const navigate =useNavigate()
 
@@ -108,6 +108,11 @@ const LandingPage = ({handleClickOpen}) => {
   }
  
  }
+ 
+ const onLogoutClick=()=>{
+  setUser(null)
+ setOpenSnackbar(true)
+ }
  const DrawerList = (
   <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
     <List>
@@ -125,7 +130,7 @@ const LandingPage = ({handleClickOpen}) => {
    
   </Box>
 );
-
+ console.log(openSnackbar)
 console.log(products)
 console.log(openDrawer)
   return (
@@ -141,6 +146,14 @@ console.log(openDrawer)
             Bookstore
           </Typography>
          </Typography>
+         <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={openSnackbar}
+          autoHideDuration={3000}
+          onClose={()=>setOpenSnackbar(false)}
+        >
+        <Alert onClose={()=>setOpenSnackbar(false)} variant="filled" severity="success">Logout successfully</Alert>
+         </Snackbar>
         {
         !isMobile &&  <Typography className='nav-part'>
          {pages.map((el,i)=>{
@@ -159,7 +172,7 @@ console.log(openDrawer)
           </Search>
          {
           user ? <div className='user_present'>
-          <Button variant="contained" sx={{backgroundColor:"black" ,marginRight:"10px"}}>Logout</Button>
+          <Button variant="contained" sx={{backgroundColor:"black" ,marginRight:"10px"}} onClick={onLogoutClick}>Logout</Button>
           <Avatar sx={{ bgcolor: deepOrange[500] }} onClick={()=>{
             navigate('/userProfile')
           }}>{user?.name.charAt(0).toUpperCase()}</Avatar>

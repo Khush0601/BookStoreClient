@@ -84,7 +84,7 @@ const App = () => {
  <Usercontext.Provider value={user}>
    <Routes>
     <Route index element={<Navigate to="/home"/>}/>
-    <Route path='/home' element={<LandingPage handleClickOpen={handleClickOpen} />}/>
+    <Route path='/home' element={<LandingPage handleClickOpen={handleClickOpen} setUser={setUser} />}/>
     <Route path='/login' element={<Login/>}/>
     <Route path='/signUp' element={<Signup/>}/>
     <Route path='/about' element={<About/>}/>
