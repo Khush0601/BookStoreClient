@@ -3,7 +3,7 @@ import './ProductDetails.css'
 
 import { useParams } from 'react-router'
 import axios from 'axios'
-import {   Avatar, Box, Button, FormControl, FormLabel, TextField } from '@mui/material'
+import {  Avatar, Box, Button, FormControl, FormLabel,  TextField } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send';
 import { Usercontext } from '../../App';
 import Footer from '../../Component/Footer/footer'
@@ -27,6 +27,7 @@ const ProductDetails = () => {
     productId:""
 
   })
+  
   const[reviewResult,setReviewResult]=useState([])
   const[ratingResult,setRatingResult]=useState(0)
 
@@ -39,7 +40,7 @@ const ProductDetails = () => {
     setPetFullDetails(petResponse)
       }
       catch(e){
-        console.log(e.message)
+        console.log(e?.response?.statusText)
        }
     }
     fetchPetDetailsById()
@@ -53,13 +54,13 @@ const ProductDetails = () => {
       setReviewResult(reviewResponse)
       }
       catch(e){
-       console.log(e?.response?.data)
+       console.log(e?.message)
       }
     }
-
     if(params?.productId) {
       getAllReviews();
     }
+  
   },[params?.productId])
 
  React.useEffect(()=>{
@@ -71,8 +72,8 @@ const ProductDetails = () => {
 
   }
   catch(e){
-    console.log('server error')
-  }
+    console.log(e?.message)
+    }
    }
    if(params?.productId){
     getAllRating()
@@ -102,8 +103,7 @@ const ProductDetails = () => {
   },[user,params?.productId])
  
 const onRatingValueUpdate=(e)=>{
-  
-setRatingValues((p)=>{
+  setRatingValues((p)=>{
   return {...p,ratingCount:Number(e.target.value)}
 })
 }
@@ -123,6 +123,7 @@ try{
 }
 catch(e){
   console.log(e?.response?.statusText)
+ 
 }
 }
 
@@ -164,16 +165,18 @@ const onReviewFieldUpdate=(e)=>{
   const onBuyClick=(productId)=>{
   // console.log(productId)
   }
+
   console.log(reviewResult)
   console.log(ratingValues)
   console.log(user)
   console.log(ratingResult)
   console.log(reviewField)
   console.log(petFulldetals)
+ 
   return (
     <div className='productDetails-container'>
        <div className='productDetails-box'>
-      
+        
           <div className='productImg'>
             <img src={petFulldetals?.image} alt={petFulldetals?.name}/>
          
@@ -271,7 +274,7 @@ const onReviewFieldUpdate=(e)=>{
               </div>
              
              </div>
-             
+            
              
              <Footer/> 
     </div>

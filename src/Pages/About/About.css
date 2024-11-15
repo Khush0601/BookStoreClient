@@ -1,4 +1,59 @@
 .about-container{
     width:100Vw;
-    background-color: aqua;
+    
+}
+.about-content{
+    
+    padding: 20px;
+}
+.header{
+    margin-top: 10px;
+}
+.header>h2{
+    font-size: 25px;
+}
+.about-desc{
+    margin-top: 20px;
+}
+.about-desc>h2{
+   margin-top: 10px;
+}
+.about-card{
+    margin-top: 10px;
+    border: 1px solid black;
+    background-image: url('../../Assets/bookstorebackground2.jpg');
+    background-size: cover;
+    background-position: center;
+     display: flex;
+    justify-content: center;
+     align-items: center;
+    width: 100%;
+   
+    height: 700px;
+    border-radius:20px
+}
+.features{
+    background-color: rgba(254, 251, 251, 0.4);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    flex-direction: column;
+}
+@media (min-width:0px) and (max-width:425px){
+    .features{
+       margin: 20px;
+    }
+}
+@media (min-width:425px) and (max-width:775px){
+    .features{
+        margin: 20px;
+     }
+}
+@media (min-width:775px) and (max-width:1040px){
+    .features{
+        margin: 20px;
+     }
 }

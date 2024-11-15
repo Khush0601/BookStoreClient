@@ -1,4 +1,4 @@
-import React,{useContext, useState} from 'react'
+import React,{useContext,   useState} from 'react'
 import './LandingPage.css'
 import { Alert, AppBar, Avatar, Box, Snackbar, TextField, Toolbar } from '@mui/material'
 import { styled, alpha } from '@mui/material/styles';
@@ -25,7 +25,6 @@ import Footer from '../../Component/Footer/footer';
 
 
 const Search = styled('div')(({ theme }) => ({
-
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.black, 0.15),
@@ -44,10 +43,12 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
   position: 'absolute',
-  pointerEvents: 'none',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  cursor: 'pointer',
+ 
+  zIndex: 2
 }));
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
@@ -70,6 +71,8 @@ const LandingPage = ({handleClickOpen,setUser}) => {
   const user=useContext(Usercontext)
   const [openSnackbar,setOpenSnackbar]=useState(false)
   const [openDrawer, setOpenDrawer] = React.useState(false);
+  const [searchResult,setSearchResult]=useState([])
+  const [searchInput,setSearchInput]=useState('')
   const navigate =useNavigate()
 
   const toggleDrawer = (newOpen) => () => {
@@ -114,6 +117,19 @@ const LandingPage = ({handleClickOpen,setUser}) => {
   setUser(null)
  setOpenSnackbar(true)
  }
+
+ 
+const onSearchClick = async() => {
+ console.log('hello')
+  try{
+       //api call 
+      const searchResponse=await axios.get(`http://localhost:8888/thirdProject/api/v1/product?search=${searchInput}`)
+      setSearchResult(searchResponse?.data)
+   }
+  catch(e){
+    console.error('Error fetching search results');
+  }
+   };
  const DrawerList = (
   <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
     <List>
@@ -134,6 +150,8 @@ const LandingPage = ({handleClickOpen,setUser}) => {
  console.log(openSnackbar)
 console.log(products)
 console.log(openDrawer)
+console.log(searchResult)
+console.log(searchInput)
   return (
     <div className='landing-page-container'>
     <Box>
@@ -163,14 +181,11 @@ console.log(openDrawer)
 
        
         <Search>
-            <SearchIconWrapper>
+            <SearchIconWrapper onClick={onSearchClick}>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
+            <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} value={searchInput} onChange={(e)=>setSearchInput(e.target.value)} />
+        </Search>
          {
           user ? <div className='user_present'>
           <Button variant="contained" sx={{backgroundColor:"black" ,marginRight:"10px"}} onClick={onLogoutClick}>Logout</Button>
@@ -184,8 +199,8 @@ console.log(openDrawer)
 
         }
         {
-          isMobile &&  <div style={{display:'flex',marginLeft:"10px"}}>
-          <Search sx={{width: '200px', height: '40px'}}>
+          isMobile &&  <div style={{display:'flex',marginLeft:"5px"}}>
+          <Search sx={{width: '140px', height: '40px'}}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -242,6 +257,10 @@ console.log(openDrawer)
          return <ProductCard key={product._id} productProps={product}/>
       })}
      {/* api call hoke yhi card bnega */}
+    {searchResult.length===0?<h1>No products found</h1>
+    :<>{searchResult?.map((searchedProduct,searchedProductIndex)=>{
+      return <ProductCard key={searchedProduct._id} productProps={searchedProduct}/>
+    })}</>}
      </div>
      <Footer/>
      
