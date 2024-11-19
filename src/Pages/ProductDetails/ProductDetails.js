@@ -135,6 +135,9 @@ const onReviewFieldUpdate=(e)=>{
   
   const onReviewFormSubmit=async(e)=>{
    e.preventDefault()
+   if(reviewField?.message===''){
+    return
+   }
    try{
     const sendReviewDetails=await axios.post('http://localhost:8888/thirdProject/api/v1/productReview/addReview',{
       userName:reviewField.userName,

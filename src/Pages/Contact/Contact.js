@@ -19,6 +19,7 @@ const Contact = () => {
          </Toolbar>
       </AppBar>
     </Box>
+    
     </div>
   )
 }
