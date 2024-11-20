@@ -5,12 +5,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 .user-profile-box{
     width: 350px;
     padding: 20px;
     background-color: white;
     border-radius: 20px;
+    margin: 10px;
 }
 .user-profile-avtar{
     display: flex; 

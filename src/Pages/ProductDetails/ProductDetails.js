@@ -109,6 +109,7 @@ const onRatingValueUpdate=(e)=>{
 }
 
 const onRatingSubmit=async()=>{
+  
 try{
  const sendRatingDetails=await axios.post("http://localhost:8888/thirdProject/api/v1/productRating/addRating",{
   userName:ratingValues?.userName,
