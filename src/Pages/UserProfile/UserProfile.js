@@ -30,7 +30,7 @@ const UserProfile = () => {
       <div className='user-profile-box'>
          <div className='user-part'>
            <div className='user-avatar'>
-           <Avatar sx={{ bgcolor: deepOrange[500], width: 50,height:50, }}>N</Avatar>
+           <Avatar sx={{ bgcolor: deepOrange[500], width: 50,height:50, }}>{user?.name?.charAt(0).toUpperCase()}</Avatar>
            </div>
            <div className='user-details'>
              <div>{user?.name.toUpperCase()}</div>

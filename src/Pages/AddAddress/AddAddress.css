@@ -8,7 +8,7 @@
 }
 .add-address-box{
     width: 60%;
-    min-height: 500px;
+   
     background-color: white;
     padding: 10px;
 }
@@ -46,13 +46,13 @@
     padding: 10px;
     
 }
-.type-of-address>form{
+.type-of-address>div{
     margin-top: 10px;
     display: flex;
     gap: 100px;
     align-items: center;
 }
-.type-of-address>form>label{
+.type-of-address>div>label{
     display: flex;
     align-items: center;
     gap: 5px;

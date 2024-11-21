@@ -1,8 +1,59 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import './AddAddress.css'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Button, Divider, TextField } from '@mui/material';
+import axios from 'axios';
+import { Usercontext } from '../../App';
 const AddAddress = () => {
+  const user=useContext(Usercontext)
+  console.log(user)
+  const addressDetailsForm={
+    userId:user?._id,
+    name:"",
+    mobileNo:"",
+    pincode:"",
+    state:"",
+    street:"",
+    city:"",
+    typeOfAddress:""
+  }
+  const [addressDetails,setAddressDetails]=useState(addressDetailsForm)
+  const [deliveringDetails,setDeliveringDetails]=useState([])
+  const onAddressFieldUpdate=(e,type)=>{
+  setAddressDetails((p)=>{
+  return {...p,[type]:e.target.value}
+  })
+  }
+
+   const onRadioButtonUpdate=(e)=>{
+   setAddressDetails((p)=>{
+    return {...p,typeOfAddress:e.target.value}
+   })
+   }
+   const onAddressSubmit=async(e)=>{
+    e.preventDefault()
+    try{
+    const addAddress=await axios.post('http://localhost:8888/thirdProject/api/v1/user/addAddress',{
+     userId:addressDetails.userId,
+     name:addressDetails.name,
+     mobileNo:addressDetails.mobileNo,
+     street:addressDetails.street,
+     city:addressDetails.city,
+     state:addressDetails.state,
+     pincode:addressDetails.pincode,
+     typeOfAddress:addressDetails.typeOfAddress
+    })
+    const addAddressResponse=addAddress?.data;
+    setDeliveringDetails((p)=>{
+      return [...p,addAddressResponse]
+    })
+    }
+    catch(e){
+      console.log(e?.response?.statusText)
+    }
+   }
+  console.log(addressDetails)
+  console.log(deliveringDetails)
   return (
     <div className='add-address-container'>
       <div className='add-address-box'>
@@ -14,35 +65,39 @@ const AddAddress = () => {
             <h5>ADD NEW ADDRESS</h5>
             <Divider />
           </div>
-          <div className='delivering-name-mobile'>
-          <TextField id="Name" label="Name" variant="standard" fullWidth required />
-          <TextField id="Mobile" label="Mobile" variant="standard" fullWidth required sx={{marginTop:2}} />
+           <form onSubmit={onAddressSubmit}>
+           <div className='delivering-name-mobile'>
+          <TextField id="Name" label="name" variant="standard" fullWidth required value={addressDetails.name} onChange={(e)=>onAddressFieldUpdate(e,'name')}/>
+          <TextField id="mobileNo" label="Mobile" variant="standard" fullWidth required sx={{marginTop:2}} value={addressDetails.mobileNo}  onChange={(e)=>onAddressFieldUpdate(e,'mobileNo')}/>
           </div>
           <div className='delivering-rest-Details'>
            <div className='delivering-pincode-state'>
-           <TextField id="pincode" label="pincode" variant="standard"  required  />
-           <TextField id="state" label="state" variant="standard" required  />
+           <TextField id="pincode" label="pincode" variant="standard"  required value={addressDetails.pincode}  onChange={(e)=>onAddressFieldUpdate(e,'pincode')} />
+           <TextField id="state" label="state" variant="standard" required value={addressDetails.state}  onChange={(e)=>onAddressFieldUpdate(e,'state')}/>
            </div>
-           <TextField id="street" label="Address(street,near By Area)" variant="standard" fullWidth required sx={{marginTop:2}} />
-           <TextField id="city" label="city/Town" variant="standard" fullWidth required sx={{marginTop:2}} />
+           <TextField id="street" label="Address(street,near By Area)" variant="standard" fullWidth required sx={{marginTop:2}} value={addressDetails.street}  onChange={(e)=>onAddressFieldUpdate(e,'street')}/>
+           <TextField id="city" label="city/Town" variant="standard" fullWidth required sx={{marginTop:2}} value={addressDetails.city}  onChange={(e)=>onAddressFieldUpdate(e,'city')}/>
           </div>
           <div className='type-of-address'>
             <h4>Type of Address</h4>
-            <form>
-              <label>
-                <input type='radio' value='home' name="home"/>
+            <div>
+            <label>
+                <input type='radio' value='Home' name="typeOfAddress" onChange={onRadioButtonUpdate} checked={addressDetails.typeOfAddress==='Home'}/>
                 Home
               </label>
+              
               <label>
-                <input type='radio' value="work"  name="work"/>
+                <input type='radio' value="Work"  name="typeOfAddress" onChange={onRadioButtonUpdate} checked={addressDetails.typeOfAddress==='Work'}/>
                 Work
               </label>
-             </form>
+            </div>
+            
             
           </div>
           <div className='buttons'>
-             <Button variant='contained'>Submit</Button>
+             <Button type='submit' variant='contained'>Submit</Button>
           </div>
+        </form>
          
       </div>
     </div>

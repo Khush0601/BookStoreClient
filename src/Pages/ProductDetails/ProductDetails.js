@@ -88,7 +88,7 @@ const ProductDetails = () => {
         productId:params?.productId
         }
   })
- },[params.productId])
+ },[params?.productId])
 
   React.useEffect(()=>{
   setReviewField((p)=>{
