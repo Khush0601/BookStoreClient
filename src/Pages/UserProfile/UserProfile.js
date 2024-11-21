@@ -1,44 +1,39 @@
 import React, { useContext } from 'react'
 import './UserProfile.css'
-import { deepOrange } from '@mui/material/colors'
-import { Avatar, TextField } from '@mui/material'
 import { Usercontext } from '../../App'
+import { deepOrange } from '@mui/material/colors';
+import { Avatar, Button, Divider} from '@mui/material';
+import { useNavigate } from 'react-router';
 const UserProfile = () => {
     const user=useContext(Usercontext)
     console.log(user)
-
+    const navigate =useNavigate()
   return (
     <div className='user-profile-container'>
       <div className='user-profile-box'>
-          <div className='user-profile-avtar'>
-          <Avatar sx={{ bgcolor: deepOrange[500],width: 60,height: 60 }}>{user?.name.charAt(0).toUpperCase()}</Avatar>
-          </div>
-          <TextField id="Name" label="name" variant="outlined" fullWidth sx={{marginTop:2}}
-           defaultValue={
-          user?.name? user.name.charAt(0).toUpperCase().concat(user.name.slice(1)): ""
-          } 
-          />
-          <TextField id="Email" label="Email" variant="outlined" fullWidth sx={{marginTop:2}}
-            defaultValue={user?.email? user.email:""}
-          />
-          <TextField id="street" label="street" variant="outlined" fullWidth sx={{marginTop:2}}/>
-          <TextField id="city" label="city" variant="outlined" fullWidth sx={{marginTop:2}}/>
-          <TextField id="state" label="state" variant="outlined" fullWidth sx={{marginTop:2}}/>
-          <TextField id="pincode" label="pincode" variant="outlined" fullWidth sx={{marginTop:2}}/>
+         <div className='user-part'>
+           <div className='user-avatar'>
+           <Avatar sx={{ bgcolor: deepOrange[500], width: 50,height:50, }}>N</Avatar>
+           </div>
+           <div className='user-details'>
+             <div>khushboo singh</div>
+             <div>ksunghjnbh</div>
+           </div>
+          
+         </div>
+         <Divider/>
+        <div className='user-address-part'>
+         <h4>Address</h4>
+         <Divider/>
+         <div className='buttons'>
+          <Button variant="contained" sx={{marginRight:2}} onClick={()=>navigate('/userProfile/addAddress')}>Add </Button>
+         <Button variant="contained">Edit</Button>
+         </div>
         </div>
-       {/* <div className='user-profile-name-section'>
-          <h4>Name</h4>
-          <div className='box'>{user?.name.charAt(0).toUpperCase().concat(user.name.slice(1))}</div>
-          </div>
-          <div className='user-profile-email-section'>
-          <h4>Email</h4>
-          <div className='box'>{user?.email}</div>
-          </div>
-          <div className='user-profile-userId-section'>
-          <h4>UserId</h4>
-          <div className='box'>{user?.userId}</div>
-          </div> */}
+      </div>
+       
     </div>
+   
   )
 }
 

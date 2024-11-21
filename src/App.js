@@ -16,6 +16,7 @@ import axios from 'axios';
 import ProductDetails from './Pages/ProductDetails/ProductDetails';
 import Whishlist from './Pages/whishlist/Whishlist';
 import UserProfile from './Pages/UserProfile/UserProfile';
+import AddAddress from './Pages/AddAddress/AddAddress';
 
 export const Usercontext=createContext(null)
 const App = () => {
@@ -93,6 +94,7 @@ const App = () => {
     <Route path='/productDetails/:productId' element={<ProductDetails/>}/>
     <Route path='/whishlist' element={<Whishlist/>}/>
     <Route path="/userProfile" element={<UserProfile/>}/>
+    <Route path="/userProfile/addAddress" element={<AddAddress/>}/>
    </Routes>
 </Usercontext.Provider>
    <Dialog 
