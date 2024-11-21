@@ -1,3 +1,62 @@
 .add-address-container{
-    background-color: lightsalmon;
+    width: 100vw;
+    height: 100vh;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.add-address-box{
+    width: 60%;
+    min-height: 500px;
+    background-color: white;
+    padding: 10px;
+}
+.add-address-title{
+    display: flex;
+}
+.add-address-title>div{
+    padding-right: 10px;
+}
+.add-new-address-title>h5{
+   margin-top: 10px;
+   color:gray;
+  margin-bottom: 10px;
+}
+.delivering-name-mobile{
+    margin-top: 20px;
+    border: 1px solid lightgray;
+    padding: 10px;
+}
+.delivering-rest-Details{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightgray;
+    padding: 10px;
+    margin-top: 20px;
+}
+.delivering-pincode-state{
+    display: flex;
+   gap: 100px;
+   
+}
+.type-of-address{
+    margin-top: 20px;
+    border: 1px solid lightgray;
+    padding: 10px;
+    
+}
+.type-of-address>form{
+    margin-top: 10px;
+    display: flex;
+    gap: 100px;
+    align-items: center;
+}
+.type-of-address>form>label{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.buttons{
+    margin-top: 20px;
 }

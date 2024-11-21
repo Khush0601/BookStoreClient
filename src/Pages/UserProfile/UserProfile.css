@@ -10,8 +10,7 @@
 .user-profile-box{
     width: 60%;
     background-color: white;
-    height: 500px;
-    padding: 10px;
+   padding: 20px;
    
 }
 .user-part{
@@ -30,4 +29,20 @@
 .buttons{
     display: flex;
     margin-top: 10px;
+}
+.address-part{
+    margin-top: 20px;
+}
+.address-box{
+    border: 1px solid lightgray;
+    /* border-radius: 10px; */
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+   
+}
+.address-type{
+    height:30px;
+    padding: 3px ;
+    background-color: rgb(235, 234, 234);
 }
