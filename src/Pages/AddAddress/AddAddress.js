@@ -4,9 +4,11 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Button, Divider, TextField } from '@mui/material';
 import axios from 'axios';
 import { Usercontext } from '../../App';
+import { useNavigate } from 'react-router';
 const AddAddress = () => {
   const user=useContext(Usercontext)
   console.log(user)
+const navigate=useNavigate()
   const addressDetailsForm={
     userId:user?._id,
     name:"",
@@ -58,7 +60,7 @@ const AddAddress = () => {
     <div className='add-address-container'>
       <div className='add-address-box'>
         <div className='add-address-title'>
-          <div><KeyboardBackspaceIcon/></div>
+          <div onClick={()=>navigate(-1)}><KeyboardBackspaceIcon/></div>
           <h4>ADDRESS</h4>
           </div> 
           <div className='add-new-address-title'>

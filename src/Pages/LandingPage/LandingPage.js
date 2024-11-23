@@ -124,7 +124,8 @@ const onSearchClick = async() => {
   try{
        //api call 
       const searchResponse=await axios.get(`http://localhost:8888/thirdProject/api/v1/product?search=${searchInput}`)
-      setSearchResult(searchResponse?.data)
+     console.log(searchResponse?.data)
+      setProducts(searchResponse?.data)
    }
   catch(e){
     console.error('Error fetching search results');
@@ -201,12 +202,13 @@ console.log(searchInput)
         {
           isMobile &&  <div style={{display:'flex',marginLeft:"5px"}}>
           <Search sx={{width: '140px', height: '40px'}}>
-            <SearchIconWrapper>
+            <SearchIconWrapper onClick={onSearchClick}>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              value={searchInput} onChange={(e)=>setSearchInput(e.target.value)}
             />
           </Search>
           <Button onClick={toggleDrawer(true)}><MenuIcon/></Button>
@@ -253,12 +255,10 @@ console.log(searchInput)
      </Typography>
      </Box>
      <div className="product-view">
-      {products.map((product,productIndex)=>{
-         return <ProductCard key={product._id} productProps={product}/>
-      })}
+      
      {/* api call hoke yhi card bnega */}
-    {searchResult.length===0?<h1>No products found</h1>
-    :<>{searchResult?.map((searchedProduct,searchedProductIndex)=>{
+    {products.length===0?<h1>No products found</h1>
+    :<>{products?.map((searchedProduct,searchedProductIndex)=>{
       return <ProductCard key={searchedProduct._id} productProps={searchedProduct}/>
     })}</>}
      </div>

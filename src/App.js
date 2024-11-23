@@ -17,6 +17,7 @@ import ProductDetails from './Pages/ProductDetails/ProductDetails';
 import Whishlist from './Pages/whishlist/Whishlist';
 import UserProfile from './Pages/UserProfile/UserProfile';
 import AddAddress from './Pages/AddAddress/AddAddress';
+import EditAddress from './Pages/EditAddress/EditAddress';
 
 export const Usercontext=createContext(null)
 const App = () => {
@@ -95,6 +96,7 @@ const App = () => {
     <Route path='/whishlist' element={<Whishlist/>}/>
     <Route path="/userProfile" element={<UserProfile/>}/>
     <Route path="/userProfile/addAddress" element={<AddAddress/>}/>
+    <Route path="/userProfile/editAddress" element={<EditAddress/>}/>
    </Routes>
 </Usercontext.Provider>
    <Dialog 

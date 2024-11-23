@@ -5,6 +5,8 @@ import { deepOrange } from '@mui/material/colors';
 import { Avatar, Button, Divider} from '@mui/material';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
+
 const UserProfile = () => {
     const user=useContext(Usercontext)
     console.log(user)
@@ -44,7 +46,8 @@ const UserProfile = () => {
          <Divider/>
          <div className='buttons'>
           <Button variant="contained" sx={{marginRight:2}} onClick={()=>navigate('/userProfile/addAddress')}>Add </Button>
-         <Button variant="contained">Edit</Button>
+         {/* <Button variant="contained">Edit</Button> */}
+         
          </div>
          <div className='address-part'>
           {
@@ -60,6 +63,9 @@ const UserProfile = () => {
              <div className='mobile'>
              <span>Mobile No.-</span>
              <span>{addressDetails?.mobileNo}</span>
+             <NavLink state={addressDetails} to="/userProfile/editAddress">
+             edit
+            </NavLink>
              </div>
 
            </div>
