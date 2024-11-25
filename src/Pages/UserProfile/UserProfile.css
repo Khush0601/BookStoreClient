@@ -1,16 +1,18 @@
 .user-profile-container{
     width: 100vw;
-    height:100vh;
-    background-color:lightgray;
+    background-color:aliceblue;
     display: flex;
     justify-content: center;
     align-items: center;
+    
     
 }
 .user-profile-box{
     width: 60%;
     background-color: white;
    padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
    
 }
 .user-part{
@@ -39,6 +41,7 @@
     padding: 10px;
     display: flex;
     justify-content: space-between;
+    margin:10px
    
 }
 .address-type{

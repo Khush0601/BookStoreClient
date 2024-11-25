@@ -45,7 +45,7 @@ const UserProfile = () => {
          <h4>Address</h4>
          <Divider/>
          <div className='buttons'>
-          <Button variant="contained" sx={{marginRight:2}} onClick={()=>navigate('/userProfile/addAddress')}>Add </Button>
+          <Button variant="contained" sx={{marginRight:2}} onClick={()=>navigate('/userProfile/addAddress')}>Add  New Address</Button>
          {/* <Button variant="contained">Edit</Button> */}
          
          </div>
