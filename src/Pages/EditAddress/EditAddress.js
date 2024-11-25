@@ -4,24 +4,14 @@ import React, { useState } from 'react'
 import { useLocation } from 'react-router'
 import { useNavigate } from 'react-router'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import axios from 'axios'
 const EditAddress = () => {
     const data=useLocation()
     let result=data.state
     console.log(result)
    const navigate=useNavigate()
-    const [editableAddress,setEditableAddress]=useState(()=>result)
-    const editDetailsForm={
-      addressId:editableAddress._id,
-      userId:editableAddress.userId,
-      name:editableAddress.name,
-      mobileNo:editableAddress.mobileNo,
-      pincode:editableAddress.pincode,
-      state:editableAddress.state,
-      street:editableAddress.street,
-      city:editableAddress.city,
-      typeOfAddress:editableAddress.typeOfAddress,
-    }
-    const [editAddress,setEditAddress]=useState(editDetailsForm)
+    
+    const [editAddress,setEditAddress]=useState(()=>result)
     // console.log(editAddress)
     const hadleEditFields=(e,type)=>{
     setEditAddress((p)=>{
@@ -33,8 +23,28 @@ const EditAddress = () => {
     return {...p,typeOfAddress:e.target.value}
    })
     }
+
+    const onEditedAddressFormSubmit=async(e)=>{
+      e.preventDefault()
+     try{
+    const updateAddress=await axios.patch('http://localhost:8888/thirdProject/api/v1/user/updateAddress',{
+      addressId:editAddress._id,
+      name:editAddress.name,
+      mobileNo:editAddress.mobileNo,
+      pincode:editAddress.pincode,
+      state:editAddress.state,
+      street:editAddress.street,
+      city:editAddress.city,
+      typeOfAddress:editAddress.typeOfAddress,
+    })
+    console.log(updateAddress)
+     }
+     catch(e){
+      console.log(e?.response?.statusText)
+     }
+    }
     console.log(editAddress)
-    console.log('editableAddressDetails',editableAddress)
+    // console.log('editableAddressDetails',editableAddress)
   return (
     <div className='edit-address-container'>
       <div className='edit-address-box'>
@@ -46,7 +56,7 @@ const EditAddress = () => {
             <h5>EDIT ADDRESS</h5>
             <Divider />
           </div>
-           <form>
+           <form onSubmit={onEditedAddressFormSubmit}>
            <div className='edit-delivering-name-mobile'>
           <TextField id="Name" label="name" variant="standard" fullWidth required value={editAddress.name} onChange={(e)=>hadleEditFields(e,'name')}/>
           <TextField id="mobileNo" label="Mobile" variant="standard" fullWidth required sx={{marginTop:2}} value={editAddress.mobileNo} onChange={(e)=>hadleEditFields(e,'mobileNo')} />
