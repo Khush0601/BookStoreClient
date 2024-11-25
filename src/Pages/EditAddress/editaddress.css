@@ -1,0 +1,61 @@
+.edit-address-container{
+    width: 100vw;
+    height: 100vh;
+    background-color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.edit-address-box{
+    width: 60%;
+    background-color: white;
+    padding: 10px;
+}
+.edit-address-title{
+    display: flex;
+}
+.edit-address-title>div{
+    padding-right: 10px;
+}
+.edit-new-address-title>h5{
+   margin-top: 10px;
+   color:gray;
+  margin-bottom: 10px;
+}
+.edit-delivering-name-mobile{
+    margin-top: 20px;
+    border: 1px solid lightgray;
+    padding: 10px;
+}
+.edit-delivering-rest-Details{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightgray;
+    padding: 10px;
+    margin-top: 20px;
+}
+.edit-delivering-pincode-state{
+    display: flex;
+   gap: 100px;
+   
+}
+.edit-type-of-address{
+    margin-top: 20px;
+    border: 1px solid lightgray;
+    padding: 10px;
+    
+}
+.edit-type-of-address>div{
+    margin-top: 10px;
+    display: flex;
+    gap: 100px;
+    align-items: center;
+}
+.edit-type-of-address>div>label{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.submit-buttons{
+    margin-top: 20px;
+}

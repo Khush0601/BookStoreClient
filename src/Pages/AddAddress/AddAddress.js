@@ -49,6 +49,7 @@ const navigate=useNavigate()
     setDeliveringDetails((p)=>{
       return [...p,addAddressResponse]
     })
+    setAddressDetails(addressDetailsForm)
     }
     catch(e){
       console.log(e?.response?.statusText)

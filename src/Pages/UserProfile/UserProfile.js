@@ -26,6 +26,21 @@ const UserProfile = () => {
     getAddress()
     },[user?._id])
 
+    const handleSetDefault=async(addressId)=>{
+     try{
+   const sendDefaultValue=await axios.patch('http://localhost:8888/thirdProject/api/v1/user/setDefaultAddress',{
+    userId:user?._id,
+    addressId:addressId
+ })
+   const updatedDefaultValue=sendDefaultValue?.data?.updateAddress
+   console.log(updatedDefaultValue)
+   
+     }
+     catch(e){
+      console.log(e?.response?.statusText)
+     }
+    
+    }
     console.log(addressList)
   return (
     <div className='user-profile-container'>
@@ -51,8 +66,8 @@ const UserProfile = () => {
          </div>
          <div className='address-part'>
           {
-            addressList.length===0?'No Address added':
-            addressList.map((addressDetails,index)=>{
+            addressList?.length===0?'No Address added':
+            addressList?.map((addressDetails,index)=>{
               return  <div className='address-box' key={addressDetails?._id}>
                 <div className='delivering-details'>
               <h5>{addressDetails?.name}</h5>
@@ -67,6 +82,10 @@ const UserProfile = () => {
              edit
             </NavLink>
              </div>
+             <label>
+              <input type='checkbox' value={addressDetails.isDefault} onChange={()=>handleSetDefault(addressDetails?._id)} />
+              Mark this as your default Address
+             </label>
 
            </div>
             <div className='address-type'>{addressDetails?.typeOfAddress}</div>
