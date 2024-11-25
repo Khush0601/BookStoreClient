@@ -11,12 +11,15 @@ const UserProfile = () => {
     const user=useContext(Usercontext)
     console.log(user)
     const [addressList,setAddressList]=useState([])
+    const [defaultAddressId,setDefaultAddressId]=useState('')
     const navigate =useNavigate()
     React.useEffect(()=>{
     const getAddress=async()=>{
      try{
      const address=await axios.get(`http://localhost:8888/thirdProject/api/v1/user/${user._id}/getAllAddresses`)
      const addressResponse=address?.data;
+     let defaultAddress=addressResponse?.find((el)=>el.isDefault==='true')
+     setDefaultAddressId(defaultAddress._id)
      setAddressList(addressResponse)
      }
      catch(e){
@@ -26,7 +29,9 @@ const UserProfile = () => {
     getAddress()
     },[user?._id])
 
-    const handleSetDefault=async(addressId)=>{
+
+   const handleSetDefault=async(addressId)=>{
+    setDefaultAddressId(addressId)
      try{
    const sendDefaultValue=await axios.patch('http://localhost:8888/thirdProject/api/v1/user/setDefaultAddress',{
     userId:user?._id,
@@ -41,6 +46,7 @@ const UserProfile = () => {
      }
     
     }
+    console.log('defaultAddress',defaultAddressId)
     console.log(addressList)
   return (
     <div className='user-profile-container'>
@@ -83,7 +89,7 @@ const UserProfile = () => {
             </NavLink>
              </div>
              <label>
-              <input type='checkbox' value={addressDetails.isDefault} onChange={()=>handleSetDefault(addressDetails?._id)} />
+              <input type='checkbox' checked={addressDetails._id===defaultAddressId} onChange={()=>handleSetDefault(addressDetails?._id)} />
               Mark this as your default Address
              </label>
 
