@@ -99,7 +99,7 @@ const App = () => {
     <Route path="/userProfile" element={<UserProfile/>}/>
     <Route path="/userProfile/addAddress" element={<AddAddress/>}/>
     <Route path="/userProfile/editAddress" element={<EditAddress/>}/>
-    <Route path="/reviewYourOrder/:productId" element={<ReviewYourOrder/>}/>
+    <Route path="/reviewYourOrder" element={<ReviewYourOrder/>}/>
    </Routes>
 </Usercontext.Provider>
    <Dialog 

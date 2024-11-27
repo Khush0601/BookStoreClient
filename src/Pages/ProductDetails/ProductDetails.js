@@ -7,6 +7,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { Usercontext } from '../../App';
 import Footer from '../../Component/Footer/footer'
 import { useNavigate } from 'react-router'
+import { NavLink } from 'react-router-dom'
 const ProductDetails = () => {
   const user=useContext(Usercontext)
   const params=useParams()
@@ -166,10 +167,7 @@ const onReviewFieldUpdate=(e)=>{
   
   }
   
-  const onBuyClick=()=>{
-     navigate(`/reviewYourOrder/${params?.productId}`)
-     
-  }
+
 
   console.log(reviewResult)
   console.log(ratingValues)
@@ -233,7 +231,7 @@ const onReviewFieldUpdate=(e)=>{
                <span>{ratingResult?.averageValue}</span>
                </div>
                <div className='buy-now-button'>
-               <Button variant="contained"  onClick={onBuyClick}>Buy Now</Button>
+               <NavLink state={bookFulldetals} to="/reviewYourOrder"><Button variant="contained" >Buy Now</Button></NavLink>
           </div>
 
             </div>
