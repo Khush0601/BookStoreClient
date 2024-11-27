@@ -18,6 +18,8 @@ import Whishlist from './Pages/whishlist/Whishlist';
 import UserProfile from './Pages/UserProfile/UserProfile';
 import AddAddress from './Pages/AddAddress/AddAddress';
 import EditAddress from './Pages/EditAddress/EditAddress';
+import ReviewYourOrder from './Pages/ReviewYourOrder/ReviewYourOrder';
+
 
 export const Usercontext=createContext(null)
 const App = () => {
@@ -97,6 +99,7 @@ const App = () => {
     <Route path="/userProfile" element={<UserProfile/>}/>
     <Route path="/userProfile/addAddress" element={<AddAddress/>}/>
     <Route path="/userProfile/editAddress" element={<EditAddress/>}/>
+    <Route path="/reviewYourOrder/:productId" element={<ReviewYourOrder/>}/>
    </Routes>
 </Usercontext.Provider>
    <Dialog 

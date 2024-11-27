@@ -1,18 +1,18 @@
 import React, { useContext, useState } from 'react'
 import './ProductDetails.css'
-
 import { useParams } from 'react-router'
 import axios from 'axios'
 import {  Avatar, Box, Button, FormControl, FormLabel,  TextField } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send';
 import { Usercontext } from '../../App';
 import Footer from '../../Component/Footer/footer'
+import { useNavigate } from 'react-router'
 const ProductDetails = () => {
   const user=useContext(Usercontext)
   const params=useParams()
   console.log(params)
-
-  const[petFulldetals,setPetFullDetails]=useState({})
+ const navigate=useNavigate()
+  const[bookFulldetals,setBookFullDetails]=useState({})
  const[reviewField,setReviewField]=useState({
     userName:"",
     userId:"",
@@ -32,18 +32,18 @@ const ProductDetails = () => {
   const[ratingResult,setRatingResult]=useState(0)
 
   React.useEffect(()=>{
-    const fetchPetDetailsById=async()=>{
+    const fetchBookDetailsById=async()=>{
       try{
-    const pet=await axios.get(`http://localhost:8888/thirdProject/api/v1/product/${params.productId}`)
-    const petResponse=pet.data
+    const book=await axios.get(`http://localhost:8888/thirdProject/api/v1/product/${params.productId}`)
+    const bookResponse=book.data
     // console.log(petResponse)
-    setPetFullDetails(petResponse)
+    setBookFullDetails(bookResponse)
       }
       catch(e){
         console.log(e?.response?.statusText)
        }
     }
-    fetchPetDetailsById()
+    fetchBookDetailsById()
   },[params.productId])
   
   React.useEffect(()=>{
@@ -166,8 +166,9 @@ const onReviewFieldUpdate=(e)=>{
   
   }
   
-  const onBuyClick=(productId)=>{
-  // console.log(productId)
+  const onBuyClick=()=>{
+     navigate(`/reviewYourOrder/${params?.productId}`)
+     
   }
 
   console.log(reviewResult)
@@ -175,43 +176,43 @@ const onReviewFieldUpdate=(e)=>{
   console.log(user)
   console.log(ratingResult)
   console.log(reviewField)
-  console.log(petFulldetals)
+  console.log(bookFulldetals)
  
   return (
     <div className='productDetails-container'>
        <div className='productDetails-box'>
         
           <div className='productImg'>
-            <img src={petFulldetals?.image} alt={petFulldetals?.name}/>
+            <img src={bookFulldetals?.image} alt={bookFulldetals?.name}/>
          
           </div>
           <div className='productRestDetails'>
             <div className='product-name'>
-                <h2>{petFulldetals?.name}</h2>
+                <h2>{bookFulldetals?.name}</h2>
             </div>
             <div className='product-short-desc'>
-                <p>{petFulldetals?.shortDescription}</p>
+                <p>{bookFulldetals?.shortDescription}</p>
             </div>
             <div className='product-autor'>
               <h5>author:</h5>
-              <span>{petFulldetals?.author}</span>
+              <span>{bookFulldetals?.author}</span>
             </div>
             <div className='product-price'>
                 <h5>price:</h5>
-                <span>{petFulldetals?.price}</span>
+                <span>{bookFulldetals?.price}</span>
             </div>
             <div className='product-stock-count-and-type'>
                 <div className='in-stock'>
                     <h6>In stock:</h6>
-                    <span>{petFulldetals?.bookAvailable}</span>
+                    <span>{bookFulldetals?.bookAvailable}</span>
                 </div>
                 <div className='type'>
-                    <div>{petFulldetals?.type}</div>
+                    <div>{bookFulldetals?.type}</div>
                 </div>
             </div>
             <div className='product-desc'>
                 <h4>Product Description</h4>
-                <p>{petFulldetals?.description}</p>
+                <p>{bookFulldetals?.description}</p>
             </div>
             <div className='product-rating'>
                <div>
@@ -232,7 +233,7 @@ const onReviewFieldUpdate=(e)=>{
                <span>{ratingResult?.averageValue}</span>
                </div>
                <div className='buy-now-button'>
-               <Button variant="contained"  onClick={()=>onBuyClick(params.productId)}>Buy Now</Button>
+               <Button variant="contained"  onClick={onBuyClick}>Buy Now</Button>
           </div>
 
             </div>
