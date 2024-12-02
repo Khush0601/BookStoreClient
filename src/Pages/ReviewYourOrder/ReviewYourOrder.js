@@ -6,7 +6,8 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Button, Divider } from '@mui/material';
 import { Usercontext } from '../../App';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import {  NavLink } from 'react-router-dom';
+ 
 
  const ReviewYourOrder = () => {
   const user=useContext(Usercontext)
@@ -31,6 +32,29 @@ import { Link } from 'react-router-dom';
     }
     getDefaultAddress()
   },[user?._id])
+
+  const onPayment=async()=>{
+
+    try{
+     const paymentDetails=await axios.post('http://localhost:8888/thirdProject/api/v1/order/onPayment',{
+      productId:orderFullDetails?._id,
+      userId:user?._id,
+      addressId:defaultAddress?._id
+})
+    console.log('paymentDetails',paymentDetails)
+    const cashfree = window.Cashfree({
+      mode: "sandbox"
+  });
+  const checkoutOptions = {
+    paymentSessionId: paymentDetails.data.payment_session_id ,
+    redirectTarget: '_self',
+  };
+  cashfree.checkout(checkoutOptions);
+    }
+    catch(e){
+     console.log(e)
+    }
+  }
   console.log('orderDetails',orderFullDetails)
   console.log('defaultAddress',defaultAddress)
   return (
@@ -62,14 +86,15 @@ import { Link } from 'react-router-dom';
         <p>{defaultAddress?.city}</p>
         <p>{defaultAddress?.state}</p>
         <p>{defaultAddress?.pincode}</p>
-        <Link to='/userProfile'>Change Address</Link>
+        <NavLink to='/userProfile' state={{page:'payment'}}>Change Address</NavLink>
         </div>
         <div>
           {defaultAddress?.typeOfAddress}
         </div>
         </div>
         <div className='proceed-button'>
-          <Button variant='contained'>Proceed For Payment</Button>
+          <Button variant='contained' onClick={onPayment}>Proceed For Payment</Button>
+
         </div>
       </div>
     </div>

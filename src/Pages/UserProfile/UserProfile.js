@@ -3,13 +3,16 @@ import './UserProfile.css'
 import { Usercontext } from '../../App'
 import { deepOrange } from '@mui/material/colors';
 import { Avatar, Button, Divider} from '@mui/material';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 
 const UserProfile = () => {
     const user=useContext(Usercontext)
     console.log(user)
+    const location=useLocation()
+    let isRedirectionPage=location.state
+    console.log(isRedirectionPage)
     const [addressList,setAddressList]=useState([])
     const [defaultAddressId,setDefaultAddressId]=useState('')
     const navigate =useNavigate()
@@ -38,6 +41,9 @@ const UserProfile = () => {
     addressId:addressId
  })
    const updatedDefaultValue=sendDefaultValue?.data?.updateAddress
+   if(isRedirectionPage.page==='payment'){
+     navigate(-1)
+   }
    console.log(updatedDefaultValue)
    
      }
