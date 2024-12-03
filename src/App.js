@@ -85,7 +85,7 @@ const App = () => {
   console.log(loginForm)
   console.log(user)
   return (
- <>
+ <div className='dark app'>
  <Usercontext.Provider value={user}>
    <Routes>
     <Route index element={<Navigate to="/home"/>}/>
@@ -138,7 +138,7 @@ const App = () => {
         
         </DialogActions>
         </Dialog>
-</>
+</div>
   )
 }
 

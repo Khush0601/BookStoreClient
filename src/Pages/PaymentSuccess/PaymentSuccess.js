@@ -12,11 +12,13 @@ const PaymentSuccess = () => {
     const updatedData=await axios.patch('http://localhost:8888/thirdProject/api/v1/order/onPaymentStatus',{
         orderId:params.paymentId
     })
-    navigate('/home')
+    setTimeout(()=>{
+      navigate('/home')
+    },4000)
     console.log(updatedData)
     }
     catch(e){
-
+    console.log(e?.response?.statusText)
     }
     }
     updateOrder()
