@@ -60,3 +60,10 @@
 .buttons{
     margin-top: 20px;
 }
+@media (min-width:0px) and (max-width:425px){
+    .type-of-address>div{
+       
+        gap: 30px;
+       
+    }
+}

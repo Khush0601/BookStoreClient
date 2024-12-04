@@ -6,6 +6,7 @@ import { Avatar, Button, Divider} from '@mui/material';
 import { useLocation, useNavigate } from 'react-router';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
+import EditIcon from '@mui/icons-material/Edit';
 
 const UserProfile = () => {
     const user=useContext(Usercontext)
@@ -91,7 +92,7 @@ const UserProfile = () => {
              <span>Mobile No.-</span>
              <span>{addressDetails?.mobileNo}</span>
              <NavLink state={addressDetails} to="/userProfile/editAddress">
-             edit
+             <EditIcon/>
             </NavLink>
              </div>
              <label>
@@ -100,7 +101,7 @@ const UserProfile = () => {
              </label>
 
            </div>
-            <div className='address-type'>{addressDetails?.typeOfAddress}</div>
+         <div className='address-type'>{addressDetails?.typeOfAddress}</div>
             </div>
             })
           }

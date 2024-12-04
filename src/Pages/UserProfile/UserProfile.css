@@ -47,3 +47,18 @@
     padding: 3px ;
     background-color: rgb(235, 234, 234);
 }
+@media (min-width:0px) and (max-width:425px){
+    .address-box{
+        
+        display: flex;
+        flex-direction: column;
+        margin:10px;
+        
+       
+    }
+    .address-type{
+       color: rgb(35, 35, 237);
+       background-color: white;
+       
+    }
+}
