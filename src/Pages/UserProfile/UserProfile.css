@@ -6,19 +6,26 @@
     align-items: center;
  }
 .user-profile-box{
-    width: 60%;
+    width: 75%;
     background-color: white;
    padding: 20px;
   margin-top: 20px;
   margin-bottom: 20px;
    
 }
+.address-heading{
+    display: flex;
+    align-items: center;
+    gap: 5;
+    justify-content: center;
+}
 .user-part{
     display: flex;
     margin-bottom: 10px;
+    align-items: center;
 }
 .user-details{
-    padding-left: 10px;
+    padding-left: 5px;
 }
 .user-address-part{
     padding-top: 10px;

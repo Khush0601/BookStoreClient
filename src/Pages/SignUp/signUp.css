@@ -17,9 +17,17 @@
     padding-top: 5px;
    color: gray;
 }
-@media (min-Width:425px) and (max-width:775px){
+.signUp-title{
+    display: flex;
+    align-items: center;
+   
+}
+.signUp-title>h2{
+    margin-left: 5px;
+}
+@media (min-Width:0px) and (max-width:425px){
     .signUp-modal{
-        width:400px;
+        width:90%;
         padding: 10px;
       }
 }

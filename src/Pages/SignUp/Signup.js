@@ -4,7 +4,7 @@ import { Alert, Box, Button, TextField } from '@mui/material'
 import Password from '../../lib/Password/Password'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
-
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 
 const Signup = () => {
@@ -96,7 +96,10 @@ setTimeout(()=>{
     <div className='signUp-container'>
       <div className='signUp-modal'>
         <div className='signUp-header'>
-          <h2>SignUp Form</h2>
+       <div className='signUp-title'>
+       <div onClick={()=>navigate(-1)}><KeyboardBackspaceIcon/></div>
+       <h2>SignUp Form</h2>
+       </div>
           <h5>Please fill the form to create an account</h5>
         </div>
        {
@@ -106,7 +109,7 @@ setTimeout(()=>{
       component="form"
       noValidate
       autoComplete="off"
-      sx={{width:360,minHeight:350}}
+      sx={{maxWidth:360,minHeight:350}}
       onSubmit={onSignUpformSubmit}
     >
      <TextField id="Name" label="Name" variant="outlined" fullWidth sx={{marginTop:1.5}}  value={signUpForm.name} onChange={(e)=>onSignUpFormUpdate(e,'name')} onFocus={(e)=>onSignUpFocuusUpdate(e,'name')}/>

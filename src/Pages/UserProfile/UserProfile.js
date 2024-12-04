@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from 'react-router';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 const UserProfile = () => {
     const user=useContext(Usercontext)
@@ -59,6 +60,7 @@ const UserProfile = () => {
     <div className='user-profile-container'>
       <div className='user-profile-box'>
          <div className='user-part'>
+        
            <div className='user-avatar'>
            <Avatar sx={{ bgcolor: deepOrange[500], width: 50,height:50, }}>{user?.name?.charAt(0).toUpperCase()}</Avatar>
            </div>
@@ -70,7 +72,10 @@ const UserProfile = () => {
          </div>
          <Divider/>
         <div className='user-address-part'>
-         <h4>Address</h4>
+       <div style={{display:'flex',gap:'2'}}>
+       <div onClick={()=>navigate(-1)}><KeyboardBackspaceIcon/></div>
+       <h4>Address</h4>
+       </div>
          <Divider/>
          <div className='buttons'>
           <Button variant="contained" sx={{marginRight:2}} onClick={()=>navigate('/userProfile/addAddress')}>Add  New Address</Button>

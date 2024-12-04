@@ -7,6 +7,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { Usercontext } from '../../App';
 import Footer from '../../Component/Footer/footer'
 import { useNavigate } from 'react-router'
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { NavLink } from 'react-router-dom'
 const ProductDetails = () => {
   const user=useContext(Usercontext)
@@ -179,7 +180,7 @@ const onReviewFieldUpdate=(e)=>{
   return (
     <div className='productDetails-container'>
        <div className='productDetails-box'>
-        
+       <div onClick={()=>navigate(-1)}><KeyboardBackspaceIcon/></div>
           <div className='productImg'>
             <img src={bookFulldetals?.image} alt={bookFulldetals?.name}/>
          

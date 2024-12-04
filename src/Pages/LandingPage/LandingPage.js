@@ -182,10 +182,11 @@ console.log(searchInput)
 
        
         <Search>
-            <SearchIconWrapper onClick={onSearchClick}>
+        <SearchIconWrapper onClick={onSearchClick}>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} value={searchInput} onChange={(e)=>setSearchInput(e.target.value)} />
+           <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} value={searchInput} onChange={(e)=>setSearchInput(e.target.value)} />
+           
         </Search>
          {
           user ? <div className='user_present'>
