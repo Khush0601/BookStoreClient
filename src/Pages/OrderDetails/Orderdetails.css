@@ -1,13 +1,31 @@
 .order-contaiener{
     width: 100vw;
-    height: 100vh;
-    background-color: aliceblue;
+   background-color: aliceblue;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 .order-box{
-    width: 70%;
-    height: 200px;
-    background-color: lightgray;
+    width: 100%;
+   background-color: aliceblue;
+    padding: 10px;
+}
+.order-title{
+    display: flex;
+}
+.order-title>div{
+    padding-right: 10px;
+}
+.orders{
+    background-color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+    padding: 10px;
+    display: flex;
+   
+}
+.rest{
+    margin-left: 20px;
 }
