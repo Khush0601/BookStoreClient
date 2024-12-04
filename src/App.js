@@ -20,6 +20,7 @@ import AddAddress from './Pages/AddAddress/AddAddress';
 import EditAddress from './Pages/EditAddress/EditAddress';
 import ReviewYourOrder from './Pages/ReviewYourOrder/ReviewYourOrder';
 import PaymentSuccess from './Pages/PaymentSuccess/PaymentSuccess';
+import OrderDetails from './Pages/OrderDetails/OrderDetails';
 
 
 export const Usercontext=createContext(null)
@@ -102,6 +103,7 @@ const App = () => {
     <Route path="/userProfile/editAddress" element={<EditAddress/>}/>
     <Route path="/reviewYourOrder" element={<ReviewYourOrder/>}/>
     <Route path="/home/payment/success/:paymentId" element={<PaymentSuccess/>} />
+    <Route path="/orders" element={<OrderDetails/>}/>
    </Routes>
 </Usercontext.Provider>
    <Dialog 

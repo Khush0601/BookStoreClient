@@ -1,0 +1,13 @@
+.order-contaiener{
+    width: 100vw;
+    height: 100vh;
+    background-color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.order-box{
+    width: 70%;
+    height: 200px;
+    background-color: lightgray;
+}
