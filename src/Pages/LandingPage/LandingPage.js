@@ -75,6 +75,7 @@ const LandingPage = ({handleClickOpen,setUser}) => {
   const [searchResult,setSearchResult]=useState([])
   const [searchInput,setSearchInput]=useState('')
   const navigate =useNavigate()
+  
 
   const toggleDrawer = (newOpen) => () => {
     setOpenDrawer(newOpen);
@@ -134,8 +135,23 @@ const onSearchClick = async() => {
    };
  const DrawerList = (
   <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+  {
+    user &&<>
+    <div className='user-InMobile'>
+    <span>
+    <Avatar sx={{ bgcolor: deepOrange[500] }} onClick={()=>{
+            navigate('/userProfile')
+          }}>{user?.name.charAt(0).toUpperCase()}</Avatar>
+    </span>
+    <span style={{marginLeft:10}}>{user?.name.toUpperCase()}</span>
+  
+  </div>
+  <Divider/>
+    </>
+  }
+ 
     <List>
-      {["Home","Courses","Contact","About","Login"].map((text, index) => (
+      {["Home","Courses","Contact","About","Login","LogOut"].map((text, index) => (
        
         <ListItem key={text} disablePadding>
           <ListItemButton>

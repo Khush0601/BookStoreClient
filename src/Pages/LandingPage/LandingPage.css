@@ -83,6 +83,11 @@ justify-content: center;
 .user_present{
     display: flex;
 }
+.user-InMobile{
+    display: flex;
+    padding: 10px;
+    align-items: center;
+}
 
 @media (min-width:775px) and (max-width:1040px){
     .landing-page-image>img{
