@@ -33,8 +33,8 @@ const About = () => {
       as well as managing inventory and customer interactions.
       </p>
      <h2>User Features:</h2>
-      <div class='about-card'>
-      <div class='features'>
+      <div className='about-card'>
+      <div className='features'>
       <h4>User Features:</h4>
         <p>Browse Books: Users can browse a catalog of books, categorized by genre, author, or bestsellers.</p>
         <p>Search Functionality: Users can search for books based on titles, authors, ISBNs, or categories. </p>

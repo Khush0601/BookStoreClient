@@ -66,6 +66,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const LandingPage = ({handleClickOpen,setUser}) => {
   const isMobile = useMediaQuery({ query: '(max-width: 775px)' })
+  const isSmallMobile=useMediaQuery({query:'(max-width:382px)'})
   const pages=["Home","Courses","Contact","About"]
   const[products,setProducts]=useState([])
   const user=useContext(Usercontext)
@@ -155,15 +156,16 @@ console.log(searchResult)
 console.log(searchInput)
   return (
     <div className='landing-page-container'>
-    <Box>
+   <header>
+     <Box>
       <AppBar position="static">
         <Toolbar sx={{backgroundColor:"white",color:"black"}} className='landing-page-header'>
-         <Typography className='logo-part'>
-         <Typography>
-          <img src={bookIcon} alt='bookicon' width={50} height={50}/>
+         <Typography className='logo-part' component='div'>
+         <Typography component='div'>
+          <img src={bookIcon} alt='bookicon' width={isSmallMobile?35:50} height={isSmallMobile?35:50}/>
           </Typography>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Bookstore
+          <Typography variant={isSmallMobile?'p':"h6"} component="div" sx={{ flexGrow: 1 }}>
+           {!isSmallMobile && 'BookStore'}
           </Typography>
          </Typography>
          <Snackbar
@@ -202,12 +204,12 @@ console.log(searchInput)
         }
         {
           isMobile &&  <div style={{display:'flex',marginLeft:"5px"}}>
-          <Search sx={{width: '140px', height: '40px'}}>
+          <Search sx={{width:isSmallMobile?'110px':'140px', height: '40px'}}>
             <SearchIconWrapper onClick={onSearchClick}>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder={isSmallMobile?'se..':"search..."}
               inputProps={{ 'aria-label': 'search' }}
               value={searchInput} onChange={(e)=>setSearchInput(e.target.value)}
             />
@@ -221,10 +223,14 @@ console.log(searchInput)
         </Toolbar>
       </AppBar>
     </Box>
-    <Box className='landing-page-content'>
+   </header>
+  
+    
+   <section>
+     <Box className='landing-page-content'>
      <Box className='landing-page-main-content'>
-     <Typography>
-      <Typography variant={isMobile?'h5':'h4'}>
+     <Typography component='div'>
+      <Typography variant={isMobile?'h5':'h4'} component='div'>
        Hello,welcomes here to learn
       </Typography>
       <Typography variant={isMobile?'h5':'h4'}>
@@ -236,7 +242,7 @@ console.log(searchInput)
      A used bookstore or second-hand bookshop sells and often buys used books.
       Some modern bookstore combine the books.
      </Typography>
-     <Typography className='landing-page-emailBox'>
+     <Typography className='landing-page-emailBox' component='div'>
      <TextField inputProps={{style:{height:"15px"}}} fullWidth label="Email" id="fullWidth" />
      </Typography>
      </Typography>
@@ -260,10 +266,14 @@ console.log(searchInput)
      {/* api call hoke yhi card bnega */}
     {products.length===0?<h1>No products found</h1>
     :<>{products?.map((searchedProduct,searchedProductIndex)=>{
-      return <ProductCard key={searchedProduct._id} productProps={searchedProduct}/>
+      return <ProductCard key={searchedProduct._id} productProps={searchedProduct} width={isSmallMobile?250:310} margin={isSmallMobile?0:2}
+       marginTop={isSmallMobile?2.5:5} marginBottom={isSmallMobile?2.5:5} />
     })}</>}
      </div>
-     <Footer/>
+   </section>
+    <footer>
+       <Footer/>
+    </footer>
      
     </div>
   )

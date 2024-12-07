@@ -72,7 +72,7 @@ const UserProfile = () => {
          </div>
          <Divider/>
         <div className='user-address-part'>
-       <div style={{display:'flex',gap:'2'}}>
+       <div className='address-heading'>
        <div onClick={()=>navigate(-1)}><KeyboardBackspaceIcon/></div>
        <h4>Address</h4>
        </div>

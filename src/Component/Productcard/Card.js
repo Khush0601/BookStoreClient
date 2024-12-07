@@ -9,7 +9,8 @@ import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
 import { useNavigate } from "react-router";
 
-const ProductCard=({productProps})=>{
+const ProductCard=({productProps,width=310,margin=30,marginTop=30,marginBottom=30})=>{
+  
   const navigate=useNavigate()
   let price=productProps.price
   if(productProps.price==='0'){
@@ -21,11 +22,15 @@ const ProductCard=({productProps})=>{
    navigate(`/productDetails/${productId}`)
   }
 return (
-    <div >
+    <div>
      <Card  sx={{
-        width: 310,
+        width: width,
         boxShadow:"rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
-        margin:"30px",
+        margin:margin,
+        marginTop:marginTop,
+        marginBottom:marginBottom,
+
+        
      }}
      onClick={()=>onProductCardClick(productProps)}
       >
