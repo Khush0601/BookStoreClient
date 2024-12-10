@@ -1,12 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './About.css'
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { AppBar } from '@mui/material';
+import { AppBar, Avatar } from '@mui/material';
 import bookIcon from '../../Assets/bookIcon.jpg'
 import Footer from '../../Component/Footer/footer';
+import TestmonialCard from '../../Component/TestimonailsCard/TestmonialCard';
+import { Swiper, SwiperSlide } from 'swiper/react';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+
+// import required modules
+import { Pagination } from 'swiper/modules';
+import axios from 'axios';
+
 const About = () => {
+  const [testimonialDatas,setTestimonialDatas]=useState([])
+  React.useEffect(()=>{
+   const getTestimonialData=async()=>{
+    try{
+    const testimonialData=await axios.get('http://localhost:8888/thirdProject/api/v1/testimonial/getTestimonial')
+    setTestimonialDatas(testimonialData?.data)
+    }
+    catch(e){
+      console.log(e?.response?.statusText)
+    }
+   }
+   getTestimonialData()
+  },[])
+  console.log('testimonialData',testimonialDatas)
   return (
     <div className='about-container'>
        <Box sx={{ flexGrow: 1 }}>
@@ -45,6 +70,26 @@ const About = () => {
 
       </div>
     </div>
+    <div className='testimonials-container'>
+      <h1>Testimonials</h1>
+      <div className='testimonial-cards'>
+      {
+      testimonialDatas?.length===0? <h3>No Datas Added</h3>:
+      <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
+        {
+          testimonialDatas.map((testimonialDetails,index)=>{
+        return <SwiperSlide key={testimonialDetails?.userId}>
+                  <TestmonialCard testimonialDetails={testimonialDetails} />
+             </SwiperSlide>
+      }) }
+       </Swiper>
+      
+     }
+      </div>
+    </div>
+  
+    
+    
    </div>
    <Footer/>
     </div>

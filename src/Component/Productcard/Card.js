@@ -29,6 +29,7 @@ return (
         margin:margin,
         marginTop:marginTop,
         marginBottom:marginBottom,
+        padding:"5px"
 
         
      }}
@@ -41,6 +42,7 @@ return (
           width="250"
           image={productProps.image}
           alt="book img"
+          
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
