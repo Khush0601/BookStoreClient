@@ -16,8 +16,13 @@ import 'swiper/css/pagination';
 // import required modules
 import { Pagination } from 'swiper/modules';
 import axios from 'axios';
+import { useMediaQuery } from 'react-responsive';
 
 const About = () => {
+  const isTablet = useMediaQuery({ query: '(min-width: 912px) and (max-width:1245px)' })
+ 
+  const isDesktop=useMediaQuery({query:'(min-width:1245px)'})
+  console.log(isDesktop)
   const [testimonialDatas,setTestimonialDatas]=useState([])
   React.useEffect(()=>{
    const getTestimonialData=async()=>{
@@ -75,21 +80,31 @@ const About = () => {
       <div className='testimonial-cards'>
       {
       testimonialDatas?.length===0? <h3>No Datas Added</h3>:
-      <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
+      <Swiper
+        slidesPerView={isDesktop?3:isTablet?2:1}
+        spaceBetween={10}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[Pagination]}
+        className="mySwiper"
+      >
         {
           testimonialDatas.map((testimonialDetails,index)=>{
         return <SwiperSlide key={testimonialDetails?.userId}>
-                  <TestmonialCard testimonialDetails={testimonialDetails} />
+                 <div className='uuu'> <TestmonialCard testimonialDetails={testimonialDetails} /></div>
              </SwiperSlide>
       }) }
-       </Swiper>
+      </Swiper>
       
      }
       </div>
     </div>
   
     
-    
+    <div>
+     
+    </div>
    </div>
    <Footer/>
     </div>
