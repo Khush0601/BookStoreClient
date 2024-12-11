@@ -46,7 +46,7 @@
       }
   .userId-error{
     font-size: 15px;
-
+    height: 30px;
   }
   .password-error{
     font-size: 14px;

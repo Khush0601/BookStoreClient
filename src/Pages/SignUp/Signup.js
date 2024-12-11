@@ -83,11 +83,11 @@ setTimeout(()=>{
 }
  }
  catch(e){
-  console.log(e)
-  setErrorMessage((p)=>{
- return {...p,serverError:e.response.data.message??e.message}
-  })
- }
+ 
+setErrorMessage((p)=>{
+ return {...p,serverError:e?.response?.request?.statusText }
+})
+  }
 }
  
  console.log(errorMessage)
@@ -113,18 +113,18 @@ setTimeout(()=>{
       onSubmit={onSignUpformSubmit}
     >
      <TextField id="Name" label="Name" variant="outlined" fullWidth sx={{marginTop:1.5}}  value={signUpForm.name} onChange={(e)=>onSignUpFormUpdate(e,'name')} onFocus={(e)=>onSignUpFocuusUpdate(e,'name')}/>
-    <div style={{height:'20px'}}>{errorMessage?.name && <div style={{color:"red"}}>{errorMessage?.name}</div>}</div>
+    <div className='name-error'>{errorMessage?.name && <div style={{color:"red"}}>{errorMessage?.name}</div>}</div>
      <TextField id="Email" label="Email" variant="outlined" fullWidth sx={{marginTop:1.5}} value={signUpForm.email} onChange={(e)=>onSignUpFormUpdate(e,'email')} onFocus={(e)=>onSignUpFocuusUpdate(e,'email')}/>
-    <div style={{height:'20px'}}> {errorMessage?.email && <div style={{color:"red"}}>{errorMessage?.email}</div>}</div>
+    <div className='email-error'> {errorMessage?.email && <div style={{color:"red"}}>{errorMessage?.email}</div>}</div>
      <TextField id="userId" label="UserId" variant="outlined" fullWidth  sx={{marginTop:1.5}} value={signUpForm.userId} onChange={(e)=>onSignUpFormUpdate(e,'userId')} onFocus={(e)=>onSignUpFocuusUpdate(e,'userId')}/>
      <div className='userId-error'>{errorMessage?.userId && <div style={{color:"red"}}>{errorMessage?.userId}</div>}</div>
      <Password label={"Password"} id={'Password'} value={signUpForm.password} onChange={(e)=>onSignUpFormUpdate(e,'password')} onFocus={(e)=>onSignUpFocuusUpdate(e,'password')}/>
      <div className='password-error'>{errorMessage?.password && <div style={{color:"red"}}>{errorMessage?.password}</div>}</div>
      <Password label={"Confirm Password"} id={"Confirm Password"} value={signUpForm.component} onChange={(e)=>onSignUpFormUpdate(e,'confirmPassword')} onFocus={(e)=>onSignUpFocuusUpdate(e,'confirmPassword')}/>
-     <div style={{height:'20px'}}>{errorMessage?.confirmPassword && <div style={{color:"red"}}>{errorMessage?.confirmPassword}</div>}</div>
+     <div className='confirm-password-error'>{errorMessage?.confirmPassword && <div style={{color:"red"}}>{errorMessage?.confirmPassword}</div>}</div>
      <Button type='submit' variant='contained' sx={{marginTop:2}}>SUBMIT</Button>
      {
-      errorMessage?.serverError && <Alert variant="filled" severity="error">{errorMessage?.serverError}</Alert>
+      errorMessage?.serverError && <div className='server-error'><Alert variant="filled" severity="error">{errorMessage?.serverError}</Alert></div>
      }
      
      
