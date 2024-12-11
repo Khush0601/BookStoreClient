@@ -44,13 +44,13 @@ const Signup = () => {
    error.email='email is not valid'
  }
  if(!userIdRegex.test(formdata?.userId)){
-error.userId="User ID must be 3-15 characters and can only contain letters, numbers, or underscores'"
+error.userId="User ID must be 3-15 characters and can only contain letters,numbers or underscores"
  }
 if(!passwordRegex.test(formdata?.password)){
-  error.password='Password must be at least 8 characters long, and include an uppercase letter, a lowercase letter, a number, and a special character';
+  error.password='Password should contain 8 characters,an uppercase,a lowercase,a number,and special character';
 }
 if(formdata?.confirmPassword===''){
-  error.confirmPassword='conirmPassword  and password should be same'
+  error.confirmPassword='confirmPassword  and password should be same'
 }
  return error
  }
@@ -113,15 +113,15 @@ setTimeout(()=>{
       onSubmit={onSignUpformSubmit}
     >
      <TextField id="Name" label="Name" variant="outlined" fullWidth sx={{marginTop:1.5}}  value={signUpForm.name} onChange={(e)=>onSignUpFormUpdate(e,'name')} onFocus={(e)=>onSignUpFocuusUpdate(e,'name')}/>
-     {errorMessage?.name && <div style={{color:"red"}}>{errorMessage?.name}</div>}
+    <div style={{height:'20px'}}>{errorMessage?.name && <div style={{color:"red"}}>{errorMessage?.name}</div>}</div>
      <TextField id="Email" label="Email" variant="outlined" fullWidth sx={{marginTop:1.5}} value={signUpForm.email} onChange={(e)=>onSignUpFormUpdate(e,'email')} onFocus={(e)=>onSignUpFocuusUpdate(e,'email')}/>
-     {errorMessage?.email && <div style={{color:"red"}}>{errorMessage?.email}</div>}
+    <div style={{height:'20px'}}> {errorMessage?.email && <div style={{color:"red"}}>{errorMessage?.email}</div>}</div>
      <TextField id="userId" label="UserId" variant="outlined" fullWidth  sx={{marginTop:1.5}} value={signUpForm.userId} onChange={(e)=>onSignUpFormUpdate(e,'userId')} onFocus={(e)=>onSignUpFocuusUpdate(e,'userId')}/>
-     {errorMessage?.userId && <div style={{color:"red"}}>{errorMessage?.userId}</div>}
+     <div className='userId-error'>{errorMessage?.userId && <div style={{color:"red"}}>{errorMessage?.userId}</div>}</div>
      <Password label={"Password"} id={'Password'} value={signUpForm.password} onChange={(e)=>onSignUpFormUpdate(e,'password')} onFocus={(e)=>onSignUpFocuusUpdate(e,'password')}/>
-     {errorMessage?.password && <div style={{color:"red"}}>{errorMessage?.password}</div>}
+     <div className='password-error'>{errorMessage?.password && <div style={{color:"red"}}>{errorMessage?.password}</div>}</div>
      <Password label={"Confirm Password"} id={"Confirm Password"} value={signUpForm.component} onChange={(e)=>onSignUpFormUpdate(e,'confirmPassword')} onFocus={(e)=>onSignUpFocuusUpdate(e,'confirmPassword')}/>
-     {errorMessage?.confirmPassword && <div style={{color:"red"}}>{errorMessage?.confirmPassword}</div>}
+     <div style={{height:'20px'}}>{errorMessage?.confirmPassword && <div style={{color:"red"}}>{errorMessage?.confirmPassword}</div>}</div>
      <Button type='submit' variant='contained' sx={{marginTop:2}}>SUBMIT</Button>
      {
       errorMessage?.serverError && <Alert variant="filled" severity="error">{errorMessage?.serverError}</Alert>

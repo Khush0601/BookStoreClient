@@ -12,7 +12,21 @@
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 }
-
+.userId-error{
+    height:25px;
+}
+.password-error{
+    height:25px;
+}
+.name-error{
+    height:25px;
+}
+.email-error{
+    height:25px;
+}
+.confirm-password-error{
+    height:25px;
+}
 .signUp-header>h5{
     padding-top: 5px;
    color: gray;
@@ -30,4 +44,12 @@
         width:90%;
         padding: 10px;
       }
+  .userId-error{
+    font-size: 15px;
+
+  }
+  .password-error{
+    font-size: 14px;
+    height: 38px;
+  }
 }
