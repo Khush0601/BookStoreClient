@@ -1,0 +1,40 @@
+.contact-cont{
+    width:100Vw;
+    height:100vh;
+   
+}
+.contact-form-container{
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+     justify-content: center;
+     align-items: center;
+     background-color: aliceblue;
+    
+    
+     
+   
+}
+.contact-form{
+    
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    /* background-color: rgb(100, 158, 158); */
+   
+   
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.contact-form>h1{
+    text-align: center;
+    margin-bottom: 10px;
+}
+@media (min-width:0px) and (max-width:425px){
+    .contact-form{
+    
+        width: 280px;
+       
+       
+    }
+}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './signUp.css'
 import { Alert, Box, Button, TextField } from '@mui/material'
 import Password from '../../lib/Password/Password'
@@ -19,6 +19,7 @@ const Signup = () => {
  const [signUpForm,setSignUpForm]=useState(initForm)
  const [errorMessage,setErrorMessage]=useState({...initForm,serverError:''})
  const [showMessage,setShowMessage]=useState('')
+ const [showAlert, setShowAlert] = useState(false)
   const navigate=useNavigate()
   const onSignUpFocuusUpdate = (e,type) => {
     setErrorMessage((p) => {
@@ -83,12 +84,19 @@ setTimeout(()=>{
 }
  }
  catch(e){
- 
 setErrorMessage((p)=>{
  return {...p,serverError:e?.response?.request?.statusText }
 })
-  }
+setShowAlert(true)
 }
+}
+useEffect(()=>{
+  if(showAlert){
+    setTimeout(()=>{
+      setShowAlert(false)
+    },3000)
+  }
+},[showAlert])
  
  console.log(errorMessage)
  console.log(signUpForm)
@@ -124,7 +132,7 @@ setErrorMessage((p)=>{
      <div className='confirm-password-error'>{errorMessage?.confirmPassword && <div style={{color:"red"}}>{errorMessage?.confirmPassword}</div>}</div>
      <Button type='submit' variant='contained' sx={{marginTop:2}}>SUBMIT</Button>
      {
-      errorMessage?.serverError && <div className='server-error'><Alert variant="filled" severity="error">{errorMessage?.serverError}</Alert></div>
+      (errorMessage?.serverError && showAlert) &&  <div className='server-error'><Alert variant="filled" severity="error">{errorMessage?.serverError}</Alert></div>
      }
      
      

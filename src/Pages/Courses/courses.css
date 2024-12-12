@@ -41,7 +41,7 @@
     border: 2px solid black;
     padding: 8px;
     margin-top: 10px;
-    
+    border-radius: 10px;
     transform: scale(0.8);
  }
  .content>div:hover{

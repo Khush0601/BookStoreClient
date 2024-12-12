@@ -92,7 +92,7 @@ const About = () => {
         {
           testimonialDatas.map((testimonialDetails,index)=>{
         return <SwiperSlide key={testimonialDetails?.userId}>
-                 <div className='uuu'> <TestmonialCard testimonialDetails={testimonialDetails} /></div>
+                 <div className='swiper-container'> <TestmonialCard testimonialDetails={testimonialDetails} /></div>
              </SwiperSlide>
       }) }
       </Swiper>

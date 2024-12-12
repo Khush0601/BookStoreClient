@@ -95,6 +95,7 @@ const LandingPage = ({handleClickOpen,setUser}) => {
  React.useEffect(()=>{
  getproducts()
  },[])
+
  const handleClick=(el)=>{
   if(el==="Courses"){
     navigate("/courses")
@@ -112,6 +113,10 @@ const LandingPage = ({handleClickOpen,setUser}) => {
   else if(el==="Login"){
     handleClickOpen()
   }
+  else if(el==="LogOut"){
+   onLogoutClick()
+  }
+ 
  
  }
  

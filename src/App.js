@@ -21,6 +21,7 @@ import EditAddress from './Pages/EditAddress/EditAddress';
 import ReviewYourOrder from './Pages/ReviewYourOrder/ReviewYourOrder';
 import PaymentSuccess from './Pages/PaymentSuccess/PaymentSuccess';
 import OrderDetails from './Pages/OrderDetails/OrderDetails';
+import PrivateRoutes from './PrivateRoutes/PrivateRoutes';
 
 
 export const Usercontext=createContext(null)
@@ -74,7 +75,7 @@ const App = () => {
    }
    setTimeout(()=>{
     handleClose()
-   },1500)
+   },1000)
     
   }
    }
@@ -98,10 +99,10 @@ const App = () => {
     <Route path='/contact' element={<Contact/>}/>
     <Route path='/productDetails/:productId' element={<ProductDetails/>}/>
     <Route path='/whishlist' element={<Whishlist/>}/>
-    <Route path="/userProfile" element={<UserProfile/>}/>
+    <Route path="/userProfile" element={<PrivateRoutes><UserProfile/></PrivateRoutes>}/>
     <Route path="/userProfile/addAddress" element={<AddAddress/>}/>
     <Route path="/userProfile/editAddress" element={<EditAddress/>}/>
-    <Route path="/reviewYourOrder" element={<ReviewYourOrder/>}/>
+    <Route path="/reviewYourOrder" element={<PrivateRoutes><ReviewYourOrder/></PrivateRoutes>}/>
     <Route path="/home/payment/success/:paymentId" element={<PaymentSuccess/>} />
     <Route path="/orders" element={<OrderDetails/>}/>
    </Routes>
