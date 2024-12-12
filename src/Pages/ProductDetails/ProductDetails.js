@@ -4,13 +4,14 @@ import { useParams } from 'react-router'
 import axios from 'axios'
 import {  Avatar, Box, Button, FormControl, FormLabel,  TextField } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send';
-import { Usercontext } from '../../App';
+import { ServerErrorContext, Usercontext } from '../../App';
 import Footer from '../../Component/Footer/footer'
 import { useNavigate } from 'react-router'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { NavLink } from 'react-router-dom'
 const ProductDetails = () => {
   const user=useContext(Usercontext)
+  const {setServerError}=useContext(ServerErrorContext)
   const params=useParams()
   console.log(params)
  const navigate=useNavigate()
@@ -42,7 +43,12 @@ const ProductDetails = () => {
     setBookFullDetails(bookResponse)
       }
       catch(e){
-        console.log(e?.response?.statusText)
+       
+        setServerError({
+          isError:true,
+          errorMessage:e?.response?.statusText??e?.message,
+          errorDuration:3000
+        })
        }
     }
     fetchBookDetailsById()
@@ -75,6 +81,11 @@ const ProductDetails = () => {
   }
   catch(e){
     console.log(e?.message)
+    setServerError({
+      isError:true,
+      errorMessage:e?.message,
+      errorDuration:3000
+    })
     }
    }
    if(params?.productId){

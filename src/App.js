@@ -22,12 +22,15 @@ import ReviewYourOrder from './Pages/ReviewYourOrder/ReviewYourOrder';
 import PaymentSuccess from './Pages/PaymentSuccess/PaymentSuccess';
 import OrderDetails from './Pages/OrderDetails/OrderDetails';
 import PrivateRoutes from './PrivateRoutes/PrivateRoutes';
+import ErrorModel from './Component/ErrorModel/ErrorModel';
 
 
 export const Usercontext=createContext(null)
+export const ServerErrorContext=createContext(null)
 const App = () => {
   const [user,setUser]=useState(null)
   const [open, setOpen] = React.useState(false);
+  const [serverError,setServerError]=useState({isError:false,errorMessage:"",errorDuration:0})
  const loginInitform={
     userId:"",
     password:""
@@ -83,12 +86,20 @@ const App = () => {
    setLoginError(err?.response?.data?.message)
    }
   }
-  console.log(loginError)
+  console.log(serverError)
   console.log(loginForm)
+
   console.log(user)
   return (
  <div className='dark app'>
+ <ServerErrorContext.Provider value={{setServerError}}>
  <Usercontext.Provider value={user}>
+<>
+  {serverError?.isError &&  <ErrorModel isError={serverError?.isError}
+   errorMessage={serverError?.errorMessage}
+    errorDuration={serverError?.errorDuration}
+    onAlertClose={()=>setServerError({isError:false,errorMessage:"",errorDuration:0})} />}
+</>
    <Routes>
     <Route index element={<Navigate to="/home"/>}/>
     <Route path='/home' element={<LandingPage handleClickOpen={handleClickOpen} setUser={setUser} />}/>
@@ -106,7 +117,9 @@ const App = () => {
     <Route path="/home/payment/success/:paymentId" element={<PaymentSuccess/>} />
     <Route path="/orders" element={<OrderDetails/>}/>
    </Routes>
+
 </Usercontext.Provider>
+</ServerErrorContext.Provider>
    <Dialog 
         open={open}
         onClose={handleClose}

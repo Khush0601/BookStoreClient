@@ -1,0 +1,6 @@
+.error-block{
+ position: fixed;
+ bottom: 5px;
+ width: 100vw;
+ z-index: 100;
+}

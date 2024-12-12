@@ -19,7 +19,7 @@ import Drawer from '@mui/material/Drawer';
 import { useMediaQuery } from 'react-responsive'
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
-import { Usercontext } from '../../App';
+import { ServerErrorContext, Usercontext } from '../../App';
 import { deepOrange} from '@mui/material/colors';
 import Footer from '../../Component/Footer/footer';
 
@@ -64,7 +64,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const LandingPage = ({handleClickOpen,setUser}) => {
+const LandingPage = ({handleClickOpen,setUser,}) => {
+  const {setServerError}=useContext(ServerErrorContext)
+  // console.log(setServerError)
   const isMobile = useMediaQuery({ query: '(max-width: 775px)' })
   const isSmallMobile=useMediaQuery({query:'(max-width:382px)'})
   const pages=["Home","Courses","Contact","About"]
@@ -89,7 +91,11 @@ const LandingPage = ({handleClickOpen,setUser}) => {
     
     }
     catch(e){
-    console.log(e.message)
+   setServerError({
+      isError:true,
+      errorMessage:e?.message,
+      errorDuration:3000
+    })
     }
   }
  React.useEffect(()=>{
@@ -127,7 +133,7 @@ const LandingPage = ({handleClickOpen,setUser}) => {
 
  
 const onSearchClick = async() => {
- console.log('hello')
+ 
   try{
        //api call 
       const searchResponse=await axios.get(`http://localhost:8888/thirdProject/api/v1/product?search=${searchInput}`)
@@ -135,7 +141,11 @@ const onSearchClick = async() => {
       setProducts(searchResponse?.data)
    }
   catch(e){
-    console.error('Error fetching search results');
+    setServerError({
+      isError:true,
+      errorMessage:'no internet',
+      errorDuration:3000
+    })
   }
    };
  const DrawerList = (
