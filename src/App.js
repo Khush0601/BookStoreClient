@@ -68,7 +68,11 @@ const App = () => {
       password:loginForm?.password
       }
     )
+
    const userDetails=fetchDetails?.data
+   //save token to local storage
+   localStorage.setItem("token",userDetails.token)
+   
    console.log(userDetails)
    setUser(userDetails)
    if(userDetails){
@@ -86,6 +90,20 @@ const App = () => {
    setLoginError(err?.response?.data?.message)
    }
   }
+  React.useEffect(()=>{
+  let token=localStorage.getItem('token')
+  const autoLogin=async()=>{
+    try{
+    const userDetails=await axios.get(`http://localhost:8888/thirdProject/api/v1/user/autoSignIn/${token}`)
+   const userResultantData=userDetails.data;
+   setUser(userResultantData)
+    }
+    catch(e){
+  console.log(e)
+    }
+  }
+  autoLogin()
+  },[])
   console.log(serverError)
   console.log(loginForm)
 

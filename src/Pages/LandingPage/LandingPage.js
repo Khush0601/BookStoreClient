@@ -128,6 +128,7 @@ const LandingPage = ({handleClickOpen,setUser,}) => {
  
  const onLogoutClick=()=>{
   setUser(null)
+  localStorage.removeItem('token')
  setOpenSnackbar(true)
  }
 
