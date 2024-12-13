@@ -16,6 +16,7 @@ import { Pagination } from 'swiper/modules';
 import axios from 'axios';
 import { useMediaQuery } from 'react-responsive';
 import { ServerErrorContext } from '../../App';
+import BackButton from '../../Component/BackButton/BackButton';
 
 const About = () => {
   const isTablet = useMediaQuery({ query: '(min-width: 912px) and (max-width:1245px)' })
@@ -58,7 +59,10 @@ const About = () => {
     </Box>
    <div className='about-content'>
    <div className='header'>
-     <h2>About</h2>
+   <div style={{display:"flex"}}>
+     <BackButton/>
+    <h2>About</h2>
+   </div>
      <hr/>
      <hr/>
     </div>

@@ -16,11 +16,9 @@
     width: 400px;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.20) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    /* background-color: rgb(100, 158, 158); */
-   
-   
-    margin-bottom: 10px;
-    padding: 10px;
+    background-color: white;
+     margin-bottom: 10px;
+     padding: 20px;
 }
 .contact-form>h1{
     text-align: center;

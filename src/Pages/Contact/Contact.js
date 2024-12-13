@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import { AppBar, Button, TextField } from '@mui/material';
 import bookIcon from '../../Assets/bookIcon.jpg'
 import './Contact.css'
+import BackButton from '../../Component/BackButton/BackButton';
 const Contact = () => {
   return (
     <div  className='contact-cont'>
@@ -23,7 +24,10 @@ const Contact = () => {
     
     <div className='contact-form-container'>
     <div className='contact-form'>
+      <div style={{display:'flex',alignItems:"center"}}>
+      <BackButton/>
       <h1>Contact Us</h1>
+      </div>
       <Box
       component="form"
       noValidate

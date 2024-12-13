@@ -7,6 +7,7 @@ import { AppBar } from '@mui/material';
 import bookIcon from '../../Assets/bookIcon.jpg'
 import { useNavigate } from 'react-router';
 import Footer from '../../Component/Footer/footer';
+import BackButton from '../../Component/BackButton/BackButton';
 
 
 const Courses = () => {
@@ -26,7 +27,10 @@ const Courses = () => {
       </AppBar>
     </Box>
          <div className='couses-header'>
-           <h3>Courses</h3>
+         <div style={{display:"flex",alignItems:'center'}}>
+         <BackButton/>
+         <h3>Courses</h3>
+         </div>
            <hr/>
            </div>
            <div className='courses-bg-image'>
