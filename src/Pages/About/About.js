@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './About.css'
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,10 +15,12 @@ import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import axios from 'axios';
 import { useMediaQuery } from 'react-responsive';
+import { ServerErrorContext } from '../../App';
 
 const About = () => {
   const isTablet = useMediaQuery({ query: '(min-width: 912px) and (max-width:1245px)' })
- 
+
+ const {setServerError}=useContext(ServerErrorContext)
   const isDesktop=useMediaQuery({query:'(min-width:1245px)'})
   console.log(isDesktop)
   const [testimonialDatas,setTestimonialDatas]=useState([])
@@ -30,6 +32,11 @@ const About = () => {
     }
     catch(e){
       console.log(e?.response?.statusText)
+      setServerError({
+        isError:true,
+        errorMessage:e?.response?.statusText,
+        errorDuration:3000
+      })
     }
    }
    getTestimonialData()

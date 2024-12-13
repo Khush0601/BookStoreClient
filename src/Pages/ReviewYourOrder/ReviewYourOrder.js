@@ -4,13 +4,14 @@ import { useLocation } from 'react-router'
 import { useNavigate } from 'react-router'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Button, Divider } from '@mui/material';
-import { Usercontext } from '../../App';
+import { ServerErrorContext, Usercontext } from '../../App';
 import axios from 'axios';
 import {  NavLink } from 'react-router-dom';
  
 
  const ReviewYourOrder = () => {
   const user=useContext(Usercontext)
+   const {setServerError}=useContext(ServerErrorContext)
   console.log('user',user)
   const navigate=useNavigate()
   const data=useLocation()
@@ -28,6 +29,11 @@ import {  NavLink } from 'react-router-dom';
      }
      catch(e){
       console.log(e?.response?.statusText)
+      setServerError({
+        isError:true,
+        errorMessage:e?.response?.statusText,
+        errorDuration:3000
+      })
      }
     }
     getDefaultAddress()
@@ -53,6 +59,11 @@ import {  NavLink } from 'react-router-dom';
     }
     catch(e){
      console.log(e)
+     setServerError({
+      isError:true,
+      errorMessage:e?.message,
+      errorDuration:3000
+    })
     }
   }
   console.log('orderDetails',orderFullDetails)

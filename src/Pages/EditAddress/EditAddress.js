@@ -1,17 +1,20 @@
 import { Button, Divider, TextField } from '@mui/material'
 import './editaddress.css'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useLocation } from 'react-router'
 import { useNavigate } from 'react-router'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import axios from 'axios'
+import { ServerErrorContext } from '../../App'
 const EditAddress = () => {
     const data=useLocation()
     let result=data.state
     console.log(result)
    const navigate=useNavigate()
+
     
     const [editAddress,setEditAddress]=useState(()=>result)
+    const {setServerError}=useContext(ServerErrorContext)
     // console.log(editAddress)
     const hadleEditFields=(e,type)=>{
     setEditAddress((p)=>{
@@ -41,6 +44,11 @@ const EditAddress = () => {
      }
      catch(e){
       console.log(e?.response?.statusText)
+      setServerError({
+        isError:true,
+        errorMessage:e?.response?.statusText,
+        errorDuration:3000
+      })
      }
     }
     console.log(editAddress)

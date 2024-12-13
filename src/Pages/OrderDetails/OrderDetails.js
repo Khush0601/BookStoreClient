@@ -3,10 +3,11 @@ import './Orderdetails.css'
 import { useNavigate } from 'react-router'
 import { Divider } from '@mui/material'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import { Usercontext } from '../../App';
+import { ServerErrorContext, Usercontext } from '../../App';
 import axios from 'axios'
 const OrderDetails = () => {
     const user=useContext(Usercontext)
+    const {setServerError}=useContext(ServerErrorContext)
     const naivgate=useNavigate()
     const [orderList,setOrderList]=useState([])
     React.useEffect(()=>{
@@ -17,6 +18,11 @@ const OrderDetails = () => {
        }
        catch(e){
       console.log(e?.response?.statusText)
+      setServerError({
+        isError:true,
+        errorMessage:e?.response?.statusText,
+        errorDuration:3000
+      })
        }
         }
         getAllOrders()

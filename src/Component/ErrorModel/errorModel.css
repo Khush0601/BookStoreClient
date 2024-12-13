@@ -1,6 +1,13 @@
 .error-block{
  position: fixed;
  bottom: 5px;
- width: 100vw;
+ width: 50vw;
  z-index: 100;
+}
+@media (min-width:0px) and (max-width:425px){
+    .error-block{
+        
+        width: 100vw;
+       
+       }
 }

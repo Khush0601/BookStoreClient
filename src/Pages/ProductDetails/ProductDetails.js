@@ -137,6 +137,11 @@ try{
 }
 catch(e){
   console.log(e?.response?.statusText)
+  setServerError({
+          isError:true,
+          errorMessage:e?.response?.statusText,
+          errorDuration:3000
+        })
  
 }
 }
@@ -173,6 +178,11 @@ const onReviewFieldUpdate=(e)=>{
    }
    catch(e){
   console.log(e?.response?.statusText)
+   setServerError({
+          isError:true,
+          errorMessage:e?.response?.statusText,
+          errorDuration:3000
+        })
 
    }
    

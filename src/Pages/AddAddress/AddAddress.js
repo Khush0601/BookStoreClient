@@ -3,10 +3,11 @@ import './AddAddress.css'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Button, Divider, TextField } from '@mui/material';
 import axios from 'axios';
-import { Usercontext } from '../../App';
+import { ServerErrorContext, Usercontext } from '../../App';
 import { useNavigate } from 'react-router';
 const AddAddress = () => {
   const user=useContext(Usercontext)
+   const {setServerError}=useContext(ServerErrorContext)
   console.log(user)
 const navigate=useNavigate()
   const addressDetailsForm={
@@ -53,6 +54,11 @@ const navigate=useNavigate()
     }
     catch(e){
       console.log(e?.response?.statusText)
+      setServerError({
+        isError:true,
+        errorMessage:e?.response?.statusText,
+        errorDuration:3000
+      })
     }
    }
   console.log(addressDetails)

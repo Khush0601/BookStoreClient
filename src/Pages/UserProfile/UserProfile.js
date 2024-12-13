@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import './UserProfile.css'
-import { Usercontext } from '../../App'
+import { ServerErrorContext, Usercontext } from '../../App'
 import { deepOrange } from '@mui/material/colors';
 import { Avatar, Button, Divider} from '@mui/material';
 import { useLocation, useNavigate } from 'react-router';
@@ -11,6 +11,7 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 const UserProfile = () => {
     const user=useContext(Usercontext)
+    const {setServerError}=useContext(ServerErrorContext)
     console.log(user)
     const location=useLocation()
     let isRedirectionPage=location.state
@@ -18,6 +19,7 @@ const UserProfile = () => {
     const [addressList,setAddressList]=useState([])
     const [defaultAddressId,setDefaultAddressId]=useState('')
     const navigate =useNavigate()
+    
     React.useEffect(()=>{
     const getAddress=async()=>{
      try{
@@ -29,6 +31,11 @@ const UserProfile = () => {
      }
      catch(e){
        console.log(e)
+       setServerError({
+        isError:true,
+        errorMessage:e?.message,
+        errorDuration:3000
+      })
      }
     }
     getAddress()
@@ -51,6 +58,11 @@ const UserProfile = () => {
      }
      catch(e){
       console.log(e?.response?.statusText)
+      setServerError({
+        isError:true,
+        errorMessage:e?.message,
+        errorDuration:3000
+      })
      }
     
     }
