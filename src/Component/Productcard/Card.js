@@ -22,10 +22,10 @@ const ProductCard=({productProps,width=310,margin=30,marginTop=30,marginBottom=3
    navigate(`/productDetails/${productId}`)
   }
 return (
-    <div>
+    
      <Card  sx={{
         width: width,
-       
+        height:"450px",
         boxShadow:"rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
         margin:margin,
         marginTop:marginTop,
@@ -76,7 +76,7 @@ return (
        }}>Buy Now</Button>
       </CardActions>
     </Card>
-    </div>
+  
 )
 }
 export default ProductCard

@@ -1,6 +1,6 @@
 import React,{useContext,   useState} from 'react'
 import './LandingPage.css'
-import { Alert, AppBar, Avatar, Box, Snackbar, TextField, Toolbar } from '@mui/material'
+import { Alert, AppBar, Avatar, Box, Snackbar, Toolbar } from '@mui/material'
 import { styled, alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -22,6 +22,13 @@ import { useNavigate } from 'react-router-dom';
 import { ServerErrorContext, Usercontext } from '../../App';
 import { deepOrange} from '@mui/material/colors';
 import Footer from '../../Component/Footer/footer';
+import { Swiper, SwiperSlide } from 'swiper/react';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+// import required modules
+import { Pagination } from 'swiper/modules';
+
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -68,6 +75,8 @@ const LandingPage = ({handleClickOpen,setUser,}) => {
   const {setServerError}=useContext(ServerErrorContext)
   // console.log(setServerError)
   const isMobile = useMediaQuery({ query: '(max-width: 775px)' })
+  const isTablet = useMediaQuery({ query: '(min-width: 912px) and (max-width:1245px)' })
+  const isDesktop=useMediaQuery({query:'(min-width:1245px)'})
   const isSmallMobile=useMediaQuery({query:'(max-width:382px)'})
   const pages=["Home","Courses","Contact","About"]
   const[products,setProducts]=useState([])
@@ -76,6 +85,7 @@ const LandingPage = ({handleClickOpen,setUser,}) => {
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const [searchResult,setSearchResult]=useState([])
   const [searchInput,setSearchInput]=useState('')
+  const [newArrivals,setNewArrivals]=useState([])
   const navigate =useNavigate()
   
 
@@ -181,11 +191,26 @@ const onSearchClick = async() => {
    
   </Box>
 );
+
+React.useEffect(()=>{
+  const getNewArrivalProducts=async()=>{
+   try{
+  const getNewArrivals=await axios.get('http://localhost:8888/thirdProject/api/v1/product/getLatestProduct')
+  const newProducts=getNewArrivals.data;
+  setNewArrivals(newProducts)
+ }
+   catch(err){
+    console.log(err)
+   }
+  }
+  getNewArrivalProducts()
+},[])
  console.log(openSnackbar)
 console.log(products)
 console.log(openDrawer)
 console.log(searchResult)
 console.log(searchInput)
+console.log('newArrivals',newArrivals)
   return (
     <div className='landing-page-container'>
    <header>
@@ -274,19 +299,45 @@ console.log(searchInput)
      A used bookstore or second-hand bookshop sells and often buys used books.
       Some modern bookstore combine the books.
      </Typography>
-     <Typography className='landing-page-emailBox' component='div'>
-     <TextField inputProps={{style:{height:"15px"}}} fullWidth label="Email" id="fullWidth" />
      </Typography>
-     </Typography>
+     
      </Box>
      <Box className='landing-page-image'>
       <img src={BookImage} alt='bookimg'/>
      </Box>
-     
     </Box>
+   <Box sx={{backgroundColor:"pink"}} >
+   <Typography variant={isMobile?'h5':'h4'} component='div' sx={{marginBottom:1,paddingLeft:2}}>
+       New Arrivals
+      </Typography>
+     <Typography className='landing-page-swiper' component='div'>
+   {
+    newArrivals.length===0?<h6>No new Books</h6>:
+    <Swiper
+        slidesPerView={isDesktop?3:isTablet?2:1}
+        spaceBetween={10}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[Pagination]}
+        className="swiper-landingPage"
+      >
+      {
+        newArrivals.map((newProduct,index)=>{
+          return <SwiperSlide key={newProduct?._id}>
+                 <ProductCard productProps={newProduct} width={isSmallMobile?250:310} margin={isSmallMobile?0:2}
+       marginTop={isSmallMobile?2.5:5} marginBottom={isSmallMobile?2.5:5} />
+             </SwiperSlide>
+        })
+      }
+
+      </Swiper>
+   }
+     </Typography>
+   </Box>
     <Box className="free-offered-course">
-     <Typography variant='h5'>
-      Free offered Courses
+     <Typography variant='h4'>
+     Explore Our Collection
      </Typography>
      <Typography component='p'>
      A bookstore is a store that sells books, and where people can buy them. 
