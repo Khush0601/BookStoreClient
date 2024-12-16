@@ -25,6 +25,7 @@ return (
     <div>
      <Card  sx={{
         width: width,
+       
         boxShadow:"rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
         margin:margin,
         marginTop:marginTop,
