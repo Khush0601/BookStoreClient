@@ -5,7 +5,7 @@ import Password from '../../lib/Password/Password'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-
+import App_Config from '../../app_config/app-config'
 
 const Signup = () => {
   const initForm={
@@ -64,7 +64,7 @@ if(Object.keys(error).length>0){
   setErrorMessage(error)
 }
 else{
-const signUpUser=await axios.post('http://localhost:8888/thirdProject/api/v1/user/signUp',{
+const signUpUser=await axios.post(`${App_Config.server_url}/thirdProject/api/v1/user/signUp`,{
   name:signUpForm.name,
   email:signUpForm.email,
   userId:signUpForm.userId,
@@ -72,7 +72,7 @@ const signUpUser=await axios.post('http://localhost:8888/thirdProject/api/v1/use
   confirmPassword:signUpForm.confirmPassword
 })
 const response=signUpUser.data
-console.log(response)
+//console.log(response)
 if(response && response?.message==='register successfully'){
  setShowMessage('register successfully')
 setTimeout(()=>{
@@ -98,8 +98,8 @@ useEffect(()=>{
   }
 },[showAlert])
  
- console.log(errorMessage)
- console.log(signUpForm)
+ //console.log(errorMessage)
+ //console.log(signUpForm)
   return (
     <div className='signUp-container'>
       <div className='signUp-modal'>

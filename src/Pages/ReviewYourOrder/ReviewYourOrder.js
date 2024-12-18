@@ -7,28 +7,28 @@ import { Button, Divider } from '@mui/material';
 import { ServerErrorContext, Usercontext } from '../../App';
 import axios from 'axios';
 import {  NavLink } from 'react-router-dom';
- 
+ import App_Config from '../../app_config/app-config';
 
  const ReviewYourOrder = () => {
   const user=useContext(Usercontext)
    const {setServerError}=useContext(ServerErrorContext)
-  console.log('user',user)
+  //console.log('user',user)
   const navigate=useNavigate()
   const data=useLocation()
   let productData=data.state
-  console.log(productData)
+  //console.log(productData)
   
   const [orderFullDetails,setOrderFullDetails]=useState(()=>productData)
   const [defaultAddress,setDefaultAddress]=useState({})
   React.useEffect(()=>{
     const getDefaultAddress=async()=>{
      try{
-    const address=await axios.get(`http://localhost:8888/thirdProject/api/v1/user/${user?._id}/getDefaultAddresses`)
+    const address=await axios.get(`${App_Config.server_url}/thirdProject/api/v1/user/${user?._id}/getDefaultAddresses`)
     const addressResponse=address?.data
     setDefaultAddress(addressResponse)
      }
      catch(e){
-      console.log(e?.response?.statusText)
+      //console.log(e?.response?.statusText)
       setServerError({
         isError:true,
         errorMessage:e?.response?.statusText,
@@ -42,12 +42,12 @@ import {  NavLink } from 'react-router-dom';
   const onPayment=async()=>{
 
     try{
-     const paymentDetails=await axios.post('http://localhost:8888/thirdProject/api/v1/order/onPayment',{
+     const paymentDetails=await axios.post(`${App_Config.server_url}/thirdProject/api/v1/order/onPayment`,{
       productId:orderFullDetails?._id,
       userId:user?._id,
       addressId:defaultAddress?._id
 })
-    console.log('paymentDetails',paymentDetails)
+    //console.log('paymentDetails',paymentDetails)
     const cashfree = window.Cashfree({
       mode: "sandbox"
   });
@@ -58,7 +58,7 @@ import {  NavLink } from 'react-router-dom';
   cashfree.checkout(checkoutOptions);
     }
     catch(e){
-     console.log(e)
+     //console.log(e)
      setServerError({
       isError:true,
       errorMessage:e?.message,
@@ -66,8 +66,8 @@ import {  NavLink } from 'react-router-dom';
     })
     }
   }
-  console.log('orderDetails',orderFullDetails)
-  console.log('defaultAddress',defaultAddress)
+  //console.log('orderDetails',orderFullDetails)
+  //console.log('defaultAddress',defaultAddress)
   return (
     <div className='review-order-container'>
       <div className='review-order-box'>

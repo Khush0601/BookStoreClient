@@ -6,16 +6,17 @@ import { useNavigate } from 'react-router'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import axios from 'axios'
 import { ServerErrorContext } from '../../App'
+import App_Config from '../../app_config/app-config'
 const EditAddress = () => {
     const data=useLocation()
     let result=data.state
-    console.log(result)
+    //console.log(result)
    const navigate=useNavigate()
 
     
     const [editAddress,setEditAddress]=useState(()=>result)
     const {setServerError}=useContext(ServerErrorContext)
-    // console.log(editAddress)
+    // //console.log(editAddress)
     const hadleEditFields=(e,type)=>{
     setEditAddress((p)=>{
       return {...p,[type]:e.target.value}
@@ -30,7 +31,7 @@ const EditAddress = () => {
     const onEditedAddressFormSubmit=async(e)=>{
       e.preventDefault()
      try{
-    const updateAddress=await axios.patch('http://localhost:8888/thirdProject/api/v1/user/updateAddress',{
+    const updateAddress=await axios.patch(`${App_Config.server_url}/thirdProject/api/v1/user/updateAddress`,{
       addressId:editAddress._id,
       name:editAddress.name,
       mobileNo:editAddress.mobileNo,
@@ -40,10 +41,10 @@ const EditAddress = () => {
       city:editAddress.city,
       typeOfAddress:editAddress.typeOfAddress,
     })
-    console.log(updateAddress)
+    //console.log(updateAddress)
      }
      catch(e){
-      console.log(e?.response?.statusText)
+      //console.log(e?.response?.statusText)
       setServerError({
         isError:true,
         errorMessage:e?.response?.statusText,
@@ -51,8 +52,8 @@ const EditAddress = () => {
       })
      }
     }
-    console.log(editAddress)
-    // console.log('editableAddressDetails',editableAddress)
+    //console.log(editAddress)
+    // //console.log('editableAddressDetails',editableAddress)
   return (
     <div className='edit-address-container'>
       <div className='edit-address-box'>

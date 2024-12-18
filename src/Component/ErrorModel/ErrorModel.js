@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import './errorModel.css'
 const ErrorModel = ({isError,errorMessage='something went wrong',errorDuration,onAlertClose}) => {
     const [error,setError]=useState(false)
-    // console.log(errorDuration)
+    // //console.log(errorDuration)
     
     const clearAlert=React.useCallback(()=>{
         setTimeout(()=>{
@@ -14,9 +14,9 @@ const ErrorModel = ({isError,errorMessage='something went wrong',errorDuration,o
 
        
     React.useEffect(()=>{
-        console.log(isError,'heelo')
+        //console.log(isError,'heelo')
      if(isError===true){
-        console.log("hello")
+        //console.log("hello")
         setError(isError)
         clearAlert()
      }

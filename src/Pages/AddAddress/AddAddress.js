@@ -5,10 +5,11 @@ import { Button, Divider, TextField } from '@mui/material';
 import axios from 'axios';
 import { ServerErrorContext, Usercontext } from '../../App';
 import { useNavigate } from 'react-router';
+import App_Config from '../../app_config/app-config';
 const AddAddress = () => {
   const user=useContext(Usercontext)
    const {setServerError}=useContext(ServerErrorContext)
-  console.log(user)
+  //console.log(user)
 const navigate=useNavigate()
   const addressDetailsForm={
     userId:user?._id,
@@ -36,7 +37,7 @@ const navigate=useNavigate()
    const onAddressSubmit=async(e)=>{
     e.preventDefault()
     try{
-    const addAddress=await axios.post('http://localhost:8888/thirdProject/api/v1/user/addAddress',{
+    const addAddress=await axios.post(`${App_Config.server_url}/thirdProject/api/v1/user/addAddress`,{
      userId:addressDetails.userId,
      name:addressDetails.name,
      mobileNo:addressDetails.mobileNo,
@@ -53,7 +54,7 @@ const navigate=useNavigate()
     setAddressDetails(addressDetailsForm)
     }
     catch(e){
-      console.log(e?.response?.statusText)
+      //console.log(e?.response?.statusText)
       setServerError({
         isError:true,
         errorMessage:e?.response?.statusText,
@@ -61,8 +62,8 @@ const navigate=useNavigate()
       })
     }
    }
-  console.log(addressDetails)
-  console.log(deliveringDetails)
+  //console.log(addressDetails)
+  //console.log(deliveringDetails)
   return (
     <div className='add-address-container'>
       <div className='add-address-box'>

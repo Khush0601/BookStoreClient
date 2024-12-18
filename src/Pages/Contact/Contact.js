@@ -9,6 +9,7 @@ import BackButton from '../../Component/BackButton/BackButton';
 import axios from 'axios'
 import { ServerErrorContext } from '../../App';
 import { useNavigate } from 'react-router';
+import App_Config from '../../app_config/app-config';
 
 const Contact = () => {
   const contactDetailsObj={
@@ -39,7 +40,7 @@ setContactDetails((p)=>{
    }
     else{
       try{
-        const postContactDetails=await axios.post('http://localhost:8888/thirdProject/api/v1/contact/postContactDetails',{
+        const postContactDetails=await axios.post(`${App_Config.server_url}/thirdProject/api/v1/contact/postContactDetails`,{
           userName:contactDetails.userName,
           email:contactDetails.email,
           mobile:contactDetails.mobile,
@@ -52,7 +53,7 @@ setContactDetails((p)=>{
        },2000)
         }
         catch(e){
-       console.log(e)
+       //console.log(e)
        setServerError({
         isError:true,
         errorMessage:e?.message,
@@ -62,8 +63,8 @@ setContactDetails((p)=>{
     }
    
   }
-  console.log(contactDetails)
-  console.log(contactResult)
+  //console.log(contactDetails)
+  //console.log(contactResult)
   return (
     <div  className='contact-cont'>
        <Box sx={{ flexGrow: 1 }}>

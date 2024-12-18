@@ -9,11 +9,12 @@ import Footer from '../../Component/Footer/footer'
 import { useNavigate } from 'react-router'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { NavLink } from 'react-router-dom'
+import App_Config from '../../app_config/app-config'
 const ProductDetails = () => {
   const user=useContext(Usercontext)
   const {setServerError}=useContext(ServerErrorContext)
   const params=useParams()
-  console.log(params)
+  //console.log(params)
  const navigate=useNavigate()
   const[bookFulldetals,setBookFullDetails]=useState({})
  const[reviewField,setReviewField]=useState({
@@ -37,9 +38,9 @@ const ProductDetails = () => {
   React.useEffect(()=>{
     const fetchBookDetailsById=async()=>{
       try{
-    const book=await axios.get(`http://localhost:8888/thirdProject/api/v1/product/${params.productId}`)
+    const book=await axios.get(`${App_Config.server_url}/thirdProject/api/v1/product/${params.productId}`)
     const bookResponse=book.data
-    // console.log(petResponse)
+    // //console.log(petResponse)
     setBookFullDetails(bookResponse)
       }
       catch(e){
@@ -57,12 +58,12 @@ const ProductDetails = () => {
   React.useEffect(()=>{
     const getAllReviews=async()=>{
       try{
-      const reviews=await axios.get(`http://localhost:8888/thirdProject/api/v1/productReview/${params.productId}/getReview`)
+      const reviews=await axios.get(`${App_Config.server_url}/thirdProject/api/v1/productReview/${params.productId}/getReview`)
       const reviewResponse=reviews.data
       setReviewResult(reviewResponse)
       }
       catch(e){
-       console.log(e?.message)
+       //console.log(e?.message)
       }
     }
     if(params?.productId) {
@@ -74,13 +75,13 @@ const ProductDetails = () => {
  React.useEffect(()=>{
   const getAllRating=async()=>{
   try{
-   const rating=await axios.get(`http://localhost:8888/thirdProject/api/v1/productRating/${params.productId}/getRating`)
+   const rating=await axios.get(`${App_Config.server_url}/thirdProject/api/v1/productRating/${params.productId}/getRating`)
    const ratingResponse=rating?.data
    setRatingResult(ratingResponse)
 
   }
   catch(e){
-    console.log(e?.message)
+    //console.log(e?.message)
     setServerError({
       isError:true,
       errorMessage:e?.message,
@@ -124,7 +125,7 @@ const onRatingValueUpdate=(e)=>{
 const onRatingSubmit=async()=>{
   
 try{
- const sendRatingDetails=await axios.post("http://localhost:8888/thirdProject/api/v1/productRating/addRating",{
+ const sendRatingDetails=await axios.post(`${App_Config.server_url}/thirdProject/api/v1/productRating/addRating`,{
   userName:ratingValues?.userName,
   userId:ratingValues?.userId,
   ratingCount:ratingValues?.ratingCount,
@@ -136,7 +137,7 @@ try{
  })
 }
 catch(e){
-  console.log(e?.response?.statusText)
+  //console.log(e?.response?.statusText)
   setServerError({
           isError:true,
           errorMessage:e?.response?.statusText,
@@ -158,7 +159,7 @@ const onReviewFieldUpdate=(e)=>{
     return
    }
    try{
-    const sendReviewDetails=await axios.post('http://localhost:8888/thirdProject/api/v1/productReview/addReview',{
+    const sendReviewDetails=await axios.post(`${App_Config.server_url}/thirdProject/api/v1/productReview/addReview`,{
       userName:reviewField.userName,
       userId:reviewField?.userId,
       userIamge:reviewField?.userImage,
@@ -177,7 +178,7 @@ const onReviewFieldUpdate=(e)=>{
     })
    }
    catch(e){
-  console.log(e?.response?.statusText)
+  //console.log(e?.response?.statusText)
    setServerError({
           isError:true,
           errorMessage:e?.response?.statusText,
@@ -191,12 +192,12 @@ const onReviewFieldUpdate=(e)=>{
   
 
 
-  console.log(reviewResult)
-  console.log(ratingValues)
-  console.log(user)
-  console.log(ratingResult)
-  console.log(reviewField)
-  console.log(bookFulldetals)
+  //console.log(reviewResult)
+  //console.log(ratingValues)
+  //console.log(user)
+  //console.log(ratingResult)
+  //console.log(reviewField)
+  //console.log(bookFulldetals)
  
   return (
     <div className='productDetails-container'>

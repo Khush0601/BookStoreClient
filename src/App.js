@@ -23,7 +23,7 @@ import PaymentSuccess from './Pages/PaymentSuccess/PaymentSuccess';
 import OrderDetails from './Pages/OrderDetails/OrderDetails';
 import PrivateRoutes from './PrivateRoutes/PrivateRoutes';
 import ErrorModel from './Component/ErrorModel/ErrorModel';
-
+import App_Config from './app_config/app-config';
 
 export const Usercontext=createContext(null)
 export const ServerErrorContext=createContext(null)
@@ -62,7 +62,7 @@ const App = () => {
     return
    }
    else{
-    const fetchDetails=await axios.post('http://localhost:8888/thirdProject/api/v1/user/signIn',
+    const fetchDetails=await axios.post(`${App_Config.server_url}/thirdProject/api/v1/user/signIn`,
       {
       userId:loginForm?.userId,
       password:loginForm?.password
@@ -73,7 +73,7 @@ const App = () => {
    //save token to local storage
    localStorage.setItem("token",userDetails.token)
    
-   console.log(userDetails)
+   //console.log(userDetails)
    setUser(userDetails)
    if(userDetails){
     alert('login successfully')
@@ -94,20 +94,20 @@ const App = () => {
   let token=localStorage.getItem('token')
   const autoLogin=async()=>{
     try{
-    const userDetails=await axios.get(`http://localhost:8888/thirdProject/api/v1/user/autoSignIn/${token}`)
+    const userDetails=await axios.get(`${App_Config.server_url}/thirdProject/api/v1/user/autoSignIn/${token}`)
    const userResultantData=userDetails.data;
    setUser(userResultantData)
     }
     catch(e){
-  console.log(e)
+  //console.log(e)
     }
   }
   autoLogin()
   },[])
-  console.log(serverError)
-  console.log(loginForm)
+  //console.log(serverError)
+  //console.log(loginForm)
 
-  console.log(user)
+  //console.log(user)
   return (
  <div className='dark app'>
  <ServerErrorContext.Provider value={{setServerError}}>

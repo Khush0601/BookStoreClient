@@ -5,26 +5,27 @@ import { useNavigate } from 'react-router'
 import './PaymentSuccess.css'
 import { Alert } from '@mui/material'
 import { ServerErrorContext } from '../../App'
+import App_Config from '../../app_config/app-config'
 const PaymentSuccess = () => {
     const params=useParams()
-    console.log(params.paymentId)
+    //console.log(params.paymentId)
     const navigate=useNavigate()
     const [paymentStatus,setPaymentStatus]=useState('')
     const {setServerError}=useContext(ServerErrorContext)
    React.useEffect(()=>{
     const updateOrder=async()=>{
     try{
-    const updatedData=await axios.patch('http://localhost:8888/thirdProject/api/v1/order/onPaymentStatus',{
+    const updatedData=await axios.patch(`${App_Config.server_url}/thirdProject/api/v1/order/onPaymentStatus`,{
         orderId:params.paymentId
     })
     setPaymentStatus(updatedData?.data)
     setTimeout(()=>{
       navigate('/home')
     },4000)
-    console.log(updatedData)
+    //console.log(updatedData)
     }
     catch(e){
-    console.log(e?.response?.statusText)
+    //console.log(e?.response?.statusText)
     setServerError({
       isError:true,
       errorMessage:e?.response?.statusText,
@@ -34,7 +35,7 @@ const PaymentSuccess = () => {
     }
     updateOrder()
    },[])
-   console.log(paymentStatus)
+   //console.log(paymentStatus)
   return (
     <div className='payment-success-container'>
      {

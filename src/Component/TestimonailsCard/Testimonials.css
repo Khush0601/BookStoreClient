@@ -1,5 +1,5 @@
 .testimonials-card-container{
-    width:400px;
+    
     border-radius: 10px;
     background-color: rgb(244, 244, 244);
     margin:20px;
@@ -18,9 +18,3 @@
     text-align: center;
 }
 
-@media (min-width:0px) and (max-width:425px){
-    .testimonials-card-container{
-        width:250px;
-        
-    }
-}

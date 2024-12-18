@@ -18,7 +18,7 @@ const ProductCard=({productProps,width=310,margin=30,marginTop=30,marginBottom=3
   }
   const onProductCardClick=(productProps)=>{
    let productId=productProps._id
-   console.log(productId)
+   //console.log(productId)
    navigate(`/productDetails/${productId}`)
   }
 return (

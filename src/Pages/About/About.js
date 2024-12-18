@@ -16,23 +16,24 @@ import { Pagination } from 'swiper/modules';
 import axios from 'axios';
 import { useMediaQuery } from 'react-responsive';
 import { ServerErrorContext } from '../../App';
+import App_Config from '../../app_config/app-config';
 import BackButton from '../../Component/BackButton/BackButton';
 
 const About = () => {
   const isTablet = useMediaQuery({ query: '(min-width: 912px) and (max-width:1245px)' })
-
+  
  const {setServerError}=useContext(ServerErrorContext)
   const isDesktop=useMediaQuery({query:'(min-width:1245px)'})
-  console.log(isDesktop)
+  //console.log(isDesktop)
   const [testimonialDatas,setTestimonialDatas]=useState([])
   React.useEffect(()=>{
    const getTestimonialData=async()=>{
     try{
-    const testimonialData=await axios.get('http://localhost:8888/thirdProject/api/v1/testimonial/getTestimonial')
+    const testimonialData=await axios.get(`${App_Config.server_url}/thirdProject/api/v1/testimonial/getTestimonial`)
     setTestimonialDatas(testimonialData?.data)
     }
     catch(e){
-      console.log(e?.response?.statusText)
+      //console.log(e?.response?.statusText)
       setServerError({
         isError:true,
         errorMessage:e?.response?.statusText,
@@ -42,7 +43,14 @@ const About = () => {
    }
    getTestimonialData()
   },[])
-  console.log('testimonialData',testimonialDatas)
+ const [deviceWidth,setdeviceWidth]=useState(window.innerWidth)
+  React.useEffect(()=>{
+let resizeListener=window.addEventListener('resize',()=>{
+    setdeviceWidth(window.innerWidth)
+ })
+   return ()=>window.removeEventListener('resize',resizeListener)
+  },[])
+  //console.log('testimonialData',testimonialDatas)
   return (
     <div className='about-container'>
        <Box sx={{ flexGrow: 1 }}>
@@ -96,12 +104,12 @@ const About = () => {
           clickable: true,
         }}
         modules={[Pagination]}
-        className="mySwiper"
+        className="about-swiper"
       >
         {
           testimonialDatas.map((testimonialDetails,index)=>{
-        return <SwiperSlide key={testimonialDetails?.userId}>
-                 <div className='swiper-container'> <TestmonialCard testimonialDetails={testimonialDetails} /></div>
+        return <SwiperSlide className='about-swiper-slide' key={testimonialDetails?.userId}>
+                 <div className='swiper-container'> <TestmonialCard testimonialDetails={testimonialDetails} width={isDesktop?(deviceWidth-80)/3:isTablet?(deviceWidth-80)/2:deviceWidth-110} /></div>
              </SwiperSlide>
       }) }
       </Swiper>

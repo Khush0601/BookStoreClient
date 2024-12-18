@@ -8,14 +8,14 @@ import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-
+import App_Config from '../../app_config/app-config';
 const UserProfile = () => {
     const user=useContext(Usercontext)
     const {setServerError}=useContext(ServerErrorContext)
-    console.log(user)
+    //console.log(user)
     const location=useLocation()
     let isRedirectionPage=location.state
-    console.log(isRedirectionPage)
+    //console.log(isRedirectionPage)
     const [addressList,setAddressList]=useState([])
     const [defaultAddressId,setDefaultAddressId]=useState('')
     const navigate =useNavigate()
@@ -23,14 +23,14 @@ const UserProfile = () => {
     React.useEffect(()=>{
     const getAddress=async()=>{
      try{
-     const address=await axios.get(`http://localhost:8888/thirdProject/api/v1/user/${user._id}/getAllAddresses`)
+     const address=await axios.get(`${App_Config.server_url}/thirdProject/api/v1/user/${user._id}/getAllAddresses`)
      const addressResponse=address?.data;
      let defaultAddress=addressResponse?.find((el)=>el.isDefault==='true')
      setDefaultAddressId(defaultAddress._id)
      setAddressList(addressResponse)
      }
      catch(e){
-       console.log(e)
+       //console.log(e)
        setServerError({
         isError:true,
         errorMessage:e?.message,
@@ -45,7 +45,7 @@ const UserProfile = () => {
    const handleSetDefault=async(addressId)=>{
     setDefaultAddressId(addressId)
      try{
-   const sendDefaultValue=await axios.patch('http://localhost:8888/thirdProject/api/v1/user/setDefaultAddress',{
+   const sendDefaultValue=await axios.patch(`${App_Config.server_url}/thirdProject/api/v1/user/setDefaultAddress`,{
     userId:user?._id,
     addressId:addressId
  })
@@ -53,11 +53,11 @@ const UserProfile = () => {
    if(isRedirectionPage.page==='payment'){
      navigate(-1)
    }
-   console.log(updatedDefaultValue)
+   //console.log(updatedDefaultValue)
    
      }
      catch(e){
-      console.log(e?.response?.statusText)
+      //console.log(e?.response?.statusText)
       setServerError({
         isError:true,
         errorMessage:e?.message,
@@ -66,8 +66,8 @@ const UserProfile = () => {
      }
     
     }
-    console.log('defaultAddress',defaultAddressId)
-    console.log(addressList)
+    //console.log('defaultAddress',defaultAddressId)
+    //console.log(addressList)
   return (
     <div className='user-profile-container'>
       <div className='user-profile-box'>

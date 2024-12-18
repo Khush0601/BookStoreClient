@@ -28,6 +28,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 // import required modules
 import { Pagination } from 'swiper/modules';
+import App_Config from '../../app_config/app-config';
 
 
 
@@ -73,7 +74,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const LandingPage = ({handleClickOpen,setUser,}) => {
   const {setServerError}=useContext(ServerErrorContext)
-  // console.log(setServerError)
+  // //console.log(setServerError)
   const isMobile = useMediaQuery({ query: '(max-width: 775px)' })
   const isTablet = useMediaQuery({ query: '(min-width: 912px) and (max-width:1245px)' })
   const isDesktop=useMediaQuery({query:'(min-width:1245px)'})
@@ -95,7 +96,7 @@ const LandingPage = ({handleClickOpen,setUser,}) => {
  
   const getproducts=async()=>{
     try{
-     const fetchProducts=await axios.get('http://localhost:8888/thirdProject/api/v1/product/getProduct')
+     const fetchProducts=await axios.get(`${App_Config.server_url}/thirdProject/api/v1/product/getProduct`)
      const result=fetchProducts.data
      setProducts(result)
     
@@ -147,8 +148,8 @@ const onSearchClick = async() => {
  
   try{
        //api call 
-      const searchResponse=await axios.get(`http://localhost:8888/thirdProject/api/v1/product?search=${searchInput}`)
-     console.log(searchResponse?.data)
+      const searchResponse=await axios.get(`${App_Config.server_url}/thirdProject/api/v1/product?search=${searchInput}`)
+     //console.log(searchResponse?.data)
       setProducts(searchResponse?.data)
    }
   catch(e){
@@ -195,22 +196,26 @@ const onSearchClick = async() => {
 React.useEffect(()=>{
   const getNewArrivalProducts=async()=>{
    try{
-  const getNewArrivals=await axios.get('http://localhost:8888/thirdProject/api/v1/product/getLatestProduct')
+  const getNewArrivals=await axios.get(`${App_Config.server_url}/thirdProject/api/v1/product/getLatestProduct`)
   const newProducts=getNewArrivals.data;
   setNewArrivals(newProducts)
  }
    catch(err){
-    console.log(err)
+    setServerError({
+      isError:true,
+      errorMessage:err?.message,
+      errorDuration:3000
+    })
    }
   }
   getNewArrivalProducts()
 },[])
- console.log(openSnackbar)
-console.log(products)
-console.log(openDrawer)
-console.log(searchResult)
-console.log(searchInput)
-console.log('newArrivals',newArrivals)
+ // console.log(openSnackbar)
+//console.log(products)
+//console.log(openDrawer)
+//console.log(searchResult)
+//console.log(searchInput)
+//console.log('newArrivals',newArrivals)
   return (
     <div className='landing-page-container'>
    <header>
@@ -234,7 +239,7 @@ console.log('newArrivals',newArrivals)
         <Alert onClose={()=>setOpenSnackbar(false)} variant="filled" severity="success">Logout successfully</Alert>
          </Snackbar>
         {
-        !isMobile &&  <Typography className='nav-part'>
+        !isMobile &&  <Typography className='nav-part' component='div'>
          {pages.map((el,i)=>{
           return <Button key={i} sx={{color:"black"}} onClick={()=>handleClick(el)}>{el}</Button>
          })}
@@ -306,13 +311,14 @@ console.log('newArrivals',newArrivals)
       <img src={BookImage} alt='bookimg'/>
      </Box>
     </Box>
-   <Box sx={{backgroundColor:"pink"}} >
-   <Typography variant={isMobile?'h5':'h4'} component='div' sx={{marginBottom:1,paddingLeft:2}}>
+   <Box >
+   <Typography variant={isMobile?'h4':'h3'} component='div' sx={{marginTop:3,paddingLeft:2}} >
        New Arrivals
       </Typography>
-     <Typography className='landing-page-swiper' component='div'>
+     
+     <Typography  component='div'>
    {
-    newArrivals.length===0?<h6>No new Books</h6>:
+    newArrivals.length===0?<h3 style={{paddingLeft:20}}>No new Books</h3>:
     <Swiper
         slidesPerView={isDesktop?3:isTablet?2:1}
         spaceBetween={10}
@@ -320,13 +326,16 @@ console.log('newArrivals',newArrivals)
           clickable: true,
         }}
         modules={[Pagination]}
-        className="swiper-landingPage"
+       
       >
       {
         newArrivals.map((newProduct,index)=>{
           return <SwiperSlide key={newProduct?._id}>
-                 <ProductCard productProps={newProduct} width={isSmallMobile?250:310} margin={isSmallMobile?0:2}
+                 
+       <div className='box'>
+        <ProductCard productProps={newProduct} width={isSmallMobile?250:310} margin={isSmallMobile?0:2}
        marginTop={isSmallMobile?2.5:5} marginBottom={isSmallMobile?2.5:5} />
+       </div>
              </SwiperSlide>
         })
       }
