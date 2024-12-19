@@ -39,6 +39,7 @@ const PaymentSuccess = () => {
   return (
     <div className='payment-success-container'>
      {
+      !paymentStatus?<div>Payment status is loading...</div>:<>{
       paymentStatus?.message==='order placed successfully'?<div className='success-result'>
       <Alert variant="filled" severity="success" className='alert'>
         {paymentStatus?.message}
@@ -51,6 +52,7 @@ const PaymentSuccess = () => {
      
       </div>
       
+     }</>
      }
      <div className='button-cont'>
       <Button variant='contained' onClick={()=>navigate('/home')}> Go To Home</Button>
