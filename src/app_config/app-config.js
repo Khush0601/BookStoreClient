@@ -1,4 +1,4 @@
 const App_Config={
-    server_url:'http://localhost:8888'
+    server_url:'https://bookstoreserver-eu20.onrender.com'
 }
 export default App_Config
