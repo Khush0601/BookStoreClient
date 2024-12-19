@@ -61,6 +61,10 @@
 }
 
 @media (min-width:0px) and (max-width:425px){
+    .edit-address-box{
+        width: 90%;
+       
+    }
     .edit-type-of-address>div{
        
         gap: 30px;
