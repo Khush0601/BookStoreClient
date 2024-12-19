@@ -11,10 +11,10 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { NavLink } from 'react-router-dom'
 import App_Config from '../../app_config/app-config'
 const ProductDetails = () => {
-  const user=useContext(Usercontext)
+  const {user}=useContext(Usercontext)
   const {setServerError}=useContext(ServerErrorContext)
   const params=useParams()
-  //console.log(params)
+  console.log(user)
  const navigate=useNavigate()
   const[bookFulldetals,setBookFullDetails]=useState({})
  const[reviewField,setReviewField]=useState({
@@ -94,15 +94,7 @@ const ProductDetails = () => {
    }
  },[params.productId])
 
- React.useEffect(()=>{
- setRatingValues((p)=>{
- return {...p,
-        userName:user?.name,
-        userId:user?._id,
-        productId:params?.productId
-        }
-  })
- },[params?.productId])
+ 
 
   React.useEffect(()=>{
   setReviewField((p)=>{
@@ -116,6 +108,16 @@ const ProductDetails = () => {
   })
   },[user,params?.productId])
  
+  React.useEffect(()=>{
+    setRatingValues((p)=>{
+    return {...p,
+           userName:user?.name,
+           userId:user?._id,
+           productId:params?.productId,
+           }
+     })
+    },[params?.productId,user])
+
 const onRatingValueUpdate=(e)=>{
   setRatingValues((p)=>{
   return {...p,ratingCount:Number(e.target.value)}
@@ -131,10 +133,8 @@ try{
   ratingCount:ratingValues?.ratingCount,
   productId:ratingValues?.productId
  })
-  
- setRatingValues((p)=>{
-  return [...p,sendRatingDetails?.data]
- })
+  console.log(sendRatingDetails)
+ 
 }
 catch(e){
   //console.log(e?.response?.statusText)
@@ -193,7 +193,7 @@ const onReviewFieldUpdate=(e)=>{
 
 
   //console.log(reviewResult)
-  //console.log(ratingValues)
+  console.log(ratingValues)
   //console.log(user)
   //console.log(ratingResult)
   //console.log(reviewField)
@@ -245,13 +245,13 @@ const onReviewFieldUpdate=(e)=>{
                 <option value={1} >1</option>
                 <option value={2} >2</option>
                 <option value={3} >3</option>
-                <option value={2} >4</option>
+                <option value={4} >4</option>
                 <option value={5} >5</option>
                 </select>
                 <Button type='button' onClick={onRatingSubmit}><SendIcon/></Button>
               </div>
               }
-               <span>{ratingResult?.averageValue}</span>
+               <span>{ratingResult?.averageValue==='N/A'?'N/A':ratingResult?.averageValue?.toFixed(2)}</span>
                </div>
                <div className='buy-now-button'>
                <NavLink state={bookFulldetals} to="/reviewYourOrder"><Button variant="contained" >Buy Now</Button></NavLink>

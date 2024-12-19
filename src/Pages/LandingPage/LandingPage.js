@@ -81,7 +81,7 @@ const LandingPage = ({handleClickOpen,setUser,}) => {
   const isSmallMobile=useMediaQuery({query:'(max-width:382px)'})
   const pages=["Home","Courses","Contact","About"]
   const[products,setProducts]=useState([])
-  const user=useContext(Usercontext)
+  const{ user}=useContext(Usercontext)
   const [openSnackbar,setOpenSnackbar]=useState(false)
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const [searchResult,setSearchResult]=useState([])
@@ -178,7 +178,17 @@ const onSearchClick = async() => {
   }
  
     <List>
-      {["Home","Courses","Contact","About","Login","LogOut"].map((text, index) => (
+      {["Home","Courses","Contact","About","Login","LogOut"].filter((val,i)=>{
+        if(user && val==='Login'){
+          return false
+        }
+        else if(!user && val==='LogOut'){
+          return false
+        }
+        else{
+          return true
+        }
+      }).map((text, index) => (
        
         <ListItem key={text} disablePadding>
           <ListItemButton>

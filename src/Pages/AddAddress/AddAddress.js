@@ -4,10 +4,11 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Button, Divider, TextField } from '@mui/material';
 import axios from 'axios';
 import { ServerErrorContext, Usercontext } from '../../App';
-import { useNavigate } from 'react-router';
+import {  useNavigate } from 'react-router';
 import App_Config from '../../app_config/app-config';
 const AddAddress = () => {
-  const user=useContext(Usercontext)
+  
+  const {user,setUser}=useContext(Usercontext)
    const {setServerError}=useContext(ServerErrorContext)
   //console.log(user)
 const navigate=useNavigate()
@@ -52,6 +53,10 @@ const navigate=useNavigate()
       return [...p,addAddressResponse]
     })
     setAddressDetails(addressDetailsForm)
+    setUser((p)=>{
+      return {...p,addresses:[...p.addresses,addAddressResponse._id]}
+    })
+    navigate(-1)
     }
     catch(e){
       //console.log(e?.response?.statusText)

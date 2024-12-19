@@ -10,16 +10,16 @@ import {  NavLink } from 'react-router-dom';
  import App_Config from '../../app_config/app-config';
 
  const ReviewYourOrder = () => {
-  const user=useContext(Usercontext)
+  const {user}=useContext(Usercontext)
    const {setServerError}=useContext(ServerErrorContext)
-  //console.log('user',user)
+  console.log('user',user)
   const navigate=useNavigate()
   const data=useLocation()
   let productData=data.state
   //console.log(productData)
   
   const [orderFullDetails,setOrderFullDetails]=useState(()=>productData)
-  const [defaultAddress,setDefaultAddress]=useState({})
+  const [defaultAddress,setDefaultAddress]=useState(null)
   React.useEffect(()=>{
     const getDefaultAddress=async()=>{
      try{
@@ -36,12 +36,14 @@ import {  NavLink } from 'react-router-dom';
       })
      }
     }
-    getDefaultAddress()
+    if(user.addresses.length!==0){
+      getDefaultAddress()
+    }
+   
   },[user?._id])
 
   const onPayment=async()=>{
-
-    try{
+ try{
      const paymentDetails=await axios.post(`${App_Config.server_url}/thirdProject/api/v1/order/onPayment`,{
       productId:orderFullDetails?._id,
       userId:user?._id,
@@ -91,13 +93,19 @@ import {  NavLink } from 'react-router-dom';
         <Divider/>
         <div className='select-address'>
         <div>
+        {user.addresses.length===0 && <h4>No Address please add address</h4>}
+        {(user.addresses.length>0 && !defaultAddress) && <h4>please make default address </h4>}
+        {(user.addresses.length>0 && defaultAddress) && <>
         <h4>{defaultAddress?.name}</h4>
         <p>{defaultAddress?.mobileNo}</p>
         <p>{defaultAddress?.street}</p>
         <p>{defaultAddress?.city}</p>
         <p>{defaultAddress?.state}</p>
         <p>{defaultAddress?.pincode}</p>
-        <NavLink to='/userProfile' state={{page:'payment'}}>Change Address</NavLink>
+        </>}
+      {user.addresses.length===0 && <NavLink to='/userProfile/addAddress' state={{page:'payment'}} >Add Address</NavLink>}
+      {(user.addresses.length>0 ) && <NavLink to='/userProfile' state={{page:'payment'}}>Change Address</NavLink>}
+        
         </div>
         <div>
           {defaultAddress?.typeOfAddress}

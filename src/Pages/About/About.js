@@ -83,10 +83,19 @@ let resizeListener=window.addEventListener('resize',()=>{
       <div className='about-card'>
       <div className='features'>
       <h4>User Features:</h4>
-        <p>Browse Books: Users can browse a catalog of books, categorized by genre, author, or bestsellers.</p>
-        <p>Search Functionality: Users can search for books based on titles, authors, ISBNs, or categories. </p>
-        <p>Book Details: A page for each book showing details like the title, author, description, price, ratings, and availability.</p>
-       <p> Book Reviews and Ratings: Users can leave reviews and ratings for books they’ve purchased or read.</p>
+       <ol style={{marginLeft:10}}>
+       <li>Browse Books: Users can browse a catalog of books, categorized by genre, author, or bestsellers.</li>
+       <li>Search Functionality: Users can search for books based on titles, authors, ISBNs, or categories. </li>
+       <li>Book Details: A page for each book showing details like the title, author, description, price, ratings, and availability.</li>
+       <li>Book Reviews and Ratings: Users can leave reviews and ratings for books they’ve purchased or read.</li>
+       <li>Auto-login/Logout: Users can automatically log in or log out based on their session state.</li>
+       <li>Buy Books: Users can purchase books and proceed to the checkout process seamlessly.</li>
+       <li>Add Address: Users can add new shipping addresses for their orders.</li>
+       <li>Set Default Address: Users can mark an address as their default for quicker checkout.</li>
+       <li>Update/Change Address: Users can edit or change their saved addresses.</li>
+       <li>View Orders: Users can view a list of their past and current orders along with details.</li>
+       
+      </ol>
        
       </div>
 

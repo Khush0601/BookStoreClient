@@ -3,7 +3,7 @@ import { useParams } from 'react-router'
 import axios from 'axios'
 import { useNavigate } from 'react-router'
 import './PaymentSuccess.css'
-import { Alert } from '@mui/material'
+import { Alert, Button } from '@mui/material'
 import { ServerErrorContext } from '../../App'
 import App_Config from '../../app_config/app-config'
 const PaymentSuccess = () => {
@@ -21,7 +21,7 @@ const PaymentSuccess = () => {
     setPaymentStatus(updatedData?.data)
     setTimeout(()=>{
       navigate('/home')
-    },4000)
+    },2000)
     //console.log(updatedData)
     }
     catch(e){
@@ -48,9 +48,14 @@ const PaymentSuccess = () => {
       <Alert variant="filled" severity="error" className='alert'>
         {paymentStatus?.message}
       </Alert>
+     
       </div>
       
      }
+     <div className='button-cont'>
+      <Button variant='contained' onClick={()=>navigate('/home')}> Go To Home</Button>
+     </div>
+     
     </div>
   )
 }

@@ -10,9 +10,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import App_Config from '../../app_config/app-config';
 const UserProfile = () => {
-    const user=useContext(Usercontext)
+    const {user}=useContext(Usercontext)
     const {setServerError}=useContext(ServerErrorContext)
-    //console.log(user)
+    console.log(user)
     const location=useLocation()
     let isRedirectionPage=location.state
     //console.log(isRedirectionPage)
@@ -25,15 +25,19 @@ const UserProfile = () => {
      try{
      const address=await axios.get(`${App_Config.server_url}/thirdProject/api/v1/user/${user._id}/getAllAddresses`)
      const addressResponse=address?.data;
+     console.log(addressResponse)
      let defaultAddress=addressResponse?.find((el)=>el.isDefault==='true')
-     setDefaultAddressId(defaultAddress._id)
+     if(defaultAddress){
+      setDefaultAddressId(defaultAddress._id)
+     }
+    
      setAddressList(addressResponse)
      }
      catch(e){
        //console.log(e)
        setServerError({
         isError:true,
-        errorMessage:e?.message,
+        errorMessage:e?.response?.statusText,
         errorDuration:3000
       })
      }
@@ -45,10 +49,10 @@ const UserProfile = () => {
    const handleSetDefault=async(addressId)=>{
     setDefaultAddressId(addressId)
      try{
-   const sendDefaultValue=await axios.patch(`${App_Config.server_url}/thirdProject/api/v1/user/setDefaultAddress`,{
+    const sendDefaultValue=await axios.patch(`${App_Config.server_url}/thirdProject/api/v1/user/setDefaultAddress`,{
     userId:user?._id,
     addressId:addressId
- })
+   })
    const updatedDefaultValue=sendDefaultValue?.data?.updateAddress
    if(isRedirectionPage.page==='payment'){
      navigate(-1)
@@ -60,14 +64,14 @@ const UserProfile = () => {
       //console.log(e?.response?.statusText)
       setServerError({
         isError:true,
-        errorMessage:e?.message,
+        errorMessage:e?.response?.statusText,
         errorDuration:3000
       })
      }
     
     }
-    //console.log('defaultAddress',defaultAddressId)
-    //console.log(addressList)
+    console.log('defaultAddress',defaultAddressId)
+    console.log(addressList)
   return (
     <div className='user-profile-container'>
       <div className='user-profile-box'>

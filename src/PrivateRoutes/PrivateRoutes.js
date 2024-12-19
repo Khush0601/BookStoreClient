@@ -3,7 +3,7 @@ import { Usercontext } from '../App'
 import { Navigate } from 'react-router'
 
 const PrivateRoutes = ({children}) => {
-    const user=useContext(Usercontext)
+    const {user}=useContext(Usercontext)
   return user?<>{children}</>:<Navigate to="/signUp" replace/>
   
 }

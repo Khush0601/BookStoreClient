@@ -5,6 +5,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
+}
+.button-cont{
+position: fixed;
+top: 5px;
+left:5px;
 }
 .success-result{
     width: 100%;
@@ -19,6 +25,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    color:white
 }
 .alert{
     display: flex;

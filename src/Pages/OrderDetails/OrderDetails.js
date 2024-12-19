@@ -7,7 +7,7 @@ import { ServerErrorContext, Usercontext } from '../../App';
 import axios from 'axios'
 import App_Config from '../../app_config/app-config';
 const OrderDetails = () => {
-    const user=useContext(Usercontext)
+    const {user}=useContext(Usercontext)
     const {setServerError}=useContext(ServerErrorContext)
     const naivgate=useNavigate()
     const [orderList,setOrderList]=useState([])

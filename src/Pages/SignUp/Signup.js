@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './signUp.css'
 import { Alert, Box, Button, TextField } from '@mui/material'
 import Password from '../../lib/Password/Password'
@@ -6,8 +6,11 @@ import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import App_Config from '../../app_config/app-config'
+import { Usercontext } from '../../App'
 
 const Signup = () => {
+  const {user}=useContext(Usercontext)
+  console.log(user)
   const initForm={
     name:"",
     email:"",
@@ -34,7 +37,7 @@ const Signup = () => {
  }
  const validator=(formdata)=>{
  let error={}
- let regex = /^[a-zA-Z]+$/;
+ let regex = /^[a-zA-Z ]*$/;
  let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
  let userIdRegex = /^[a-zA-Z0-9_]{3,15}$/;
  let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -97,7 +100,11 @@ useEffect(()=>{
     },3000)
   }
 },[showAlert])
- 
+useEffect(()=>{
+if(user){
+  navigate(-1)
+}
+},[user])
  //console.log(errorMessage)
  //console.log(signUpForm)
   return (

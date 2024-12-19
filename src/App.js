@@ -111,7 +111,7 @@ const App = () => {
   return (
  <div className='dark app'>
  <ServerErrorContext.Provider value={{setServerError}}>
- <Usercontext.Provider value={user}>
+ <Usercontext.Provider value={{user:user,setUser:setUser}}>
 <>
   {serverError?.isError &&  <ErrorModel isError={serverError?.isError}
    errorMessage={serverError?.errorMessage}
@@ -157,7 +157,7 @@ const App = () => {
        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
         Login
         </DialogTitle>
-        <TextField autoFocus  id="userId" label="userId" variant="outlined"  value={loginForm.userId} className='text-field-userid' onChange={(e)=>onLoginFormUpdate(e,'userId')}/>
+        <TextField autoFocus  id="userId" label="userId or email" variant="outlined"  value={loginForm.userId} className='text-field-userid' onChange={(e)=>onLoginFormUpdate(e,'userId')}/>
         <TextField   id="password" label="password" variant="outlined" value={loginForm.password} sx={{marginTop:"10px"}}  onChange={(e)=>onLoginFormUpdate(e,'password')} />
           {
             loginError && <div style={{color:"red"}}>{loginError}</div>
