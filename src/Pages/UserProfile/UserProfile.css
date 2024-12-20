@@ -7,10 +7,10 @@
  }
 .user-profile-box{
     width: 75%;
+    min-height: 100vh;
     background-color: white;
    padding: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+ 
    
 }
 .address-heading{
@@ -66,6 +66,11 @@
     .address-type{
        color: rgb(35, 35, 237);
        background-color: white;
+       
+    }
+    .user-profile-box{
+        width: 100%;
+       
        
     }
 }

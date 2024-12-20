@@ -31,7 +31,7 @@ import {  NavLink } from 'react-router-dom';
       //console.log(e?.response?.statusText)
       setServerError({
         isError:true,
-        errorMessage:e?.response?.statusText,
+        errorMessage:e?.message,
         errorDuration:3000
       })
      }

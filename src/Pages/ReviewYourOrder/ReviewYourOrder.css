@@ -4,11 +4,10 @@
     background-color: aliceblue;
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
 }
 .review-order-box{
     width: 70%;
-    
     background-color: white;
     padding:10px
 }
@@ -51,4 +50,11 @@
 .proceed-button{
     margin-top: 30px;
 }
-
+@media (min-width:0px) and (max-width:425px){
+    .review-order-box{
+        width: 100%;
+        
+        
+    }
+    
+}

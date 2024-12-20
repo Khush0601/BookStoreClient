@@ -166,7 +166,7 @@ const App = () => {
           <Button type="submit" variant='contained'>Login</Button>
            <Typography> 
           <Typography>Not registered yet?</Typography>
-          <Link to="/signUp">signup</Link>
+          <Link to="/signUp" onClick={handleClose} style={{ color: "blue",cursor: "pointer" }}>signup</Link>
           </Typography>
         
         

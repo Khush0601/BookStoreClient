@@ -7,7 +7,7 @@
     align-items: center;
 }
 .edit-address-box{
-    width: 60%;
+    width: 70%;
     background-color: white;
     padding: 10px;
 }
@@ -62,12 +62,15 @@
 
 @media (min-width:0px) and (max-width:425px){
     .edit-address-box{
-        width: 90%;
+        width: 100%;
        
     }
     .edit-type-of-address>div{
        
         gap: 30px;
        
+    }
+    .edit-address-box{
+       min-height: 100vh;
     }
 }

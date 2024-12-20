@@ -37,7 +37,7 @@ const UserProfile = () => {
        //console.log(e)
        setServerError({
         isError:true,
-        errorMessage:e?.response?.statusText,
+        errorMessage:e?.message,
         errorDuration:3000
       })
      }

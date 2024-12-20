@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import './Orderdetails.css'
 import { useNavigate } from 'react-router'
-import { Divider } from '@mui/material'
+import { Button, Divider } from '@mui/material'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { ServerErrorContext, Usercontext } from '../../App';
 import axios from 'axios'
@@ -27,7 +27,10 @@ const OrderDetails = () => {
       })
        }
         }
-        getAllOrders()
+
+        if(orderList.length>0){
+          getAllOrders()
+        }
     },[user?._id])
   //console.log(user)
   //console.log(orderList)
@@ -36,10 +39,11 @@ const OrderDetails = () => {
      <div className='order-box'>
      <div className='order-title'>
         <div onClick={()=>naivgate(-1)}><KeyboardBackspaceIcon/></div>
-           <h4>My orders</h4>
+           <h2>My orders</h2>
           </div> 
         <Divider/>
-        {
+       <div className='order-container'>
+       {
             orderList.length!==0?<>{orderList?.map((orderDetails,orderIndex)=>{
                 return <div className='orders' key={orderDetails?._id}>
                <div className='img'>
@@ -52,11 +56,13 @@ const OrderDetails = () => {
         </div>
             })}</>:
             <>
-            <div>
-                <h2>No orders yet</h2>
+            <div className='no-order'>
+                <h1 style={{marginBottom:"10px"}}>No orders yet</h1>
+                <Button variant='contained' onClick={()=>naivgate('/home')}>Order</Button>
             </div>
         </>
         }
+       </div>
      </div>
     </div>
   )
