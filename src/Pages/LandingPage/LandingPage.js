@@ -29,6 +29,8 @@ import 'swiper/css/pagination';
 // import required modules
 import { Pagination } from 'swiper/modules';
 import App_Config from '../../app_config/app-config';
+import FountainAnimation from '../../Animation/FountainAnimation';
+import CardSkeleton from '../../Component/CardSkeleton/CardSkeleton';
 
 
 
@@ -87,7 +89,10 @@ const LandingPage = ({handleClickOpen,setUser,}) => {
   const [searchResult,setSearchResult]=useState([])
   const [searchInput,setSearchInput]=useState('')
   const [newArrivals,setNewArrivals]=useState([])
+  const [isProductLoading,setIsProducrLoading]=useState(false)
   const navigate =useNavigate()
+  const swiperList=Array.from({length:8}).map((el,i)=>i)
+  console.log(swiperList)
   
 
   const toggleDrawer = (newOpen) => () => {
@@ -96,12 +101,15 @@ const LandingPage = ({handleClickOpen,setUser,}) => {
  
   const getproducts=async()=>{
     try{
+      setIsProducrLoading(true)
      const fetchProducts=await axios.get(`${App_Config.server_url}/thirdProject/api/v1/product/getProduct`)
      const result=fetchProducts.data
      setProducts(result)
+     setIsProducrLoading(false)
     
     }
     catch(e){
+      setIsProducrLoading(false)
    setServerError({
       isError:true,
       errorMessage:e?.message,
@@ -288,7 +296,10 @@ React.useEffect(()=>{
           </Search>
           <Button onClick={toggleDrawer(true)}><MenuIcon/></Button>
           <Drawer open={openDrawer} onClose={toggleDrawer(false)}>
-            {DrawerList }
+           <div style={{position:"relative" ,backgroundColor:'black',color:'white',height:'100vh',overflow:"hidden"}}>
+           <>{DrawerList }</>
+           <FountainAnimation/>
+           </div>
           </Drawer>
         </div>
         }
@@ -328,7 +339,29 @@ React.useEffect(()=>{
      
      <Typography  component='div'>
    {
-    newArrivals.length===0?<h3 style={{paddingLeft:20}}>No new Books</h3>:
+    newArrivals.length===0?<div style={{marginTop:isSmallMobile?"20px":"30px"}}>
+    <Swiper
+        slidesPerView={isDesktop?3:isTablet?2:1}
+        spaceBetween={10}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[Pagination]}
+       
+      >
+      {
+       swiperList.map((Skeleton,index)=>{
+          return <SwiperSlide key={index}>
+                 
+       <div className='box'>
+       <CardSkeleton/>
+       </div>
+             </SwiperSlide>
+        })
+      }
+
+      </Swiper>
+    </div>:
     <Swiper
         slidesPerView={isDesktop?3:isTablet?2:1}
         spaceBetween={10}
@@ -366,7 +399,14 @@ React.useEffect(()=>{
      <div className="product-view">
       
      {/* api call hoke yhi card bnega */}
-    {products.length===0?<h1>No products found</h1>
+     {isProductLoading===true && <>{
+      swiperList.map((card,i)=>{
+        return <div key={i} style={{marginBottom:'20px'}}><CardSkeleton /></div>
+      })
+      }
+      </>
+      }
+    {products.length===0 && isProductLoading===false?<h1>No products found</h1>
     :<>{products?.map((searchedProduct,searchedProductIndex)=>{
       return <ProductCard key={searchedProduct._id} productProps={searchedProduct} width={isSmallMobile?250:310} margin={isSmallMobile?0:2}
        marginTop={isSmallMobile?2.5:5} marginBottom={isSmallMobile?2.5:5} />

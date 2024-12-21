@@ -69,7 +69,7 @@ if(Object.keys(error).length>0){
 else{
 const signUpUser=await axios.post(`${App_Config.server_url}/thirdProject/api/v1/user/signUp`,{
   name:signUpForm.name,
-  email:signUpForm.email,
+  email:signUpForm.email.toLowerCase(),
   userId:signUpForm.userId,
   password:signUpForm.password,
   confirmPassword:signUpForm.confirmPassword

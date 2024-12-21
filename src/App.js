@@ -62,9 +62,10 @@ const App = () => {
     return
    }
    else{
+    let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const fetchDetails=await axios.post(`${App_Config.server_url}/thirdProject/api/v1/user/signIn`,
       {
-      userId:loginForm?.userId,
+      userId:emailRegex.test(loginForm?.userId)?loginForm?.userId.toLowerCase():loginForm?.userId,
       password:loginForm?.password
       }
     )
