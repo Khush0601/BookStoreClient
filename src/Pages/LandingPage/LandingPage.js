@@ -401,7 +401,7 @@ React.useEffect(()=>{
      {/* api call hoke yhi card bnega */}
      {isProductLoading===true && <>{
       swiperList.map((card,i)=>{
-        return <div key={i} style={{marginBottom:'20px'}}><CardSkeleton /></div>
+        return <div key={i} style={{margin:'20px'}}><CardSkeleton /></div>
       })
       }
       </>

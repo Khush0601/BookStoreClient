@@ -284,7 +284,7 @@ const onReviewFieldUpdate=(e)=>{
               </div>
               </div>
               <div>
-              {reviewResult.length===0? <h3>No reviews yet</h3> :reviewResult?.map((el,i)=>{
+              {reviewResult.length===0? <h3 style={{margin:'10px'}}>No reviews yet</h3> :reviewResult?.map((el,i)=>{
                 return <div key ={i} className='review-msg-container'>
                 <div className='review-msg-name'>
                 {!el.userImage}{

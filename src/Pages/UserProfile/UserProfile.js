@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { memo, useContext, useState } from 'react'
 import './UserProfile.css'
 import { ServerErrorContext, Usercontext } from '../../App'
 import { deepOrange } from '@mui/material/colors';
@@ -135,5 +135,5 @@ const UserProfile = () => {
   )
 }
 
-export default UserProfile
+ export default memo(UserProfile)
 

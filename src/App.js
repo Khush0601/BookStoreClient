@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, Suspense, useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import LandingPage from './Pages/LandingPage/LandingPage'
 import Dialog from '@mui/material/Dialog';
@@ -10,7 +10,6 @@ import Contact from './Pages/Contact/Contact'
 import Login from './Pages/Login/Login'
 import Signup from './Pages/SignUp/Signup'
 import { Link } from 'react-router-dom';
-
 import { Button, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import ProductDetails from './Pages/ProductDetails/ProductDetails';
@@ -24,9 +23,22 @@ import OrderDetails from './Pages/OrderDetails/OrderDetails';
 import PrivateRoutes from './PrivateRoutes/PrivateRoutes';
 import ErrorModel from './Component/ErrorModel/ErrorModel';
 import App_Config from './app_config/app-config';
-
+import CircularProgress from '@mui/material/CircularProgress';
 export const Usercontext=createContext(null)
 export const ServerErrorContext=createContext(null)
+
+const UserProfilelazyComponent = React.lazy(() => import('../src/Pages/UserProfile/UserProfile.js'));
+const LoginLazyComponent = React.lazy(() => import('../src/Pages/Login/Login.js'));
+const SignUpLazyComponent = React.lazy(() => import('../src/Pages/SignUp/Signup.js'));
+const ProductDetailsLazyComponent = React.lazy(() => import('../src/Pages/ProductDetails/ProductDetails.js'));
+const ContactLazyComponent = React.lazy(() => import('../src/Pages/Contact/Contact.js'));
+const CoursesLazyComponent= React.lazy(() => import('../src/Pages/Courses/Courses.js'));
+const AboutLazyComponent=React.lazy(() => import('../src/Pages/About/About.js'));
+const AddAddressLazyComponent=React.lazy(() => import('../src/Pages/AddAddress/AddAddress.js'));
+const EditAddressLazyComponent=React.lazy(() => import('../src/Pages/EditAddress/EditAddress.js'));
+const ReviewYourOrderLazyComponent=React.lazy(() => import('../src/Pages/ReviewYourOrder/ReviewYourOrder.js'));
+const OrderLazyComponent=React.lazy(() => import('../src/Pages/OrderDetails/OrderDetails.js'));
+const PaymentSuccessLazyComponent=React.lazy(() => import('../src/Pages/PaymentSuccess/PaymentSuccess.js'));
 const App = () => {
   const [user,setUser]=useState(null)
   const [open, setOpen] = React.useState(false);
@@ -122,19 +134,19 @@ const App = () => {
    <Routes>
     <Route index element={<Navigate to="/home"/>}/>
     <Route path='/home' element={<LandingPage handleClickOpen={handleClickOpen} setUser={setUser} />}/>
-    <Route path='/login' element={<Login/>}/>
-    <Route path='/signUp' element={<Signup/>}/>
-    <Route path='/about' element={<About/>}/>
-    <Route path='/courses' element={<Courses/>}/>
-    <Route path='/contact' element={<Contact/>}/>
-    <Route path='/productDetails/:productId' element={<ProductDetails/>}/>
+    <Route path='/login' element={<Suspense fallback={<CircularProgress size="3rem"/>}><LoginLazyComponent/></Suspense>}/>
+    <Route path='/signUp' element={<Suspense fallback={<CircularProgress size="3rem"/>} ><SignUpLazyComponent/></Suspense>}/>
+    <Route path='/about' element={<Suspense fallback={<CircularProgress size="3rem"/>}><AboutLazyComponent/></Suspense>}/>
+    <Route path='/courses' element={<Suspense fallback={<CircularProgress size="3rem"/>}><CoursesLazyComponent/></Suspense>}/>
+    <Route path='/contact' element={<Suspense fallback={<CircularProgress size="3rem"/>}><ContactLazyComponent/></Suspense>}/>
+    <Route path='/productDetails/:productId' element={<Suspense fallback={<CircularProgress size="3rem"/>}><ProductDetailsLazyComponent/></Suspense>}/>
     <Route path='/whishlist' element={<Whishlist/>}/>
-    <Route path="/userProfile" element={<PrivateRoutes><UserProfile/></PrivateRoutes>}/>
-    <Route path="/userProfile/addAddress" element={<AddAddress/>}/>
-    <Route path="/userProfile/editAddress" element={<EditAddress/>}/>
-    <Route path="/reviewYourOrder" element={<PrivateRoutes><ReviewYourOrder/></PrivateRoutes>}/>
-    <Route path="/home/payment/success/:paymentId" element={<PaymentSuccess/>} />
-    <Route path="/orders" element={<OrderDetails/>}/>
+    <Route path="/userProfile" element={<Suspense fallback={<CircularProgress size="3rem"/>}><PrivateRoutes><UserProfilelazyComponent/></PrivateRoutes></Suspense>}/>
+    <Route path="/userProfile/addAddress" element={<Suspense fallback={<CircularProgress size="3rem"/>}><AddAddressLazyComponent/></Suspense>}/>
+    <Route path="/userProfile/editAddress" element={<Suspense fallback={<CircularProgress size="3rem"/>}><EditAddressLazyComponent/></Suspense>}/>
+    <Route path="/reviewYourOrder" element={<Suspense fallback={<CircularProgress size="3rem"/>}><PrivateRoutes><ReviewYourOrderLazyComponent/></PrivateRoutes></Suspense>}/>
+    <Route path="/home/payment/success/:paymentId" element={<Suspense fallback={<CircularProgress size="3rem"/>}><PaymentSuccessLazyComponent/></Suspense>} />
+    <Route path="/orders" element={<Suspense fallback={<CircularProgress size="3rem"/>}><OrderLazyComponent/></Suspense>}/>
    </Routes>
 
 </Usercontext.Provider>
